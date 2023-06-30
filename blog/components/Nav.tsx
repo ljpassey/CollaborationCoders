@@ -7,7 +7,7 @@ const Nav = () => {
   return (
     <nav>
         <Link href="/">
-            <Image src="/assets/icons/Logo.png" width={30} height={30} />
+            <Image src="/assets/icons/Logo.png" width={30} height={30} alt="collaboration coders logo" />
         </Link>
         <div>
             <Link href="/about">
