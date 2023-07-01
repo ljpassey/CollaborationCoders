@@ -13,18 +13,22 @@ const Nav = () => {
           <Link href="/">
             <Image
               src="/assets/images/logo.svg"
-              width={30}
-              height={30}
+              width={40}
+              height={40}
               alt="collaboration coders logo"
             />
-          <strong>Collaboration Coders</strong>
+            <strong>Collaboration Coders</strong>
           </Link>
         </li>
       </ul>
-      <div>
-        <Link href="/about">About</Link>
-        <Link href="/blog">Blog</Link>
-      </div>
+      <ul>
+        <li>
+          <Link href="/about">About</Link>
+        </li>
+        <li>
+          <Link href="/blog">Blog</Link>
+        </li>
+      </ul>
     </nav>
   );
 };
