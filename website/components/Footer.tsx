@@ -13,6 +13,7 @@ export default function Footer() {
             <div className="grid justify-center w-full -mt-2 -ml-3 lg:ml-0">
               {navigation.map((menu, index) => (
                 <Link
+                  key={index}
                   href={`/${menu.toLowerCase()}`} // append the name of the menu item to the end of the URL
                   className="w-full px-4 py-2 text-lg font-normal text-gray-800 no-underline rounded-md dark:text-gray-200 hover:text-orange-600 focus:text-orange-600 focus:bg-indigo-100 focus:outline-none dark:focus:bg-gray-800"
                 >
