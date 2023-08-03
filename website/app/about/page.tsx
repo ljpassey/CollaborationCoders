@@ -2,8 +2,10 @@ import React from 'react'
 
 const About = () => {
   return (
-    <div>About Dunerise</div>
-  )
+    <div className="flex min-h-screen flex-col items-center justify-between p-24">
+      About Dunerise
+    </div>
+  );
 }
 
 export default About
