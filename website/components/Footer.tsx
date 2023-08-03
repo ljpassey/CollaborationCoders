@@ -4,13 +4,13 @@ import Container from "./Container";
 
 export default function Footer() {
   const navigation = ["About", "Work", "Blog"];
-  const legal = ["Terms", "Privacy", "Legal"];
+
   return (
     <div className="relative">
       <Container>
-        <div className="flex justify-around max-w-screen-xl grid-cols-1 gap-10 pt-10 mx-auto mt-5 border-t border-gray-100 dark:border-trueGray-700 lg:grid-cols-5">
+        <div className=" flex items-center justify-around w-screen pt-10  mt-5 border-t border-gray-100 dark:border-trueGray-700">
           <div>
-            <div className="grid justify-center w-full -mt-2 -ml-3 lg:ml-0">
+            <div className="flex justify-center w-full -mt-2 -ml-3 lg:ml-0">
               {navigation.map((menu, index) => (
                 <Link
                   key={index}
@@ -22,22 +22,10 @@ export default function Footer() {
               ))}
             </div>
           </div>
-          <div>
-            <div className="flex flex-wrap w-full -mt-2 -ml-3 lg:ml-0">
-              {legal.map((item, index) => (
-                <Link
-                  key={index}
-                  href="/"
-                  className="w-full px-4 py-2 text-gray-500 rounded-md dark:text-gray-300 hover:text-orange-600 focus:text-orange-600 focus:bg-indigo-100 focus:outline-none dark:focus:bg-trueGray-700"
-                >
-                  {item}
-                </Link>
-              ))}
-            </div>
-          </div>
-          <div className="">
+
+          <div className="my-3">
             <div>Follow us</div>
-            <div className="flex mt-5 space-x-5 text-gray-400 dark:text-gray-500">
+            <div className="flex my-2 space-x-5 text-gray-400 dark:text-gray-500">
               <a href="" target="_blank" rel="noopener">
                 <span className="sr-only">Github</span>
                 <Github />

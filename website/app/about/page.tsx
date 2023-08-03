@@ -1,11 +1,11 @@
-import React from 'react'
+import React from "react";
 
 const About = () => {
   return (
-    <div className="flex min-h-screen flex-col items-center justify-between p-24">
-      About Dunerise
+    <div className="flex min-h-screen">
+      
     </div>
   );
-}
+};
 
-export default About
+export default About;

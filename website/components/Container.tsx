@@ -4,7 +4,7 @@ import React from "react";
 const Container = (props: any) => {
   return (
     <div
-      className={`container p-8 mx-auto xl:px-0 ${
+      className={`container  ${
         props.className ? props.className : ""
       }`}
     >
