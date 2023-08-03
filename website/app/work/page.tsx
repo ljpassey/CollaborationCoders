@@ -74,13 +74,13 @@ const page = () => {
           <Link href="" className="flex flex-wrap -m-4">
             <div className="xl:w-1/4 md:w-1/2 p-4">
               <div className="bg-gray-900 bg-opacity-80 p-6 rounded-lg">
-                <Image
+                {/* <Image
                   className="h-40 rounded w-full object-cover object-center mb-6"
                   href="https://dummyimage.com/720x400"
                   alt="content"
                   height={400}
                   width={400}
-                />
+                /> */}
                 <h3 className="tracking-widest text-orange-600 text-xs font-medium title-font">
                   SUBTITLE
                 </h3>
@@ -97,11 +97,11 @@ const page = () => {
             </div>
             <Link href="" className="xl:w-1/4 md:w-1/2 p-4">
               <div className="bg-gray-900 bg-opacity-80 p-6 rounded-lg">
-                <Image
+                {/* <Image
                   className="h-40 rounded w-full object-cover object-center mb-6"
                   href="https://dummyimage.com/721x401"
                   alt="content"
-                />
+                /> */}
                 <h3 className="tracking-widest text-orange-600 text-xs font-medium title-font">
                   SUBTITLE
                 </h3>
@@ -118,11 +118,11 @@ const page = () => {
             </Link>
             <Link href="" className="xl:w-1/4 md:w-1/2 p-4">
               <div className="bg-gray-900 bg-opacity-80 p-6 rounded-lg">
-                <Image
+                {/* <Image
                   className="h-40 rounded w-full object-cover object-center mb-6"
                   href="https://dummyimage.com/722x402"
                   alt="content"
-                />
+                /> */}
                 <h3 className="tracking-widest text-orange-600 text-xs font-medium title-font">
                   SUBTITLE
                 </h3>
@@ -139,11 +139,11 @@ const page = () => {
             </Link>
             <Link href="/" className="xl:w-1/4 md:w-1/2 p-4">
               <div className="bg-gray-900 bg-opacity-80 p-6 rounded-lg">
-                <Image
+                {/* <Image
                   className="h-40 rounded w-full object-cover object-center mb-6"
                   href="https://dummyimage.com/723x403"
                   alt="content"
-                />
+                /> */}
                 <h3 className="tracking-widest text-orange-600 text-xs font-medium title-font">
                   SUBTITLE
                 </h3>
