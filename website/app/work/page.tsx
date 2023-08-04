@@ -71,7 +71,7 @@ const page = () => {
               ipsa inventore consequatur voluptate harum? Minima.
             </p>
           </div>
-          <Link href="" className="flex flex-wrap -m-4">
+          <Link href="/" className="flex flex-wrap -m-4">
             <div className="xl:w-1/4 md:w-1/2 p-4">
               <div className="bg-gray-900 bg-opacity-80 p-6 rounded-lg">
                 <h3 className="tracking-widest text-orange-600 text-xs font-medium title-font">
@@ -88,6 +88,7 @@ const page = () => {
                 </p>
               </div>
             </div>
+
             <Link href="" className="xl:w-1/4 md:w-1/2 p-4">
               <div className="bg-gray-900 bg-opacity-80 p-6 rounded-lg">
                 <h3 className="tracking-widest text-orange-600 text-xs font-medium title-font">

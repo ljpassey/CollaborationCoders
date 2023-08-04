@@ -30,7 +30,9 @@ const About = () => {
                   <h2 className="title-font font-bold text-3xl text-orange-600">
                     Ben Thornhill
                   </h2>
-                  <h3 className="text-gray-300 font-bold mb-3">Senior Software Engineer</h3>
+                  <h3 className="text-gray-300 font-bold mb-3">
+                    Senior Software Engineer
+                  </h3>
                   <span className="inline-block h-1 w-32 rounded bg-orange-600 mb-3"></span>
                   <p className="mb-4">
                     Lorem ipsum dolor sit amet consectetur adipisicing elit.
@@ -76,52 +78,6 @@ const About = () => {
                 </div>
               </div>
             </div>
-            {/* <div className="p-4 lg:w-1/4 md:w-1/2">
-              <div className="h-full flex flex-col items-center text-center">
-                <Image
-                  alt="team"
-                  className="flex-shrink-0 rounded-2xl w-full  object-cover object-center mb-4"
-                  src="https://images.unsplash.com/photo-1620399909663-b7a7da934161?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxjb2xsZWN0aW9uLXBhZ2V8MjE5fDExMTkxNDEyfHxlbnwwfHx8fHw%3D&auto=format&fit=crop&w=500&q=60"
-                  width={400}
-                  height={400}
-                />
-                <div className="w-full">
-                  <h2 className="title-font font-bold text-lg text-orange-600">
-                    Henry Letham
-                  </h2>
-                  <h3 className="text-gray-300 mb-3">UI Developer</h3>
-                  <p className="mb-4">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Quas dicta soluta et mollitia adipisci amet exercitationem
-                    atque optio facere nobis, aspernatur incidunt eius quaerat
-                    quia officiis dolore? Similique, enim placeat!
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div className="p-4 lg:w-1/4 md:w-1/2">
-              <div className="h-full flex flex-col items-center text-center">
-                <Image
-                  alt="team"
-                  className="flex-shrink-0 rounded-2xl w-full  object-cover object-center mb-4"
-                  src="https://images.unsplash.com/photo-1592240017316-c351f862580d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80"
-                  width={400}
-                  height={400}
-                />
-                <div className="w-full">
-                  <h2 className="title-font font-bold text-lg text-orange-600">
-                    Henry Letham
-                  </h2>
-                  <h3 className="text-gray-300 mb-3">UI Developer</h3>
-                  <p className="mb-4">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Quas dicta soluta et mollitia adipisci amet exercitationem
-                    atque optio facere nobis, aspernatur incidunt eius quaerat
-                    quia officiis dolore? Similique, enim placeat!
-                  </p>
-                </div>
-              </div>
-            </div> */}
           </div>
         </div>
       </section>
