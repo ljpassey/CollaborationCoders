@@ -48,8 +48,8 @@ const About = () => {
                 <Image
                   className="flex-shrink-0 rounded-2xl w-full  object-cover object-center mb-4"
                   src="https://live.staticflickr.com/65535/52739326443_17987f149e_o.jpg"
-                  width="2667"
-                  height="4000"
+                  width={2667}
+                  height={4000}
                   alt="Profile Pic"
                 />
 
