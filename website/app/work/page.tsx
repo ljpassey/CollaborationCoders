@@ -4,8 +4,8 @@ import Link from "next/link";
 
 const page = () => {
   return (
-    <div className="flex flex-wrap justify-center">
-      <section className=" h-fit xs:mx-10 mx-5  my-5 text-white rounded-lg border-4 border-orange-600   border-opacity-50 justify-center content-center body-font">
+    <div className=" flex-wrap justify-center">
+      <section className=" xs:mx-10 mx-5  my-5  text-white rounded-2xl border-4 border-orange-600   border-opacity-50 justify-center content-center body-font">
         <div className="  px-4 py-5">
           <div className=" text-center">
             <svg
@@ -30,7 +30,7 @@ const page = () => {
           </div>
         </div>
       </section>
-      <section className="h-fit mx-5 my-5 text-white rounded-lg border-4 border-orange-600   border-opacity-50 bg-opacity-30 justify-center content-center body-font">
+      <section className="h-fit mx-5 my-  text-white rounded-2xl border-4 border-orange-600   border-opacity-50 bg-opacity-30 justify-center content-center body-font">
         <div className="  px-5 py-5">
           <div className=" mx-auto text-center">
             <svg
@@ -55,16 +55,16 @@ const page = () => {
           </div>
         </div>
       </section>
-      <section className="text-gray-400 body-font">
-        <div className="container px-5 py-24 mx-auto">
-          <div className="flex flex-wrap w-full mb-20">
+      <section className=" text-white body-font">
+        <div className="container px-5 py-24 mx-auto ">
+          <div className="flex flex-wrap lg:w-1/2  w-fit mb-20 ">
             <div className="lg:w-1/2 w-full mb-6 lg:mb-0">
-              <h1 className="sm:text-3xl text-2xl font-medium title-font mb-2 text-white">
+              <h1 className="sm:text-3xl text-2xl font-medium title-font mb-4 text-white">
                 Projects
               </h1>
-              <div className="h-1 w-20 bg-orange-600 rounded"></div>
+              <div className="h-1 my-2 w-32 bg-orange-600 rounded"></div>
             </div>
-            <p className="lg:w-1/2 w-full leading-relaxed text-white text-opacity-90">
+            <p className="leading-relaxed w-fill text-white text-opacity-90">
               Lorem ipsum dolor, sit amet consectetur adipisicing elit.
               Praesentium laudantium, illo, numquam velit facilis totam rerum
               earum accusantium quibusdam magnam unde sapiente voluptas, cumque

@@ -8,10 +8,10 @@ const Hero = () => {
       <Container className="flex align-middle justify-between">
         <div className="  lg:w-1/2">
           <div className="flex flex-wrap">
-            <h1 className="text-4xl font-bold leading-snug tracking-tight text-gray-800  lg:leading-tight sm:text-6xl xl:leading-tight dark:text-white">
+            <h1 className="text-4xl font-bold leading-snug tracking-tight text-white  lg:leading-tight sm:text-6xl xl:leading-tight dark:text-white">
               AI Driven Development At Dunerise
             </h1>
-            <p className="py-5 text-xl leading-normal text-gray-500 lg:text-xl xl:text-2xl dark:text-gray-300">
+            <p className="py-5 text-xl leading-normal text-gray-300 lg:text-xl xl:text-2xl dark:text-gray-300">
               Dunerise Development is a forward-thinking software engineering
               firm that leverages advanced AI technologies to craft unique,
               bespoke, and exciting software solutions. Our dedicated team
@@ -31,7 +31,7 @@ const Hero = () => {
                 href="https://github.com/ljpassey/CollaborationCoders"
                 target="_blank"
                 rel="noopener"
-                className="flex px-8 py-4 items-center space-x-2 text-gray-400 dark:text-gray-300 bg-gray-500 hover:bg-gray-700 transition-all ease-in rounded-md"
+                className="flex px-8 py-4 items-center space-x-2 text-gray-300 dark:text-gray-300 bg-gray-500 hover:bg-gray-700 transition-all ease-in rounded-md"
               >
                 <svg
                   role="img"
@@ -53,7 +53,7 @@ const Hero = () => {
       </Container>
       <Container>
         <div className="flex flex-col justify-center pt-20">
-          <div className="text-xl text-center text-gray-700 dark:text-white">
+          <div className="text-xl text-center text-white dark:text-white">
             Trusted by <span className="text-orange-600">2000+</span> customers
             worldwide
           </div>
