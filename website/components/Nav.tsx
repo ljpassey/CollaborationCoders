@@ -5,7 +5,7 @@ import { Disclosure, Menu } from "@headlessui/react";
 import MyMenu from "./Menu";
 
 const Navbar = () => {
-  const navigation = ["About", "Work", "Blog"];
+  const navigation = ["About", "Work", "Blog", "Contact"];
 
   return (
     <div className="w-full">

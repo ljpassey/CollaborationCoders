@@ -5,7 +5,7 @@ import Link from "next/link";
 const page = () => {
   return (
     <div className=" flex-wrap justify-center">
-      <section className=" xs:mx-10 mx-5  my-5  text-white rounded-2xl border-4 border-orange-600   border-opacity-50 justify-center content-center body-font">
+      <section className=" xs:mx-10 mx-5  my-5  text-white rounded-2xl bg-black border-4 border-orange-600   border-opacity-50 bg-opacity-80 justify-center content-center body-font">
         <div className="  px-4 py-5">
           <div className=" text-center">
             <svg
@@ -30,7 +30,7 @@ const page = () => {
           </div>
         </div>
       </section>
-      <section className="h-fit mx-5 my-  text-white rounded-2xl border-4 border-orange-600   border-opacity-50 bg-opacity-30 justify-center content-center body-font">
+      <section className="h-fit mx-5 my-  text-white rounded-2xl border-4 bg-opacity-80 border-orange-600 bg-gray-900  border-opacity-50  justify-center content-center body-font">
         <div className="  px-5 py-5">
           <div className=" mx-auto text-center">
             <svg

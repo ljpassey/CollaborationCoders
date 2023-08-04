@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Nav from "../components/Nav";
 import Footer from "@/components/Footer";
+import Image from "next/image";
 
 export const metadata: Metadata = {
   title: "Dunerise",
@@ -20,7 +21,7 @@ export default function RootLayout({
       <body>
         <main>
           <Nav />
-          <div className=" w-full fixed -top-40 -right-52 opacity-25  -z-30">
+          <div className=" w-full fixed sm:-top-40 sm:-right-52 -top-20 -right-20 opacity-25  -z-30">
             <svg
               viewBox="0 0 32 32"
               xmlns="http://www.w3.org/2000/svg"
@@ -45,6 +46,7 @@ export default function RootLayout({
               </g>
             </svg>
           </div>
+
           <div className="flex min-h-screen">{children}</div>
 
           <Footer />
