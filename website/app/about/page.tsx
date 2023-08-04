@@ -62,16 +62,16 @@ const About = () => {
                   </h3>
                   <span className="inline-block h-1 w-32 rounded bg-orange-600 mb-3"></span>
                   <p className="mb-4">
-                    I'm Luke Passey, a dedicated Full-Stack Web Developer
+                    I am Luke Passey, a dedicated Full-Stack Web Developer
                     specializing in React and JavaScript. My proficiency extends
                     to a range of modern development tools and technologies that
-                    are integral to full stack development. I'm driven by a love
+                    are integral to full stack development. I am driven by a love
                     for coding and an insatiable curiosity that keeps me at the
                     forefront of this rapidly evolving field. My approach
                     focuses on creating efficient, user-friendly solutions that
                     prioritize user experience, leveraging my skills in React,
                     JavaScript, and other full stack technologies. Currently
-                    based in Utah, I'm actively seeking professional
+                    based in Utah, I am actively seeking professional
                     opportunities to apply my expertise and make meaningful
                     contributions to the software engineering industry.
                   </p>
