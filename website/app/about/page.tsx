@@ -1,4 +1,5 @@
 import Image from "next/image";
+import benProfilePic from "../../public/ben-thornhill.jpg"
 
 const About = () => {
   return (
@@ -10,10 +11,11 @@ const About = () => {
               Our Team
             </h1>
             <p className="lg:w-2/3 mx-auto leading-relaxed text-base">
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sed
-              minima maxime, vel quis, maiores facilis est autem aspernatur ipsa
-              recusandae vero voluptas quas. Odit, odio dolorem tempora
-              temporibus ad reiciendis?
+              Our primary focus revolves around harnessing the potential of emerging
+              AI technologies to create innovative solutions to the problems our customers
+              face. With a strong commitment to excellence and a passion for pushing
+              the boundaries of technology, we take pride in transforming complex challenges
+              into successful outcomes for our clients.
             </p>
           </div>
           <div className="flex flex-wrap -m-4">
@@ -22,7 +24,7 @@ const About = () => {
                 <Image
                   alt="team"
                   className="flex-shrink-0 rounded-2xl w-full  object-cover object-center mb-4"
-                  src="https://images.unsplash.com/photo-1618284554746-71a7b3e923c6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80"
+                  src={benProfilePic}
                   width={400}
                   height={400}
                 />
@@ -35,10 +37,9 @@ const About = () => {
                   </h3>
                   <span className="inline-block h-1 w-32 rounded bg-orange-600 mb-3"></span>
                   <p className="mb-4">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Quas dicta soluta et mollitia adipisci amet exercitationem
-                    atque optio facere nobis, aspernatur incidunt eius quaerat
-                    quia officiis dolore? Similique, enim placeat!
+                    I am an experienced software with a wealth of experience
+                    in the tech industry. Throughout my career, I have worked across industries,
+                    teams, and technologies to deleiver high quality software solutions.
                   </p>
                 </div>
               </div>
