@@ -30,7 +30,7 @@ const page = () => {
           </div>
         </div>
       </section>
-      <section className="h-fit mx-5 my-  text-white rounded-2xl border-4 bg-opacity-80 border-orange-600 bg-gray-900  border-opacity-50  justify-center content-center body-font">
+      <section className="h-fit mx-5 my-  text-white rounded-2xl border-4 bg-opacity-80 border-orange-600 bg-black  border-opacity-50  justify-center content-center body-font">
         <div className="  px-5 py-5">
           <div className=" mx-auto text-center">
             <svg
@@ -73,7 +73,7 @@ const page = () => {
           </div>
           <Link href="/" className="flex flex-wrap -m-4">
             <div className="xl:w-1/4 md:w-1/2 p-4">
-              <div className="bg-gray-900 bg-opacity-80 p-6 rounded-lg">
+              <div className="bg-black bg-opacity-80 p-6 rounded-lg">
                 <h3 className="tracking-widest text-orange-600 text-xs font-medium title-font">
                   SUBTITLE
                 </h3>
@@ -90,7 +90,7 @@ const page = () => {
             </div>
 
             <Link href="" className="xl:w-1/4 md:w-1/2 p-4">
-              <div className="bg-gray-900 bg-opacity-80 p-6 rounded-lg">
+              <div className="bg-black bg-opacity-80 p-6 rounded-lg">
                 <h3 className="tracking-widest text-orange-600 text-xs font-medium title-font">
                   SUBTITLE
                 </h3>
@@ -106,7 +106,7 @@ const page = () => {
               </div>
             </Link>
             <Link href="" className="xl:w-1/4 md:w-1/2 p-4">
-              <div className="bg-gray-900 bg-opacity-80 p-6 rounded-lg">
+              <div className="bg-black bg-opacity-80 p-6 rounded-lg">
                 <h3 className="tracking-widest text-orange-600 text-xs font-medium title-font">
                   SUBTITLE
                 </h3>
@@ -122,7 +122,7 @@ const page = () => {
               </div>
             </Link>
             <Link href="/" className="xl:w-1/4 md:w-1/2 p-4">
-              <div className="bg-gray-900 bg-opacity-80 p-6 rounded-lg">
+              <div className="bg-black bg-opacity-80 p-6 rounded-lg">
                 <h3 className="tracking-widest text-orange-600 text-xs font-medium title-font">
                   SUBTITLE
                 </h3>

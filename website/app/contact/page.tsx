@@ -2,7 +2,7 @@ import React from 'react'
 
 const page = () => {
   return (
-    <div className="w-full sm:mx-10 mx-5 rounded-2xl bg-opacity-70 bg-gray-900  flex flex-col h-fit justify-center px-10">
+    <div className="w-full sm:mx-10 mx-5 rounded-2xl bg-opacity-70 bg-black  flex flex-col h-fit justify-center px-10">
       <section className="text-gray-200 body-font relative">
         <div className=" py-20 mx-auto">
           <div className="flex flex-col text-center w-full mb-12">
@@ -75,7 +75,6 @@ const page = () => {
                   <br />
                   Pleasant Grove, UT 84062
                 </p>
-              
               </div>
             </div>
           </div>
