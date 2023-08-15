@@ -6,7 +6,7 @@ const page = () => {
       <section className="text-gray-200 body-font relative">
         <div className=" py-20 mx-auto">
           <div className="flex flex-col text-center w-full mb-12">
-            <h1 className="sm:text-3xl text-2xl font-medium title-font mb-4 text-orange-600">
+            <h1 className="sm:text-3xl text-2xl font-medium title-font mb-4 text-green-600">
               Contact Us
             </h1>
             <p className="lg:w-2/3 mx-auto leading-relaxed text-base">
@@ -69,7 +69,7 @@ const page = () => {
                 </button>
               </div>
               <div className="p-2 w-full pt-8 mt-8 border-t border-gray-200 text-center">
-                <a className="text-orange-600">dunerisedev@gmail.com</a>
+                <a className="text-green-600">dunerisedev@gmail.com</a>
                 <p className="leading-normal my-5">
                   801 Drive
                   <br />

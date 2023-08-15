@@ -3,26 +3,10 @@ import React from "react";
 import Container from "./Container";
 
 export default function Footer() {
-  const navigation = ["About", "Work", "Blog", "Contact"];
-
   return (
     <div className="relative">
       <Container>
         <div className=" flex items-center justify-around w-screen pt-10  mt-5 border-t border-trueGray-700 dark:border-trueGray-700">
-          <div>
-            <div className="flex justify-center w-full -mt-2 -ml-3 lg:ml-0">
-              {navigation.map((menu, index) => (
-                <Link
-                  key={index}
-                  href={`/${menu.toLowerCase()}`} // append the name of the menu item to the end of the URL
-                  className="w-full px-4 py-2 text-lg font-normal text-gray-200 no-underline rounded-md dark:text-gray-200 hover:text-orange-600 focus:text-orange-600 focus:bg-indigo-100 focus:outline-none dark:focus:bg-gray-800"
-                >
-                  {menu}
-                </Link>
-              ))}
-            </div>
-          </div>
-
           <div className="my-3">
             <div>Follow us</div>
             <div className="flex my-2 space-x-5 text-gray-400 dark:text-gray-500">

@@ -28,7 +28,7 @@ export default function Example() {
                 {({ active }) => (
                   <Link
                     className={`${
-                      active ? "bg-orange-600 text-white" : "text-gray-900"
+                      active ? "bg-green-600 text-white" : "text-gray-900"
                     } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                     href="/about"
                   >
@@ -36,23 +36,12 @@ export default function Example() {
                   </Link>
                 )}
               </Menu.Item>
+             
               <Menu.Item>
                 {({ active }) => (
                   <Link
                     className={`${
-                      active ? "bg-orange-600 text-white" : "text-gray-900"
-                    } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-                    href="/work"
-                  >
-                    Work
-                  </Link>
-                )}
-              </Menu.Item>
-              <Menu.Item>
-                {({ active }) => (
-                  <Link
-                    className={`${
-                      active ? "bg-orange-600 text-white" : "text-gray-900"
+                      active ? "bg-green-600 text-white" : "text-gray-900"
                     } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                     href="/blog"
                   >
@@ -64,11 +53,11 @@ export default function Example() {
                 {({ active }) => (
                   <Link
                     className={`${
-                      active ? "bg-orange-600 text-white" : "text-gray-900"
+                      active ? "bg-green-600 text-white" : "text-gray-900"
                     } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-                    href="/contact"
+                    href="/schedule"
                   >
-                    Contact Us
+                    Schedule
                   </Link>
                 )}
               </Menu.Item>

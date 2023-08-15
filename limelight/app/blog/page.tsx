@@ -26,7 +26,7 @@ const page = () => {
                 </p>
                 <Link
                   href=""
-                  className="text-orange-600 inline-flex items-center mt-4"
+                  className="text-green-600 inline-flex items-center mt-4"
                 >
                   Learn More
                   <svg
@@ -63,7 +63,7 @@ const page = () => {
                 </p>
                 <Link
                   href=""
-                  className="text-orange-600 inline-flex items-center mt-4"
+                  className="text-green-600 inline-flex items-center mt-4"
                 >
                   Learn More
                   <svg
@@ -100,7 +100,7 @@ const page = () => {
                 </p>
                 <Link
                   href=""
-                  className="text-orange-600 inline-flex items-center mt-4"
+                  className="text-green-600 inline-flex items-center mt-4"
                 >
                   Learn More
                   <svg
