@@ -26,7 +26,7 @@ export default function RootLayout({
               xmlns="http://www.w3.org/2000/svg"
               version="1.1"
               width="1125"
-              height="1125"
+
               viewBox="0 0 3187.5 1125"
             >
               <g transform="scale(9.375) translate(10, 10)">
