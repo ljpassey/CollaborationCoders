@@ -1,7 +1,21 @@
-<table>
-  <tr *ngFor="let row of board; let i = index">
-    <td *ngFor="let cell of row; let j = index" (click)="selectTile(i, j)">
-      {{ cell ? cell.player : '' }}
-    </td>
-  </tr>
-</table>
+<div class="game-board">
+  <div *ngFor="let row of board; let i = index" class="board-row">
+    <div
+      *ngFor="let cell of row; let j = index"
+      class="board-cell"
+      [ngClass]="{ 'alternate-cell': (i + j) % 2 === 0 }"
+      (click)="selectTile(i, j)"
+    >
+      <span
+        *ngIf="cell"
+        class="piece"
+        [ngClass]="{
+          'player-one': cell.player === 1,
+          'player-two': cell.player === 2
+        }"
+      >
+        {{ cell.type }}
+      </span>
+    </div>
+  </div>
+</div>

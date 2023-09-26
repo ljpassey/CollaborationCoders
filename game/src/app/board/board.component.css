@@ -1,0 +1,38 @@
+.game-board {
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  margin: auto;
+}
+
+.board-row {
+  display: flex;
+  width: 100%;
+}
+
+.board-cell {
+  flex: 1;
+  height: 100px;
+  border: 1px solid #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.alternate-cell {
+  background-color: #ddd;
+}
+
+.piece {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.player-one {
+  color: red;
+}
+
+.player-two {
+  color: blue;
+}
