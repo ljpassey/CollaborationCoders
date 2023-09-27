@@ -1,12 +1,27 @@
 <div class="game-board">
-  <div *ngFor="let row of board; let i = index" class="board-row"
-       [ngClass]="{'gray-row': i === 0 || i === 3}">
-    <div *ngFor="let cell of row; let j = index" 
-         class="board-cell" 
-         (click)="selectTile(i, j)">
-      <span *ngIf="cell" class="piece" [ngClass]="{'player-one': cell.player === 1, 'player-two': cell.player === 2}">
+  <div
+    *ngFor="let row of board; let i = index"
+    class="board-row"
+    [ngClass]="{ 'gray-row': i === 0 || i === 3 }"
+  >
+    <div
+      *ngFor="let cell of row; let j = index"
+      class="board-cell"
+      (click)="selectTile(i, j)"
+    >
+      <span
+        *ngIf="cell"
+        class="piece"
+        [ngClass]="{
+          'player-one': cell.player === 1,
+          'player-two': cell.player === 2
+        }"
+      >
         {{ cell.type }}
       </span>
     </div>
   </div>
 </div>
+<p *ngIf="chosenPiece">
+  You have selected the tile: {{ chosenPiece.position.row }}, {{ chosenPiece.position.col}}
+</p>

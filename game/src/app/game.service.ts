@@ -6,11 +6,12 @@ import { Piece, Modifier, Position } from '../models';
 })
 export class GameService {
   // Initialize variables
-  currentPlayer!: 'Player1' | 'Player2';
+  currentPlayer: 'Player1' | 'Player2';
   board!: Piece[][];
   modifiers!: Modifier[];
 
   constructor() {
+    this.currentPlayer = this.decideStartingPlayer();
     this.initGame();
   }
 
@@ -24,11 +25,6 @@ export class GameService {
       this.board[3][i] = new Piece('Player2', new Position(3, i));
     }
 
-    // Roll dice to decide the starting player
-    const diceRoll1 = this.rollDice();
-    const diceRoll2 = this.rollDice();
-    this.currentPlayer = diceRoll1 >= diceRoll2 ? 'Player1' : 'Player2';
-
     // Initialize modifiers for each player
     this.modifiers = [
       new Modifier('Pawn', 5),
@@ -37,9 +33,18 @@ export class GameService {
     ];
   }
 
+  decideStartingPlayer(): 'Player1' | 'Player2' {
+    // Roll dice to decide the starting player
+    const diceRoll1 = this.rollDice();
+    const diceRoll2 = this.rollDice();
+    return diceRoll1 >= diceRoll2 ? 'Player1' : 'Player2';
+  }
+
   rollDice(): number {
     // Implement dice-rolling logic
-    return Math.floor(Math.random() * 6) + 1;
+    const returnValue = Math.floor(Math.random() * 6) + 1;
+    console.log(returnValue);
+    return returnValue;
   }
 
   selectPiece(piece: Piece): void {

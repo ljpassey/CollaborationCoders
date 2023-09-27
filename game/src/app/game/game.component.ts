@@ -6,12 +6,10 @@ import { GameService } from '../game.service';
   templateUrl: './game.component.html',
   styleUrls: ['./game.component.css'],
 })
-export class GameComponent implements OnInit {
+export class GameComponent {
   currentPlayer!: string;
 
-  constructor(private gameService: GameService) {}
-
-  ngOnInit(): void {
+  constructor(private gameService: GameService) {
     this.currentPlayer = this.gameService.currentPlayer;
   }
 
@@ -20,4 +18,3 @@ export class GameComponent implements OnInit {
     this.currentPlayer = this.gameService.currentPlayer;
   }
 }
-

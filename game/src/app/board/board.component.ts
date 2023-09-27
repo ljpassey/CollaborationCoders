@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { GameService } from '../game.service';
+import { Piece } from 'src/models';
 
 @Component({
   selector: 'app-board',
@@ -8,6 +9,7 @@ import { GameService } from '../game.service';
 })
 export class BoardComponent implements OnInit {
   board!: any[][];
+  chosenPiece!: Piece;
 
   constructor(private gameService: GameService) {}
 
@@ -16,14 +18,15 @@ export class BoardComponent implements OnInit {
   }
 
   selectTile(row: number, col: number): void {
-    const selectedPiece = this.board[row][col];
+    this.chosenPiece = this.board[row][col];
+    console.log(this.chosenPiece);
 
     // Check if the selected tile contains a piece
-    if (selectedPiece) {
+    if (this.chosenPiece) {
       // Check if it belongs to the current player
-      if (selectedPiece.player === this.gameService.currentPlayer) {
+      if (this.chosenPiece.player === this.gameService.currentPlayer) {
         // Select the piece
-        this.gameService.selectPiece(selectedPiece);
+        this.gameService.selectPiece(this.chosenPiece);
       }
     }
   }

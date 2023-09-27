@@ -7,10 +7,11 @@ import { GameService } from '../game.service';
   styleUrls: ['./dice.component.css'],
 })
 export class DiceComponent implements OnInit {
+  diceRoll: number = 0
   constructor(private gameService: GameService) {}
 
   rollDice(): void {
-    const result = this.gameService.rollDice();
+    this.diceRoll = this.gameService.rollDice();
     // Handle the result
   }
 
