@@ -15,6 +15,7 @@ export class GameComponent {
 
   endTurn(): void {
     this.gameService.checkEndGame();
-    this.currentPlayer = this.gameService.currentPlayer;
+    console.log('Current player: ' + this.gameService.currentPlayer);
+    this.gameService.alternatePlayer();
   }
 }

@@ -8,6 +8,7 @@
       *ngFor="let cell of row; let j = index"
       class="board-cell"
       (click)="selectTile(i, j)"
+      [class.selected]="chosenPiece && chosenPiece.position.row === i && chosenPiece.position.col === j"
     >
       <span
         *ngIf="cell"
@@ -17,11 +18,12 @@
           'player-two': cell.player === 2
         }"
       >
-        {{ cell.type }}
+        {{ cell.type }} {{ cell.player }}
       </span>
     </div>
   </div>
 </div>
 <p *ngIf="chosenPiece">
-  You have selected the tile: {{ chosenPiece.position.row }}, {{ chosenPiece.position.col}}
+  You have selected the tile: {{ chosenPiece.position.row }},
+  {{ chosenPiece.position.col }}
 </p>

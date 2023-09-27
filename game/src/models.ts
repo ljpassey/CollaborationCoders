@@ -3,7 +3,7 @@ export class Position {
 }
 
 export class Piece {
-  constructor(public player: string, public position: Position) {}
+  constructor(public player: string, public position: Position, public count: number) {}
 }
 
 export class Modifier {

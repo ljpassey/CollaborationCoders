@@ -18,7 +18,7 @@ export class ModifierComponent implements OnInit {
 
   selectModifier(modifier: Modifier): void {
     // Check if it's the current player's turn and the modifier count is greater than zero
-    if (this.gameService.currentPlayer === 'Player1' && modifier.count > 0) {
+    if (this.gameService.currentPlayer && modifier.count > 0) {
       // Use the modifier
       this.gameService.useModifier(modifier);
 

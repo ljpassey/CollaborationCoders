@@ -6,7 +6,7 @@ import { Piece, Modifier, Position } from '../models';
 })
 export class GameService {
   // Initialize variables
-  currentPlayer: 'Player1' | 'Player2';
+  currentPlayer: 'Player 1' | 'Player 2';
   board!: Piece[][];
   modifiers!: Modifier[];
 
@@ -21,8 +21,8 @@ export class GameService {
 
     // Populate the board with Player1 and Player2 pieces
     for (let i = 0; i < 4; i++) {
-      this.board[0][i] = new Piece('Player1', new Position(0, i));
-      this.board[3][i] = new Piece('Player2', new Position(3, i));
+      this.board[0][i] = new Piece('Player 1', new Position(0, i), 4);
+      this.board[3][i] = new Piece('Player 2', new Position(3, i), 4);
     }
 
     // Initialize modifiers for each player
@@ -33,11 +33,11 @@ export class GameService {
     ];
   }
 
-  decideStartingPlayer(): 'Player1' | 'Player2' {
+  decideStartingPlayer(): 'Player 1' | 'Player 2' {
     // Roll dice to decide the starting player
     const diceRoll1 = this.rollDice();
     const diceRoll2 = this.rollDice();
-    return diceRoll1 >= diceRoll2 ? 'Player1' : 'Player2';
+    return diceRoll1 >= diceRoll2 ? 'Player 1' : 'Player 2';
   }
 
   rollDice(): number {
@@ -132,13 +132,42 @@ export class GameService {
     return false;
   }
 
-  checkEndGame(): boolean {
+  alternatePlayer(): void {
+    // Alternate the current player
+    this.currentPlayer =
+      this.currentPlayer === 'Player 1' ? 'Player 2' : 'Player 1';
+  } 
+
+  checkEndGame(): any {
     // Check if all pieces of one player are eliminated
-    const player1Pieces: Number = /* Count of Player1's pieces on the board */ 1;
-    const player2Pieces: Number = /* Count of Player2's pieces on the board */ 1;
+    const player1Pieces = this.board.reduce(
+      (sum, row) =>
+        sum +
+        row.reduce(
+          (rowSum, piece) =>
+            rowSum + (piece?.player === 'Player 1' ? piece.count : 0),
+          0
+        ),
+      0
+    );
+
+    const player2Pieces = this.board.reduce(
+      (sum, row) =>
+        sum +
+        row.reduce(
+          (rowSum, piece) =>
+            rowSum + (piece?.player === 'Player 2' ? piece.count : 0),
+          0
+        ),
+      0
+    );
+    
+    let gameOver = false;
+    let result = console.log(gameOver);
 
     if (player1Pieces === 0 || player2Pieces === 0) {
-      return true;
+      gameOver = true;
+      return gameOver;
     }
 
     // Check if all modifiers are used up
@@ -152,6 +181,6 @@ export class GameService {
       return true;
     }
 
-    return false;
+    return console.log(result);
   }
 }

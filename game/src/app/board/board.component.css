@@ -1,8 +1,8 @@
 .game-board {
   display: flex;
   flex-direction: column;
-  width: 400px;
-  margin: auto;
+  width: 800px;
+  /* margin: 5px; */
 }
 
 .board-row {
@@ -11,17 +11,19 @@
 }
 
 .gray-row .board-cell {
-  background-color: #ddd;
+  background-color: #d0d0d0;
 }
 
 .board-cell {
   flex: 1;
-  height: 100px;
-  border: 1px solid #000;
+  height: 200px;
+  border: 3px solid #222222;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  border-radius: 5px;
+  margin: 1px;
 }
 
 .piece {
@@ -35,4 +37,9 @@
 
 .player-two {
   color: blue;
+}
+
+.selected {
+  border: 3px solid #ff0000;
+  background-color: #a1bfff;
 }
