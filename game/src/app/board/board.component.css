@@ -10,6 +10,10 @@
   width: 100%;
 }
 
+.gray-row .board-cell {
+  background-color: #ddd;
+}
+
 .board-cell {
   flex: 1;
   height: 100px;
@@ -18,10 +22,6 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-}
-
-.alternate-cell {
-  background-color: #ddd;
 }
 
 .piece {
