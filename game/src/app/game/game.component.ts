@@ -8,14 +8,13 @@ import { GameService } from '../game.service';
 })
 export class GameComponent {
   currentPlayer!: string;
-
+  nextStep!: any;
+  endTurn: any;
   constructor(private gameService: GameService) {
     this.currentPlayer = this.gameService.currentPlayer;
+    this.nextStep = this.gameService.steps[0].step;
   }
-
-  endTurn(): void {
-    this.gameService.checkEndGame();
-    console.log('Current player: ' + this.gameService.currentPlayer);
-    this.gameService.alternatePlayer();
+  finish(): void {
+    this.endTurn = this.gameService.endTurn();
   }
 }

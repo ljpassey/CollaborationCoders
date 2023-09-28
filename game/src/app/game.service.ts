@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Piece, Modifier, Position } from '../models';
+import { Piece, Modifier, Position, Step } from '../models';
 
 @Injectable({
   providedIn: 'root',
@@ -9,6 +9,7 @@ export class GameService {
   currentPlayer: 'Player 1' | 'Player 2';
   board!: Piece[][];
   modifiers!: Modifier[];
+  steps!: Step[];
 
   constructor() {
     this.currentPlayer = this.decideStartingPlayer();
@@ -31,6 +32,14 @@ export class GameService {
       new Modifier('Rook', 3),
       new Modifier('Queen', 3),
     ];
+
+    // Initialize the steps
+    this.steps = [
+      new Step('Select Tile'),
+      new Step('Select Modifier'),
+      new Step('Select Destination'),
+      new Step('End Turn'),
+    ];
   }
 
   decideStartingPlayer(): 'Player 1' | 'Player 2' {
@@ -45,6 +54,17 @@ export class GameService {
     const returnValue = Math.floor(Math.random() * 6) + 1;
     console.log(returnValue);
     return returnValue;
+  }
+
+  nextStep(step: Step): any {
+    // Implement logic to move to the next step
+    const currentStepIndex = this.steps.indexOf(step);
+    console.log(currentStepIndex);
+    if (currentStepIndex < this.steps.length - 1) {
+      // Move to the next step
+    } else {
+      // End the turn
+    }
   }
 
   selectPiece(piece: Piece): void {
@@ -83,6 +103,19 @@ export class GameService {
         this.board[end.row][end.col] = eliminatedPiece;
       }
     }
+  }
+
+  endTurn(): void {
+    // Alternate the current player
+    this.alternatePlayer();
+
+    // Reset the steps
+    this.steps = [
+      new Step('Select Tile'),
+      new Step('Select Modifier'),
+      new Step('Select Destination'),
+      new Step('End Turn'),
+    ];
   }
 
   isValidMove(start: Position, end: Position, modifiers: Modifier[]): boolean {
@@ -136,7 +169,7 @@ export class GameService {
     // Alternate the current player
     this.currentPlayer =
       this.currentPlayer === 'Player 1' ? 'Player 2' : 'Player 1';
-  } 
+  }
 
   checkEndGame(): any {
     // Check if all pieces of one player are eliminated
@@ -161,7 +194,7 @@ export class GameService {
         ),
       0
     );
-    
+
     let gameOver = false;
     let result = console.log(gameOver);
 

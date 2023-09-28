@@ -19,15 +19,12 @@ export class BoardComponent implements OnInit {
 
   selectTile(row: number, col: number): void {
     this.chosenPiece = this.board[row][col];
-    console.log(this.chosenPiece);
 
-    // Check if the selected tile contains a piece
-    if (this.chosenPiece) {
-      // Check if it belongs to the current player
-      if (this.chosenPiece.player === this.gameService.currentPlayer) {
-        // Select the piece
-        this.gameService.selectPiece(this.chosenPiece);
-      }
+    if (
+      this.chosenPiece &&
+      this.chosenPiece.player === this.gameService.currentPlayer
+    ) {
+      this.gameService.selectPiece(this.chosenPiece);
     }
   }
 }

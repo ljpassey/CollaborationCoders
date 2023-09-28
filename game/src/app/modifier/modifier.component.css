@@ -8,7 +8,6 @@ button {
   cursor: pointer;
   font-size: large;
   width: 100%;
-  /* display: inline-block; */
 }
 
 button:hover {
@@ -21,4 +20,10 @@ button:active {
 
 button:focus {
   outline: none;
+}
+
+div {
+  display: inline-flex;
+  justify-content: center;
+  width: auto;
 }

@@ -3,9 +3,23 @@ export class Position {
 }
 
 export class Piece {
-  constructor(public player: string, public position: Position, public count: number) {}
+  constructor(
+    public player: string,
+    public position: Position,
+    public count: number
+  ) {}
 }
 
 export class Modifier {
   constructor(public type: 'Pawn' | 'Rook' | 'Queen', public count: number) {}
+}
+
+export class Step {
+  constructor(
+    public step:
+      | 'Select Tile'
+      | 'Select Modifier'
+      | 'Select Destination'
+      | 'End Turn'
+  ) {}
 }
