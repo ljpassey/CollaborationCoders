@@ -1,13 +1,11 @@
 <div>
   <h1>Gridlock</h1>
   <h2>{{ currentPlayer }}'s Turn</h2>
-  <app-dice></app-dice>
-  <h3>Next step:</h3>
-  <p>{{ nextStep }}</p>
-    <app-board></app-board>
-    <app-modifier></app-modifier>
-  
 
+  <app-dice></app-dice>
+  <h3>Next step: {{ nextStep }}</h3>
+  <app-board></app-board>
+  <app-modifier></app-modifier>
 
   <button (click)="finish()">End Turn</button>
 </div>

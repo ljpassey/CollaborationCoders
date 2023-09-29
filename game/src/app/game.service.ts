@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Piece, Modifier, Position, Step } from '../models';
+import { BehaviorSubject, Observable } from 'rxjs';
+
 
 @Injectable({
   providedIn: 'root',
 })
 export class GameService {
   // Initialize variables
-  currentPlayer: 'Player 1' | 'Player 2';
+  currentPlayer: 'X' | 'O' | '';
   board!: Piece[][];
   modifiers!: Modifier[];
   steps!: Step[];
@@ -22,8 +24,10 @@ export class GameService {
 
     // Populate the board with Player1 and Player2 pieces
     for (let i = 0; i < 4; i++) {
-      this.board[0][i] = new Piece('Player 1', new Position(0, i), 4);
-      this.board[3][i] = new Piece('Player 2', new Position(3, i), 4);
+      this.board[0][i] = new Piece('X', new Position(0, i), 4);
+      this.board[1][i] = new Piece('', new Position(1, i), 4);
+      this.board[2][i] = new Piece('', new Position(2, i), 4);
+      this.board[3][i] = new Piece('O', new Position(3, i), 4);
     }
 
     // Initialize modifiers for each player
@@ -42,11 +46,11 @@ export class GameService {
     ];
   }
 
-  decideStartingPlayer(): 'Player 1' | 'Player 2' {
+  decideStartingPlayer(): 'X' | 'O' {
     // Roll dice to decide the starting player
     const diceRoll1 = this.rollDice();
     const diceRoll2 = this.rollDice();
-    return diceRoll1 >= diceRoll2 ? 'Player 1' : 'Player 2';
+    return diceRoll1 >= diceRoll2 ? 'X' : 'O';
   }
 
   rollDice(): number {
@@ -71,6 +75,34 @@ export class GameService {
     // Logic to select a piece
   }
 
+  movePiece(
+    fromRow: number,
+    fromCol: number,
+    toRow: number,
+    toCol: number
+  ): void {
+    // Clone the current board state to create a new board
+    const newBoard = JSON.parse(JSON.stringify(this.boardSubject.value));
+
+    // Get the piece from the 'from' cell
+    const movingPiece = newBoard[fromRow][fromCol];
+
+    // Check if the move is valid (for simplicity, just checking vertical move by 1 tile)
+    if (movingPiece && Math.abs(toRow - fromRow) === 1 && toCol === fromCol) {
+      // Move the piece
+      newBoard[toRow][toCol] = movingPiece;
+      newBoard[fromRow][fromCol] = null;
+
+      // Update the board state
+      this.updateBoard(newBoard);
+    }
+  }
+
+  selectDestination(position: Position): void {
+    // Logic to select a destination
+    this.makeMove(new Position(0, 0), new Position(0, 1));
+  }
+
   useModifier(modifier: Modifier): void {
     // Find the matching modifier from the player's supply
     const playerModifier = this.modifiers.find((m) => m.type === modifier.type);
@@ -78,7 +110,7 @@ export class GameService {
     if (playerModifier && playerModifier.count > 0) {
       // Consume the modifier
       playerModifier.count--;
-
+      console.log(playerModifier.type + 'Count:' + playerModifier.count);
       // Apply the modifier's effects to determine valid moves
       // This can be implemented in various ways depending on how you're managing game state
     } else {
@@ -107,7 +139,7 @@ export class GameService {
 
   endTurn(): void {
     // Alternate the current player
-    this.alternatePlayer();
+    this.currentPlayer = this.currentPlayer === 'X' ? 'O' : 'X';
 
     // Reset the steps
     this.steps = [
@@ -165,20 +197,13 @@ export class GameService {
     return false;
   }
 
-  alternatePlayer(): void {
-    // Alternate the current player
-    this.currentPlayer =
-      this.currentPlayer === 'Player 1' ? 'Player 2' : 'Player 1';
-  }
-
   checkEndGame(): any {
     // Check if all pieces of one player are eliminated
     const player1Pieces = this.board.reduce(
       (sum, row) =>
         sum +
         row.reduce(
-          (rowSum, piece) =>
-            rowSum + (piece?.player === 'Player 1' ? piece.count : 0),
+          (rowSum, piece) => rowSum + (piece?.player === 'X' ? piece.count : 0),
           0
         ),
       0
@@ -188,8 +213,7 @@ export class GameService {
       (sum, row) =>
         sum +
         row.reduce(
-          (rowSum, piece) =>
-            rowSum + (piece?.player === 'Player 2' ? piece.count : 0),
+          (rowSum, piece) => rowSum + (piece?.player === 'O' ? piece.count : 0),
           0
         ),
       0

@@ -8,21 +8,17 @@
       <div
         *ngFor="let cell of row; let j = index"
         class="board-cell"
-        (click)="selectTile(i, j)"
-        [class.selected]="
-          chosenPiece &&
-          chosenPiece.position.row === i &&
-          chosenPiece.position.col === j
-        "
+        [ngClass]="{
+          'disabled': cell && cell.player !== currentPlayer,
+          'middle-cell': (i === 1 && j === 1) || (i === 2 && j === 2) || (i === 1 && j === 2) || (i === 2 && j === 1),
+          'selected':
+            chosenPiece &&
+            chosenPiece.position.row === i &&
+            chosenPiece.position.col === j,
+        }"
+        (click)="selectTile(i, j, currentPlayer)"
       >
-        <span
-          *ngIf="cell"
-          class="piece"
-          [ngClass]="{
-            'player-one': cell.player === 1,
-            'player-two': cell.player === 2
-          }"
-        >
+        <span *ngIf="cell" class="piece">
           {{ cell.type }} {{ cell.player }}
         </span>
       </div>

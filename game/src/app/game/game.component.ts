@@ -10,11 +10,20 @@ export class GameComponent {
   currentPlayer!: string;
   nextStep!: any;
   endTurn: any;
+
   constructor(private gameService: GameService) {
     this.currentPlayer = this.gameService.currentPlayer;
     this.nextStep = this.gameService.steps[0].step;
   }
   finish(): void {
     this.endTurn = this.gameService.endTurn();
+    this.currentPlayer = this.gameService.currentPlayer;
+    this.nextStep = this.gameService.steps[0].step;
+    this.updateBoard();
+  }
+
+  updateBoard(): void {
+    this.currentPlayer = this.gameService.currentPlayer;
+    this.nextStep = this.gameService.steps[0].step;
   }
 }

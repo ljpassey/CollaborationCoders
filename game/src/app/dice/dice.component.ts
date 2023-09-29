@@ -7,7 +7,8 @@ import { GameService } from '../game.service';
   styleUrls: ['./dice.component.css'],
 })
 export class DiceComponent implements OnInit {
-  diceRoll: number = 0
+  diceRoll!: number;
+
   constructor(private gameService: GameService) {}
 
   rollDice(): void {
