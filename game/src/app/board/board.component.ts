@@ -102,9 +102,26 @@ export class BoardComponent implements OnInit, OnDestroy {
         return 'selected';
       } else if (piece.player === this.currentPlayer && !this.isPieceSelected) {
         return 'selectable';
-      } else if (piece.player !== this.currentPlayer || piece.player === '') {
-        return 'not-selectable';
-      } 
+      } else if (this.isPieceSelected) {
+        if (
+          moveRow === this.chosenPiece.position.row + 1 &&
+          moveCol === this.chosenPiece.position.col - 1
+        ) {
+          return 'moveable';
+        } else if (
+          moveRow === this.chosenPiece.position.row + 1 &&
+          moveCol === this.chosenPiece.position.col - 1
+        ) {
+          return 'selectable';
+        } else if (
+          moveRow === this.chosenPiece.position.row + 1 &&
+          moveCol === this.chosenPiece.position.col + 1
+        ) {
+          return 'selectable';
+        } else {
+          return '';
+        }
+      }
     }
 
     return '';
