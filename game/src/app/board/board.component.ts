@@ -11,13 +11,13 @@ import { Piece, Position, Modifier } from '../../models';
 export class BoardComponent implements OnInit, OnDestroy {
   board: Piece[][] = [
     [
-      new Piece('', new Position(0, 0)),
+      new Piece('X', new Position(0, 0)),
       new Piece('X', new Position(0, 1)),
       new Piece('X', new Position(0, 2)),
       new Piece('X', new Position(0, 3)),
     ],
     [
-      new Piece('X', new Position(1, 0)),
+      new Piece('', new Position(1, 0)),
       new Piece('', new Position(1, 1)),
       new Piece('', new Position(1, 2)),
       new Piece('', new Position(1, 3)),
@@ -77,10 +77,15 @@ export class BoardComponent implements OnInit, OnDestroy {
 
   selectTile(row: number, col: number, currentPlayer: 'X' | 'O' | ''): void {
     const selectedPiece = this.board[row][col];
+    console.log(selectedPiece.position.row, selectedPiece.position.col);
 
-    if (selectedPiece.player === currentPlayer) {
+    if (selectedPiece.player === currentPlayer && !this.isPieceSelected) {
       this.isPieceSelected = true;
       this.chosenPiece = selectedPiece;
+      console.log(
+        this.chosenPiece.position.row + 1,
+        this.chosenPiece.position.col
+      );
     } else if (this.isPieceSelected) {
       this.makeMove(row, col);
       this.isPieceSelected = false;
@@ -89,6 +94,8 @@ export class BoardComponent implements OnInit, OnDestroy {
 
   getCellClass(i: number, j: number): string {
     const piece = this.board[i][j];
+    const moveRow = piece.position.row + 1;
+    const moveCol = piece.position.col;
 
     if (piece) {
       if (piece === this.chosenPiece) {
@@ -97,7 +104,7 @@ export class BoardComponent implements OnInit, OnDestroy {
         return 'selectable';
       } else if (piece.player !== this.currentPlayer || piece.player === '') {
         return 'not-selectable';
-      }
+      } 
     }
 
     return '';

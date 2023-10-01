@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { Piece, Modifier, Position } from '../models';
 
 @Injectable({
   providedIn: 'root',
 })
 export class GameService {
-  // Use BehaviorSubjects for reactive state management
   private boardSubject = new BehaviorSubject<Piece[][]>([]);
   get board$() {
     return this.boardSubject.asObservable();
@@ -23,7 +22,6 @@ export class GameService {
   }
 
   initGame() {
-    // Initialize the board as a 4x4 grid
     const initialBoard: Piece[][] = [
       [
         new Piece('X', new Position(0, 0)),
@@ -51,12 +49,7 @@ export class GameService {
       ],
     ];
 
-    // Populate the board with Player 'X' and Player 'O' pieces
-
-    // Use the updateBoard method to set the initial state
     this.updateBoard(initialBoard);
-
-    // Set the initial current player
     this.updatePlayer(this.decideStartingPlayer());
 
     const initialModifiers: Modifier[] = [
@@ -68,45 +61,32 @@ export class GameService {
     this.updateModifiers(initialModifiers);
   }
 
-  // Methods to update states immutably
   updateBoard(newBoard: Piece[][]): void {
     this.boardSubject.next(newBoard);
   }
 
   updatePlayer(newPlayer: any): void {
     this.currentPlayerSubject.next(newPlayer);
-    this.currentPlayer$.subscribe((player) => {
-      console.log(player);
-    });
   }
 
   updateModifiers(newModifiers: Modifier[]): void {
     this.modifiersSubject.next([...newModifiers]);
   }
 
-  // Your existing methods can remain but should use the update methods to change state
-
   decideStartingPlayer(): string {
-    // Roll dice to decide the starting player
     let diceRoll1 = this.rollDice();
     let diceRoll2 = this.rollDice();
     return diceRoll1 >= diceRoll2 ? 'X' : 'O';
   }
 
   rollDice(): number {
-    // Implement dice-rolling logic
     const returnValue = Math.floor(Math.random() * 6) + 1;
-    console.log(returnValue);
     return returnValue;
   }
 
   selectPiece(piece: Piece): void {
     this.currentPlayerSubject.next(piece.player);
-    this.currentPlayer$.subscribe((player) => {
-      console.log(player);
-    });
 
-    console.log(piece.player, piece.position.row, piece.position.col);
     if (piece.player === '') {
       console.log('Selected piece:', piece);
       console.log('Current player:', piece.player);
@@ -125,21 +105,27 @@ export class GameService {
     toRow: number,
     toCol: number
   ): void {
-    // Clone the current board state to create a new board
     const newBoard = JSON.parse(JSON.stringify(this.boardSubject.value));
-
-    // Get the piece from the 'from' cell
     const movingPiece = newBoard[fromRow][fromCol];
 
-    // Check if the move is valid (for simplicity, just checking vertical move by 1 tile)
-    if (movingPiece && Math.abs(toRow - fromRow) === 1 && toCol === fromCol) {
-      // Move the piece
-      movingPiece.position = [toRow, toCol];
-      newBoard[toRow][toCol] = movingPiece;
-      newBoard[fromRow][fromCol] = null;
+    if (
+      movingPiece &&
+      Math.abs(toRow - fromRow) <= 1 &&
+      Math.abs(toCol - fromCol) <= 1
+    ) {
+      const destinationPiece = newBoard[toRow][toCol];
+      if (!destinationPiece || destinationPiece.player !== movingPiece.player) {
+        newBoard[fromRow][fromCol] = new Piece(
+          '',
+          new Position(fromRow, fromCol)
+        );
+        newBoard[toRow][toCol] = new Piece(
+          movingPiece.player,
+          new Position(toRow, toCol)
+        );
 
-      // Update the board state
-      this.boardSubject.next(newBoard);
+        this.updateBoard(newBoard);
+      }
     }
   }
   useModifier(modifier: Modifier): void {

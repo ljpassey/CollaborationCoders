@@ -58,6 +58,12 @@ div {
   background-color: #a1ffa1;  
 }
 
+.moveable {
+  cursor: pointer;
+  border: 3px solid green;
+  background-color: #a1ffa1;  
+}
+
 /* .not-selectable {
   cursor: not-allowed;
   opacity: 0.6;

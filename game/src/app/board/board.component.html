@@ -1,17 +1,25 @@
 <div class="game-board">
-  <div class="board-row" *ngFor="let row of board; let i = index" [ngClass]="{ 'gray-row': i === 0 || i === 3 }">
+  <div
+    class="board-row"
+    *ngFor="let row of board; let i = index"
+    [ngClass]="{ 'gray-row': i === 0 || i === 3 }"
+  >
     <div
       *ngFor="let piece of row; let j = index"
       class="board-cell"
       [ngClass]="getCellClass(i, j)"
-      (click)="isPieceSelected ? selectTile(i, j, currentPlayer) : piece?.player === currentPlayer && selectTile(i, j, currentPlayer)"
+      (click)="
+        isPieceSelected
+          ? selectTile(i, j, currentPlayer)
+          : piece?.player === currentPlayer && selectTile(i, j, currentPlayer)
+      "
     >
       <span *ngIf="piece" class="piece">{{ piece.player }}</span>
     </div>
   </div>
 </div>
 <p *ngIf="chosenPiece">
-  You have selected the tile: {{ chosenPiece.player }} at
-  ({{ chosenPiece.position.row }},
-  {{ chosenPiece.position.col }})
+  You have selected the tile: {{ chosenPiece.player }} at ({{
+    chosenPiece.position.row
+  }}, {{ chosenPiece.position.col }})
 </p>

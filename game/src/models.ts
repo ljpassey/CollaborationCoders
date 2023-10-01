@@ -5,7 +5,8 @@ export class Position {
 export class Piece {
   constructor(
     public player: 'X' | 'O' | '',
-    public position: Position
+    public position: Position,
+    public isHighlighted: boolean = false
   ) {}
 }
 
