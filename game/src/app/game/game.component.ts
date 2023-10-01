@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Observable, Subscription } from 'rxjs';
 import { GameService } from '../game.service';
+import { Component } from '@angular/core';
+import { Piece, Position, Modifier } from '../../models';
 
 @Component({
   selector: 'app-game',
@@ -7,23 +9,36 @@ import { GameService } from '../game.service';
   styleUrls: ['./game.component.css'],
 })
 export class GameComponent {
-  currentPlayer!: string;
-  nextStep!: any;
-  endTurn: any;
+  currentPlayer!: 'X' | 'O' | '';
+  boardSubscription!: Subscription;
+  playerSubscription!: Subscription;
+  modifiersSubscription!: Subscription;
 
-  constructor(private gameService: GameService) {
-    this.currentPlayer = this.gameService.currentPlayer;
-    this.nextStep = this.gameService.steps[0].step;
-  }
-  finish(): void {
-    this.endTurn = this.gameService.endTurn();
-    this.currentPlayer = this.gameService.currentPlayer;
-    this.nextStep = this.gameService.steps[0].step;
-    this.updateBoard();
+  constructor(private gameService: GameService) {}
+
+  ngOnInit(): void {
+    let player = this.gameService.currentPlayer$;
+    console.log(player);
+
+    // Subscribe to current player state
+    this.playerSubscription = this.gameService.currentPlayer$.subscribe(
+      (player) => {
+        this.currentPlayer = player;
+      }
+    );
   }
 
   updateBoard(): void {
-    this.currentPlayer = this.gameService.currentPlayer;
-    this.nextStep = this.gameService.steps[0].step;
+    // Update the board state
+  }
+
+  updateCurrentPlayer() {
+    // Logic to check the game board and update currentPlayer to the next player in the game
+    // For example, you might check the number of X's and O's on the board to determine which player has the next turn
+    // You can then update currentPlayer to reflect the next player's turn
+  }
+
+  finish(): void {
+    this.gameService.endTurn(this.currentPlayer);
   }
 }

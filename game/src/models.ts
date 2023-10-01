@@ -4,9 +4,8 @@ export class Position {
 
 export class Piece {
   constructor(
-    public player: string,
-    public position: Position,
-    public count: number
+    public player: 'X' | 'O' | '',
+    public position: Position
   ) {}
 }
 
