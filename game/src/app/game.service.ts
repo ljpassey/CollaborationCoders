@@ -8,7 +8,9 @@ import { Piece, Modifier, Position } from '../models';
 export class GameService {
   // Use BehaviorSubjects for reactive state management
   private boardSubject = new BehaviorSubject<Piece[][]>([]);
-  public board$ = this.boardSubject.asObservable();
+  get board$() {
+    return this.boardSubject.asObservable();
+  }
 
   private currentPlayerSubject = new BehaviorSubject<'X' | 'O' | ''>('');
   public currentPlayer$ = this.currentPlayerSubject.asObservable();
@@ -22,15 +24,34 @@ export class GameService {
 
   initGame() {
     // Initialize the board as a 4x4 grid
-    const initialBoard: Piece[][] = [[], [], [], []];
+    const initialBoard: Piece[][] = [
+      [
+        new Piece('X', new Position(0, 0)),
+        new Piece('X', new Position(0, 1)),
+        new Piece('X', new Position(0, 2)),
+        new Piece('X', new Position(0, 3)),
+      ],
+      [
+        new Piece('', new Position(1, 0)),
+        new Piece('', new Position(1, 1)),
+        new Piece('', new Position(1, 2)),
+        new Piece('', new Position(1, 3)),
+      ],
+      [
+        new Piece('', new Position(2, 0)),
+        new Piece('', new Position(2, 1)),
+        new Piece('', new Position(2, 2)),
+        new Piece('', new Position(2, 3)),
+      ],
+      [
+        new Piece('O', new Position(3, 0)),
+        new Piece('O', new Position(3, 1)),
+        new Piece('O', new Position(3, 2)),
+        new Piece('O', new Position(3, 3)),
+      ],
+    ];
 
     // Populate the board with Player 'X' and Player 'O' pieces
-    for (let i = 0; i < 4; i++) {
-      initialBoard[0][i] = new Piece('X', new Position(0, i));
-      initialBoard[1][i] = new Piece('', new Position(1, i));
-      initialBoard[2][i] = new Piece('', new Position(2, i));
-      initialBoard[3][i] = new Piece('O', new Position(3, i));
-    }
 
     // Use the updateBoard method to set the initial state
     this.updateBoard(initialBoard);
@@ -40,8 +61,8 @@ export class GameService {
 
     const initialModifiers: Modifier[] = [
       new Modifier('Pawn', 3),
-      new Modifier('Rook', 2),
-      new Modifier('Queen', 1),
+      new Modifier('Rook', 0),
+      new Modifier('Queen', 0),
     ];
 
     this.updateModifiers(initialModifiers);
@@ -49,8 +70,7 @@ export class GameService {
 
   // Methods to update states immutably
   updateBoard(newBoard: Piece[][]): void {
-    this.boardSubject.next([...newBoard]);
-    console.log(newBoard);
+    this.boardSubject.next(newBoard);
   }
 
   updatePlayer(newPlayer: any): void {
@@ -86,13 +106,17 @@ export class GameService {
       console.log(player);
     });
 
-    console.log(piece.player, piece.position.row, piece.position.col)
+    console.log(piece.player, piece.position.row, piece.position.col);
     if (piece.player === '') {
       console.log('Selected piece:', piece);
       console.log('Current player:', piece.player);
     } else {
       console.log('Piece already selected');
     }
+  }
+
+  selectDestination(row: number, col: number): void {
+    console.log('Selected destination:', row, col);
   }
 
   movePiece(
@@ -110,19 +134,20 @@ export class GameService {
     // Check if the move is valid (for simplicity, just checking vertical move by 1 tile)
     if (movingPiece && Math.abs(toRow - fromRow) === 1 && toCol === fromCol) {
       // Move the piece
+      movingPiece.position = [toRow, toCol];
       newBoard[toRow][toCol] = movingPiece;
       newBoard[fromRow][fromCol] = null;
 
       // Update the board state
-      this.updateBoard(newBoard);
+      this.boardSubject.next(newBoard);
     }
   }
-
   useModifier(modifier: Modifier): void {
     // Logic to use a modifier
   }
 
   endTurn(currentPlayer: any): void {
-     this.currentPlayerSubject.next(currentPlayer === 'X' ? 'O' : 'X');
+    this.currentPlayerSubject.next(currentPlayer === 'X' ? 'O' : 'X');
+    this.updateBoard(this.boardSubject.value);
   }
 }

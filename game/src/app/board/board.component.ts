@@ -9,10 +9,37 @@ import { Piece, Position, Modifier } from '../../models';
   styleUrls: ['./board.component.css'],
 })
 export class BoardComponent implements OnInit, OnDestroy {
-  board!: Piece[][];
+  board: Piece[][] = [
+    [
+      new Piece('', new Position(0, 0)),
+      new Piece('X', new Position(0, 1)),
+      new Piece('X', new Position(0, 2)),
+      new Piece('X', new Position(0, 3)),
+    ],
+    [
+      new Piece('X', new Position(1, 0)),
+      new Piece('', new Position(1, 1)),
+      new Piece('', new Position(1, 2)),
+      new Piece('', new Position(1, 3)),
+    ],
+    [
+      new Piece('', new Position(2, 0)),
+      new Piece('', new Position(2, 1)),
+      new Piece('', new Position(2, 2)),
+      new Piece('', new Position(2, 3)),
+    ],
+    [
+      new Piece('O', new Position(3, 0)),
+      new Piece('O', new Position(3, 1)),
+      new Piece('O', new Position(3, 2)),
+      new Piece('O', new Position(3, 3)),
+    ],
+  ];
   currentPlayer!: 'X' | 'O' | '';
   modifiers!: Modifier[];
   chosenPiece!: Piece;
+  isPieceSelected!: boolean;
+
   boardSubscription!: Subscription;
   playerSubscription!: Subscription;
   modifiersSubscription!: Subscription;
@@ -38,6 +65,7 @@ export class BoardComponent implements OnInit, OnDestroy {
         this.modifiers = newModifiers;
       }
     );
+    this.isPieceSelected = false;
   }
 
   ngOnDestroy(): void {
@@ -48,17 +76,48 @@ export class BoardComponent implements OnInit, OnDestroy {
   }
 
   selectTile(row: number, col: number, currentPlayer: 'X' | 'O' | ''): void {
-    this.chosenPiece = this.board[row][col];
-    this.currentPlayer = currentPlayer;
+    const selectedPiece = this.board[row][col];
 
-    if (this.chosenPiece.player === currentPlayer) {
-      this.gameService.selectPiece(this.chosenPiece);
-      console.log(this.chosenPiece);
-    } else {
-      alert('Please select a tile with your piece');
+    if (selectedPiece.player === currentPlayer) {
+      this.isPieceSelected = true;
+      this.chosenPiece = selectedPiece;
+    } else if (this.isPieceSelected) {
+      this.makeMove(row, col);
+      this.isPieceSelected = false;
     }
   }
 
+  getCellClass(i: number, j: number): string {
+    const piece = this.board[i][j];
+
+    if (piece) {
+      if (piece === this.chosenPiece) {
+        return 'selected';
+      } else if (piece.player === this.currentPlayer && !this.isPieceSelected) {
+        return 'selectable';
+      } else if (piece.player !== this.currentPlayer || piece.player === '') {
+        return 'not-selectable';
+      }
+    }
+
+    return '';
+  }
+
+  selectDestination(row: number, col: number): void {
+    this.gameService.selectDestination(row, col);
+    console.log(this.chosenPiece);
+    const destinationTile = this.board[row][col];
+  }
+
+  makeMove(row: number, col: number): void {
+    this.gameService.movePiece(
+      this.chosenPiece.position.row,
+      this.chosenPiece.position.col,
+      row,
+      col
+    );
+    this.gameService.endTurn(this.currentPlayer);
+  }
   // Rest of your component methods
   // ...
 }

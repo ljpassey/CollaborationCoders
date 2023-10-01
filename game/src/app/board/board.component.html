@@ -1,25 +1,12 @@
-<div>
-  <div class="game-board">
+<div class="game-board">
+  <div class="board-row" *ngFor="let row of board; let i = index" [ngClass]="{ 'gray-row': i === 0 || i === 3 }">
     <div
-      *ngFor="let row of board; let i = index"
-      class="board-row"
-      [ngClass]="{ 'gray-row': i === 0 || i === 3 }"
+      *ngFor="let piece of row; let j = index"
+      class="board-cell"
+      [ngClass]="getCellClass(i, j)"
+      (click)="isPieceSelected ? selectTile(i, j, currentPlayer) : piece?.player === currentPlayer && selectTile(i, j, currentPlayer)"
     >
-      <div
-        *ngFor="let cell of row; let j = index"
-        class="board-cell"
-        [ngClass]="{
-          'disabled': cell && cell.player !== currentPlayer,
-          'middle-cell': (i === 1 && j === 1) || (i === 2 && j === 2) || (i === 1 && j === 2) || (i === 2 && j === 1),
-            'selected':
-            chosenPiece &&
-            chosenPiece.position.row === i &&
-            chosenPiece.position.col === j,
-        }"
-        (click)="selectTile(i, j, cell.player)"
-      >
-        <span *ngIf="cell" class="piece"> {{ cell.player }} </span>
-      </div>
+      <span *ngIf="piece" class="piece">{{ piece.player }}</span>
     </div>
   </div>
 </div>
