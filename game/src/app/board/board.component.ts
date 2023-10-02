@@ -82,10 +82,6 @@ export class BoardComponent implements OnInit, OnDestroy {
     if (selectedPiece.player === currentPlayer && !this.isPieceSelected) {
       this.isPieceSelected = true;
       this.chosenPiece = selectedPiece;
-      console.log(
-        this.chosenPiece.position.row + 1,
-        this.chosenPiece.position.col
-      );
     } else if (this.isPieceSelected) {
       this.makeMove(row, col);
       this.isPieceSelected = false;
@@ -94,7 +90,7 @@ export class BoardComponent implements OnInit, OnDestroy {
 
   getCellClass(i: number, j: number): string {
     const piece = this.board[i][j];
-    const moveRow = piece.position.row + 1;
+    const moveRow = piece.position.row;
     const moveCol = piece.position.col;
 
     if (piece) {
@@ -104,18 +100,22 @@ export class BoardComponent implements OnInit, OnDestroy {
         return 'selectable';
       } else if (this.isPieceSelected) {
         if (
-          moveRow === this.chosenPiece.position.row + 1 &&
-          moveCol === this.chosenPiece.position.col - 1
-        ) {
-          return 'moveable';
-        } else if (
-          moveRow === this.chosenPiece.position.row + 1 &&
-          moveCol === this.chosenPiece.position.col - 1
-        ) {
-          return 'selectable';
-        } else if (
-          moveRow === this.chosenPiece.position.row + 1 &&
-          moveCol === this.chosenPiece.position.col + 1
+          (moveRow === this.chosenPiece.position.row - 1 &&
+            moveCol === this.chosenPiece.position.col) ||
+          (moveRow === this.chosenPiece.position.row + 1 &&
+            moveCol === this.chosenPiece.position.col) ||
+          (moveRow === this.chosenPiece.position.row &&
+            moveCol === this.chosenPiece.position.col - 1) ||
+          (moveRow === this.chosenPiece.position.row &&
+            moveCol === this.chosenPiece.position.col + 1) ||
+          (moveRow === this.chosenPiece.position.row - 1 &&
+            moveCol === this.chosenPiece.position.col - 1) ||
+          (moveRow === this.chosenPiece.position.row - 1 &&
+            moveCol === this.chosenPiece.position.col + 1) ||
+          (moveRow === this.chosenPiece.position.row + 1 &&
+            moveCol === this.chosenPiece.position.col - 1) ||
+          (moveRow === this.chosenPiece.position.row + 1 &&
+            moveCol === this.chosenPiece.position.col + 1)
         ) {
           return 'selectable';
         } else {
@@ -129,7 +129,7 @@ export class BoardComponent implements OnInit, OnDestroy {
 
   selectDestination(row: number, col: number): void {
     this.gameService.selectDestination(row, col);
-    console.log(this.chosenPiece);
+    console.log('Destination tile:'+ this.chosenPiece);
     const destinationTile = this.board[row][col];
   }
 
