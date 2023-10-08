@@ -129,7 +129,14 @@ export class GameService {
     }
   }
   useModifier(modifier: Modifier): void {
-    // Logic to use a modifier
+    const newModifiers = JSON.parse(JSON.stringify(this.modifiersSubject.value));
+
+    if (modifier.count > 0) {
+      modifier.count--;
+      this.updateModifiers(newModifiers);
+    }
+
+
   }
 
   endTurn(currentPlayer: any): void {
