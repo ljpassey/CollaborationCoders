@@ -4,13 +4,49 @@ export class Game {
   selectedModifier: Modifier | null = null;
   selectedDestination: Piece | null = null;
 
-  currentPlayer!: Player;
-  players!: Player[];
+  activePlayer: Player;
+  passivePlayer: Player;
 
   stage: TurnStage = TurnStage.SELECT_PIECE;
-  board!: Piece[][];
+  board: Piece[][];
 
-  // g.selectPiece()
+  constructor(startingPlayer: 'X' | 'O', modifiers: Modifier[]) {
+    this.board = [
+      [
+        new Piece('X', new Position(0, 0)),
+        new Piece('X', new Position(0, 1)),
+        new Piece('X', new Position(0, 2)),
+        new Piece('X', new Position(0, 3)),
+      ],
+      [
+        new Piece('', new Position(1, 0)),
+        new Piece('', new Position(1, 1)),
+        new Piece('', new Position(1, 2)),
+        new Piece('', new Position(1, 3)),
+      ],
+      [
+        new Piece('', new Position(2, 0)),
+        new Piece('', new Position(2, 1)),
+        new Piece('', new Position(2, 2)),
+        new Piece('', new Position(2, 3)),
+      ],
+      [
+        new Piece('O', new Position(3, 0)),
+        new Piece('O', new Position(3, 1)),
+        new Piece('O', new Position(3, 2)),
+        new Piece('O', new Position(3, 3)),
+      ],
+    ];
+
+    if (startingPlayer == 'X') {
+      this.activePlayer = new Player('X', modifiers);
+      this.passivePlayer = new Player('O', modifiers);
+    } else {
+      this.activePlayer = new Player('O', modifiers);
+      this.passivePlayer = new Player('X', modifiers);
+    }
+  }
+
 
   selectPiece(piece: Piece): boolean {
     // Stage setup
@@ -31,12 +67,8 @@ export class Game {
     return true;
   }
 
-  isPieceLegalToSelect(piece: Piece | null): boolean {
-    if (!piece) {
-      return false;
-    }
-
-    const isCurrentPlayersPiece = piece.player == this.currentPlayer.name;
+  isPieceLegalToSelect(piece: Piece): boolean {
+    const isCurrentPlayersPiece = piece.player == this.activePlayer.name;
     return isCurrentPlayersPiece;
   }
 
@@ -57,12 +89,8 @@ export class Game {
     return true;
   }
 
-  isModifierLegalToSelect(modifier: Modifier | null): boolean {
-    if (!modifier) {
-      return false;
-    }
-
-    const playerModifier = this.currentPlayer.modifiers.find(
+  isModifierLegalToSelect(modifier: Modifier): boolean {
+    const playerModifier = this.activePlayer.modifiers.find(
       (m) => m.type == modifier.type
     );
     if (!playerModifier || playerModifier.count == 0) {
@@ -89,19 +117,19 @@ export class Game {
     return true;
   }
 
-  isDestinationLegalToSelect(destination: Piece | null): boolean {
-    if (!destination) {
-      return false;
-    }
-
-    const isCurrentPlayersPiece = destination.player == this.currentPlayer.name;
-    const isInRange = true; // TODO - uses this.selectedModifier
+  isDestinationLegalToSelect(destination: Piece): boolean {
+    const isCurrentPlayersPiece = destination.player == this.activePlayer.name;
+    // TODO - use `this.selectedPiece` and `this.selectedModifier` to determine if destination is in range
+    const isInRange = true;
 
     return !isCurrentPlayersPiece && isInRange;;
   }
 
   endTurn(): boolean {
     // Verify legality of turn (one last time)
+    if (!this.selectedPiece || !this.selectedModifier || !this.selectedDestination) {
+      return false;
+    }
     if (!this.isPieceLegalToSelect(this.selectedPiece)) {
       return false;
     }
@@ -112,12 +140,31 @@ export class Game {
       return false;
     }
 
-    // TODO - Empty out the place where a piece was moved from
-    // TODO - Update the destination where a piece was moved to
-    // TODO - Decrement player modifiers that were used
-    // TODO - Flipping the current player owndership to the opponent
+    // Empty out the place where a piece was moved from
+    this.selectedPiece.player = '';
+
+    // Update the destination where a piece was moved to
+    this.selectedDestination.player = this.activePlayer.name;
+
+    // Decrement player modifiers that were used
+    const selectedModifier = this.selectedModifier;
+    const playerModifier = this.activePlayer.modifiers.find(
+      (m) => m.type == selectedModifier.type
+    );
+    if (!playerModifier || playerModifier.count == 0) {
+      return false;
+    }
+
+    // Flipping the current player owndership to the opponent
+    this.swapPlayers()
 
     return true;
+  }
+
+  swapPlayers() {
+    const temp = this.activePlayer;
+    this.activePlayer = this.passivePlayer;
+    this.passivePlayer = temp;
   }
 }
 
@@ -130,8 +177,13 @@ export class Piece {
 }
 
 export class Player {
-  name: 'X' | 'O' = 'X';
-  modifiers: Modifier[] = [];
+  name: 'X' | 'O';
+  modifiers: Modifier[];
+
+  constructor(name: 'X' | 'O', modifiers: Modifier[]) {
+    this.name = name;
+    this.modifiers = modifiers;
+  }
 }
 export class Position {
   constructor(public row: number, public col: number) { }

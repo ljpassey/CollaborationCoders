@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { GameService } from '../game.service';
-import { Piece, Position, Modifier } from '../../models';
+import { Piece, Position, Modifier, Game } from '../../models';
 
 @Component({
   selector: 'app-board',
@@ -9,7 +9,9 @@ import { Piece, Position, Modifier } from '../../models';
   styleUrls: ['./board.component.css'],
 })
 export class BoardComponent implements OnInit, OnDestroy {
-
+  // TODO - eventually, we'll utilize a subscription to get updates to the `Game`
+  // gameSubscription!: Subscription;
+  game: Game;
 
   board!: Piece[][];
   currentPlayer!: 'X' | 'O' | '';
@@ -21,7 +23,16 @@ export class BoardComponent implements OnInit, OnDestroy {
   playerSubscription!: Subscription;
   modifiersSubscription!: Subscription;
 
-  constructor(private gameService: GameService) {}
+  constructor(private gameService: GameService) {
+    const initialModifiers: Modifier[] = [
+      new Modifier('Pawn', 3),
+      new Modifier('Rook', 0),
+      new Modifier('Queen', 0),
+    ];
+
+    // TODO - have dice-roll determine 'X' vs. 'O'
+    this.game = new Game('X', initialModifiers);
+  }
 
   ngOnInit(): void {
     // Subscribe to board state
