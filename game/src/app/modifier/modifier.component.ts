@@ -17,8 +17,8 @@ export class ModifierComponent implements OnInit {
 
   modifiers: Modifier[] = [
     { type: 'Pawn', count: 5 },
-    { type: 'Rook', count: 0 },
-    { type: 'Queen', count: 0 },
+    { type: 'Rook', count: 5 },
+    { type: 'Queen', count: 5 },
   ];
 
   ngOnInit(): void {

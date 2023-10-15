@@ -1,11 +1,48 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { Piece, Modifier, Position } from '../models';
+import { Piece, Modifier, Position, TurnStage } from '../models';
+
+
+// turn
+
+// turn
+
+
+// component (UI logic)
+
+// class Game { Players: Payer[], Board } 
+// g = Game(luke, ben)
+// g.StartTurn()
+// g.Board.
+// class Player { IsActive, Pieces: Piece[], Modifiers: Modifier[] }
+// class Board { }
+// b.AvailableSpots()
+//  
+//  
+
+//  
+
+// service (logic that manipulates the game state)
+// - logic
+// - external API
+// - 
+
+
 
 @Injectable({
   providedIn: 'root',
 })
 export class GameService {
+  // Add a BehaviorSubject to keep track of the current turn stage
+  private turnStageSubject = new BehaviorSubject<TurnStage>(
+    TurnStage.SELECT_PIECE
+  );
+  public turnStage$ = this.turnStageSubject.asObservable();
+
+  // Add a BehaviorSubject to keep track of the selected piece
+  private selectedPieceSubject = new BehaviorSubject<Piece | null>(null);
+  public selectedPiece$ = this.selectedPieceSubject.asObservable();
+
   private boardSubject = new BehaviorSubject<Piece[][]>([]);
   get board$() {
     return this.boardSubject.asObservable();
@@ -16,6 +53,9 @@ export class GameService {
 
   private modifiersSubject = new BehaviorSubject<Modifier[]>([]);
   public modifiers$ = this.modifiersSubject.asObservable();
+
+  private selectedModifierSubject = new BehaviorSubject<Modifier | null>(null);
+  public selectedModifier$ = this.modifiersSubject.asObservable();
 
   constructor() {
     this.initGame();
@@ -95,6 +135,20 @@ export class GameService {
     }
   }
 
+  // Method to set the selected piece
+  setSelectedPiece(piece: Piece): void {
+    this.selectedPieceSubject.next(piece);
+  }
+
+  setSelectedModifier(modifier: Modifier): void {
+    this.selectedModifierSubject.next(modifier);
+  }
+
+  // Method to set the current turn stage
+  setTurnStage(stage: TurnStage): void {
+    this.turnStageSubject.next(stage);
+  }
+
   selectDestination(row: number, col: number): void {
     console.log('Selected destination:', row, col);
   }
@@ -128,19 +182,21 @@ export class GameService {
       }
     }
   }
+
   useModifier(modifier: Modifier): void {
-    const newModifiers = JSON.parse(JSON.stringify(this.modifiersSubject.value));
+    const newModifiers = JSON.parse(
+      JSON.stringify(this.modifiersSubject.value)
+    );
 
     if (modifier.count > 0) {
       modifier.count--;
       this.updateModifiers(newModifiers);
     }
-
-
   }
 
   endTurn(currentPlayer: any): void {
     this.currentPlayerSubject.next(currentPlayer === 'X' ? 'O' : 'X');
     this.updateBoard(this.boardSubject.value);
   }
+
 }

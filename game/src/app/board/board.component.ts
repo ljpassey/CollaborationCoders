@@ -9,36 +9,13 @@ import { Piece, Position, Modifier } from '../../models';
   styleUrls: ['./board.component.css'],
 })
 export class BoardComponent implements OnInit, OnDestroy {
-  board: Piece[][] = [
-    [
-      new Piece('X', new Position(0, 0)),
-      new Piece('X', new Position(0, 1)),
-      new Piece('X', new Position(0, 2)),
-      new Piece('X', new Position(0, 3)),
-    ],
-    [
-      new Piece('', new Position(1, 0)),
-      new Piece('', new Position(1, 1)),
-      new Piece('', new Position(1, 2)),
-      new Piece('', new Position(1, 3)),
-    ],
-    [
-      new Piece('', new Position(2, 0)),
-      new Piece('', new Position(2, 1)),
-      new Piece('', new Position(2, 2)),
-      new Piece('', new Position(2, 3)),
-    ],
-    [
-      new Piece('O', new Position(3, 0)),
-      new Piece('O', new Position(3, 1)),
-      new Piece('O', new Position(3, 2)),
-      new Piece('O', new Position(3, 3)),
-    ],
-  ];
+
+
+  board!: Piece[][];
   currentPlayer!: 'X' | 'O' | '';
   modifiers!: Modifier[];
-  chosenPiece!: Piece;
-  isPieceSelected!: boolean;
+  chosenPiece!: Piece | null;
+  chosenModifier!: Modifier | null;
 
   boardSubscription!: Subscription;
   playerSubscription!: Subscription;
@@ -65,7 +42,6 @@ export class BoardComponent implements OnInit, OnDestroy {
         this.modifiers = newModifiers;
       }
     );
-    this.isPieceSelected = false;
   }
 
   ngOnDestroy(): void {
@@ -75,16 +51,50 @@ export class BoardComponent implements OnInit, OnDestroy {
     this.modifiersSubscription.unsubscribe();
   }
 
-  selectTile(row: number, col: number, currentPlayer: 'X' | 'O' | ''): void {
+  selectPieceToMove(
+    row: number,
+    col: number,
+    currentPlayer: 'X' | 'O' | ''
+  ): void {
     const selectedPiece = this.board[row][col];
     console.log(selectedPiece.position.row, selectedPiece.position.col);
 
-    if (selectedPiece.player === currentPlayer && !this.isPieceSelected) {
-      this.isPieceSelected = true;
+    if (selectedPiece.player === currentPlayer) {
+      // Select a piece
+      // this.isPieceSelected = true;
       this.chosenPiece = selectedPiece;
-    } else if (this.isPieceSelected) {
-      this.makeMove(row, col);
-      this.isPieceSelected = false;
+      // TODO - select a modifier OR they can choose another piece to select
+    }
+  }
+
+  selectDestination(
+    row: number,
+    col: number,
+    currentPlayer: 'X' | 'O' | ''
+  ): void {
+    // TODO - ensure modifier is selected
+
+    const selectedDestination = this.board[row][col];
+    if (selectedDestination.player === currentPlayer) {
+      // Not legal
+      return;
+    }
+
+    if (!this.chosenPiece) {
+      // Not legal
+      return;
+    }
+
+    const isLegal = true; // is it in range AND
+    if (isLegal) {
+      this.gameService.movePiece(
+        this.chosenPiece.position.row,
+        this.chosenPiece.position.col,
+        row,
+        col
+      );
+      this.gameService.endTurn(this.currentPlayer);
+      this.chosenPiece = null;
     }
   }
 
@@ -96,9 +106,10 @@ export class BoardComponent implements OnInit, OnDestroy {
     if (piece) {
       if (piece === this.chosenPiece) {
         return 'selected';
-      } else if (piece.player === this.currentPlayer && !this.isPieceSelected) {
+      } else if (piece.player === this.currentPlayer && !this.chosenPiece) {
+        // can't move the chosenPiece here, but you can change the chosenPiece to be this piece
         return 'selectable';
-      } else if (this.isPieceSelected) {
+      } else if (this.chosenPiece) {
         if (
           (moveRow === this.chosenPiece.position.row - 1 &&
             moveCol === this.chosenPiece.position.col) ||
@@ -126,22 +137,4 @@ export class BoardComponent implements OnInit, OnDestroy {
 
     return '';
   }
-
-  selectDestination(row: number, col: number): void {
-    this.gameService.selectDestination(row, col);
-    console.log('Destination tile:'+ this.chosenPiece);
-    const destinationTile = this.board[row][col];
-  }
-
-  makeMove(row: number, col: number): void {
-    this.gameService.movePiece(
-      this.chosenPiece.position.row,
-      this.chosenPiece.position.col,
-      row,
-      col
-    );
-    this.gameService.endTurn(this.currentPlayer);
-  }
-  // Rest of your component methods
-  // ...
 }

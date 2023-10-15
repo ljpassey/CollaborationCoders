@@ -8,10 +8,9 @@
       *ngFor="let piece of row; let j = index"
       class="board-cell"
       [ngClass]="getCellClass(i, j)"
-      (click)="
-        isPieceSelected
-          ? selectTile(i, j, currentPlayer)
-          : piece?.player === currentPlayer && selectTile(i, j, currentPlayer)
+      (click)="chosenPiece
+          ? selectDestination(i, j, currentPlayer)
+          : selectPieceToMove(i, j, currentPlayer)
       "
     >
       <span *ngIf="piece" class="piece">{{ piece.player }}</span>
