@@ -10,17 +10,30 @@ export class Game {
   stage: TurnStage = TurnStage.SELECT_PIECE;
   board!: Piece[][];
 
+  // g.selectPiece()
+
   selectPiece(p: Piece): boolean {
+    // Set up state for the stage
+    this.selectedModifier = null;
+    this.selectedDestination = null;
+    this.stage = TurnStage.SELECT_PIECE;
+
     // Legality checks
     if (this.stage != TurnStage.SELECT_PIECE) {
       return false;
     }
 
+    // State changes
     this.selectedPiece = p;
+    this.stage++;
     return true;
   }
 
   selectModifier(modifierToSelect: Modifier): boolean {
+    // Set up state for the stage
+    this.selectedDestination = null;
+    this.stage = TurnStage.SELECT_MODIFIER;
+
     const playersModifier = this.currentPlayer.modifiers.find(
       (m) => m.type == modifierToSelect.type
     );
