@@ -1,29 +1,40 @@
 <!-- Board -->
 <div class="game-board">
-  <div class="board-row" *ngFor="let row of game.board; let i = index" [ngClass]="{ 'gray-row': i === 0 || i === 3 }">
-    <div *ngFor="let piece of row; let j = index" class="board-cell" [ngClass]="getCellClass(i, j)"
-      (click)="this.selectTile(i, j)">
+  <h2>Stage: {{ game.getStage() }}</h2>
+  <!-- Selection State -->
+  <p *ngIf="game.selectedPiece">
+    You have selected the tile: {{ game.selectedPiece.player }} at ({{
+      game.selectedPiece.position.row
+    }}, {{ game.selectedPiece.position.col }})
+  </p>
+  <!-- Modfiers -->
+  <div class="modifier" *ngIf="game.getStage() !== 'SELECT_PIECE'">
+    <div *ngFor="let modifier of game.activePlayer.modifiers">
+      <button
+        [ngClass]="{ disabled: modifier.count === 0 }"
+        (click)="selectModifier(modifier.type)"
+      >
+        {{ modifier.type }} ({{ modifier.count }})
+      </button>
+    </div>
+  </div>
+  <div
+    class="board-row"
+    *ngFor="let row of game.board; let i = index"
+    [ngClass]="{ 'gray-row': i === 0 || i === 3 }"
+  >
+    <div
+      *ngFor="let piece of row; let j = index"
+      class="board-cell"
+      [ngClass]="getCellClass(i, j)"
+      (click)="this.selectTile(i, j)"
+    >
       <span *ngIf="piece" class="piece">{{ piece.player }}</span>
     </div>
   </div>
 </div>
 
-<!-- Selection State -->
-<p>Stage: {{ game.getStage() }}</p>
-<p *ngIf="game.selectedPiece">
-  You have selected the tile: {{ game.selectedPiece.player }} at ({{
-  game.selectedPiece.position.row
-  }}, {{ game.selectedPiece.position.col }})
-</p>
-
-<!-- Modfiers -->
-<div *ngIf="game.getStage() !== 'SELECT_PIECE'">
-  <div *ngFor="let modifier of game.activePlayer.modifiers">
-    <button [ngClass]="{ disabled: modifier.count === 0 }" (click)="selectModifier(modifier.type)">
-      {{ modifier.type }} ({{ modifier.count }})
-    </button>
-  </div>
-</div>
-
 <!-- Confirm Turn button -->
-<button *ngIf="game.getStage() === 'END_TURN'" (click)="confirmAndEndTurn()">Confirm</button>
+<button class="confirm" *ngIf="game.getStage() === 'END_TURN'" (click)="confirmAndEndTurn()">
+  Confirm
+</button>

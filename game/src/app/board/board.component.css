@@ -3,10 +3,12 @@ div {
   justify-content: center;
   align-items: center;
   width: 100%;
+  /* margin: 10px; */
 }
 
 .game-board {
   display: flex;
+  box-sizing: content-box;
   flex-direction: column;
   width: 400px;
   justify-content: center;
@@ -16,6 +18,7 @@ div {
 .gray-row {
   display: flex;
   width: 100%;
+
   background-color: #dbdada;
 }
 
@@ -55,17 +58,73 @@ div {
 .selectable {
   cursor: pointer;
   border: 3px solid green;
-  background-color: #a1ffa1;  
+  background-color: #a1ffa1;
 }
 
-.moveable {
+button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 15px;
+
+  border-radius: 5px;
   cursor: pointer;
-  border: 3px solid green;
-  background-color: #a1ffa1;  
+  font-size: large;
+  width: auto;
 }
 
-/* .not-selectable {
-  cursor: not-allowed;
-  opacity: 0.6;
-} */
+button:hover {
+  background-color: #0069d9;
+}
 
+button:active {
+  background-color: #005cbf;
+}
+
+button:focus {
+  outline: none;
+}
+
+button.disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+  opacity: 0.5;
+  border: none;
+}
+
+.modifier {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* background-color: #007bff; */
+  color: #fff;
+  border: none;
+  padding: 15px;
+
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: large;
+  width: 100%;
+}
+
+.confirm {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #de0000;
+  color: #fff;
+  border: none;
+  margin-top: 15px;
+
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: large;
+  width: 100%;
+}
+
+.confirm:hover {
+  background-color: #b80000;
+}

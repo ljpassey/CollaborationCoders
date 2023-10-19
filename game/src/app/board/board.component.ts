@@ -23,11 +23,9 @@ export class BoardComponent implements OnInit, OnDestroy {
     this.game = new Game('X', initialModifiers);
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
-  ngOnDestroy(): void {
-  }
+  ngOnDestroy(): void {}
 
   selectTile(row: number, col: number) {
     const selectedTile = this.game.board[row][col];
@@ -38,12 +36,9 @@ export class BoardComponent implements OnInit, OnDestroy {
     }
   }
 
-  selectPiece(
-    row: number,
-    col: number,
-  ): void {
+  selectPiece(row: number, col: number): void {
     const selectedPiece = this.game.board[row][col];
-    console.log('selectedPiece :>> ', selectedPiece);
+    console.log('selectedPiece :>> ', selectedPiece.position);
     if (!this.game.selectPiece(selectedPiece)) {
       alert('Couldnt select piece');
     }
@@ -51,15 +46,14 @@ export class BoardComponent implements OnInit, OnDestroy {
 
   selectModifier(type: 'Pawn' | 'Rook' | 'Queen') {
     console.log('type :>> ', type);
+    const selectedModifier = type;
+    console.log('selectedModifier :>> ', selectedModifier);
     if (!this.game.selectModifier(type)) {
       alert('Couldnt select modifier');
     }
   }
 
-  selectDestination(
-    row: number,
-    col: number,
-  ): void {
+  selectDestination(row: number, col: number): void {
     const selectedDestination = this.game.board[row][col];
     console.log('selectedDestination :>> ', selectedDestination);
     if (!this.game.selectDestination(selectedDestination)) {
@@ -69,7 +63,7 @@ export class BoardComponent implements OnInit, OnDestroy {
 
   confirmAndEndTurn() {
     if (!this.game.endTurn()) {
-      alert('Something prevented the turn from being ended...')
+      alert('Something prevented the turn from being ended...');
     }
   }
 
@@ -81,31 +75,31 @@ export class BoardComponent implements OnInit, OnDestroy {
     if (piece) {
       if (piece === this.game.selectedPiece) {
         return 'selected';
-      } else if (piece.player === this.game.activePlayer.name && !this.game.selectedPiece) {
-        // can't move the game.selectedPiece here, but you can change the game.selectedPiece to be this piece
+      } else if (
+        piece.player === this.game.activePlayer.name &&
+        !this.game.selectedPiece
+      ) {
         return 'selectable';
       } else if (this.game.selectedPiece) {
         if (
-          (moveRow === this.game.selectedPiece.position.row - 1 &&
-            moveCol === this.game.selectedPiece.position.col) ||
-          (moveRow === this.game.selectedPiece.position.row + 1 &&
-            moveCol === this.game.selectedPiece.position.col) ||
-          (moveRow === this.game.selectedPiece.position.row &&
-            moveCol === this.game.selectedPiece.position.col - 1) ||
-          (moveRow === this.game.selectedPiece.position.row &&
-            moveCol === this.game.selectedPiece.position.col + 1) ||
-          (moveRow === this.game.selectedPiece.position.row - 1 &&
-            moveCol === this.game.selectedPiece.position.col - 1) ||
-          (moveRow === this.game.selectedPiece.position.row - 1 &&
-            moveCol === this.game.selectedPiece.position.col + 1) ||
-          (moveRow === this.game.selectedPiece.position.row + 1 &&
-            moveCol === this.game.selectedPiece.position.col - 1) ||
-          (moveRow === this.game.selectedPiece.position.row + 1 &&
-            moveCol === this.game.selectedPiece.position.col + 1)
+          (moveRow === piece.position.row - 1 &&
+            moveCol === piece.position.col) ||
+          (moveRow === piece.position.row + 1 &&
+            moveCol === piece.position.col) ||
+          (moveRow === piece.position.row &&
+            moveCol === piece.position.col - 1) ||
+          (moveRow === piece.position.row &&
+            moveCol === piece.position.col + 1) ||
+          (moveRow === piece.position.row - 1 &&
+            moveCol === piece.position.col - 1) ||
+          (moveRow === piece.position.row - 1 &&
+            moveCol === piece.position.col + 1) ||
+          (moveRow === piece.position.row + 1 &&
+            moveCol === piece.position.col - 1) ||
+          (moveRow === piece.position.row + 1 &&
+            moveCol === piece.position.col + 1)
         ) {
-          return 'selectable';
-        } else {
-          return '';
+          return 'movable';
         }
       }
     }

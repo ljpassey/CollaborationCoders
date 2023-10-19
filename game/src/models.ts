@@ -153,6 +153,7 @@ export class Game {
 
     // Empty out the place where a piece was moved from
     this.selectedPiece.player = '';
+    this.selectedPiece = null;
 
     // Update the destination where a piece was moved to
     this.selectedDestination.player = this.activePlayer.name;
