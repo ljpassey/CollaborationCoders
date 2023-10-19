@@ -1,13 +1,10 @@
 export class Game {
   // Options selected during a turn
   selectedPiece: Piece | null = null;
-  selectedModifier: Modifier | null = null;
+  selectedModifier: 'Pawn' | 'Rook' | 'Queen' | null = null;
   selectedDestination: Piece | null = null;
-
   activePlayer: Player;
   passivePlayer: Player;
-
-  stage: TurnStage = TurnStage.SELECT_PIECE;
   board: Piece[][];
 
   constructor(startingPlayer: 'X' | 'O', modifiers: Modifier[]) {
@@ -47,12 +44,27 @@ export class Game {
     }
   }
 
+  getStage(): 'SELECT_PIECE' | 'SELECT_MODIFIER' | 'SELECT_DESTINATION' | 'END_TURN' {
+    if (!this.selectedPiece) {
+      return 'SELECT_PIECE';
+    }
+
+    if (!this.selectedModifier) {
+      return 'SELECT_MODIFIER';
+    }
+
+    if (!this.selectedDestination) {
+      return 'SELECT_DESTINATION';
+    }
+
+    return 'END_TURN';
+  }
+
 
   selectPiece(piece: Piece): boolean {
     // Stage setup
     this.selectedModifier = null;
     this.selectedDestination = null;
-    this.stage = TurnStage.SELECT_PIECE;
 
     // Legality checks
     const isLegal = this.isPieceLegalToSelect(piece);
@@ -62,7 +74,6 @@ export class Game {
 
     // State changes
     this.selectedPiece = piece;
-    this.stage++;
 
     return true;
   }
@@ -72,28 +83,29 @@ export class Game {
     return isCurrentPlayersPiece;
   }
 
-  selectModifier(modifier: Modifier): boolean {
+  selectModifier(type: 'Pawn' | 'Rook' | 'Queen'): boolean {
+    if (!this.selectedPiece) {
+      return false;
+    }
+
     // Stage setup
     this.selectedDestination = null;
-    this.stage = TurnStage.SELECT_MODIFIER;
 
-    const isLegal = this.isModifierLegalToSelect(modifier);
+    const isLegal = this.isModifierLegalToSelect(type);
     if (!isLegal) {
       return false;
     }
 
     // State changes
-    this.selectedModifier = modifier;
-    this.stage++;
-
+    this.selectedModifier = type;
     return true;
   }
 
-  isModifierLegalToSelect(modifier: Modifier): boolean {
+  isModifierLegalToSelect(type: 'Pawn' | 'Rook' | 'Queen'): boolean {
     const playerModifier = this.activePlayer.modifiers.find(
-      (m) => m.type == modifier.type
+      (m) => m.type == type
     );
-    if (!playerModifier || playerModifier.count == 0) {
+    if (!playerModifier || playerModifier.count === 0) {
       return false;
     }
 
@@ -101,8 +113,9 @@ export class Game {
   }
 
   selectDestination(destination: Piece): boolean {
-    // Stage setup
-    this.stage = TurnStage.SELECT_DESTINATION;
+    if (!this.selectedPiece || !this.selectedModifier) {
+      return false;
+    }
 
     // Legality checks
     const isLegal = this.isDestinationLegalToSelect(destination);
@@ -112,8 +125,6 @@ export class Game {
 
     // State changes
     this.selectedDestination = destination;
-    this.stage++;
-
     return true;
   }
 
@@ -149,7 +160,7 @@ export class Game {
     // Decrement player modifiers that were used
     const selectedModifier = this.selectedModifier;
     const playerModifier = this.activePlayer.modifiers.find(
-      (m) => m.type == selectedModifier.type
+      (m) => m.type == selectedModifier
     );
     if (!playerModifier || playerModifier.count == 0) {
       return false;

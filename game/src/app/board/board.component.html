@@ -1,24 +1,29 @@
+<!-- Board -->
 <div class="game-board">
-  <div
-    class="board-row"
-    *ngFor="let row of board; let i = index"
-    [ngClass]="{ 'gray-row': i === 0 || i === 3 }"
-  >
-    <div
-      *ngFor="let piece of row; let j = index"
-      class="board-cell"
-      [ngClass]="getCellClass(i, j)"
-      (click)="chosenPiece
-          ? selectDestination(i, j, currentPlayer)
-          : selectPieceToMove(i, j, currentPlayer)
-      "
-    >
+  <div class="board-row" *ngFor="let row of game.board; let i = index" [ngClass]="{ 'gray-row': i === 0 || i === 3 }">
+    <div *ngFor="let piece of row; let j = index" class="board-cell" [ngClass]="getCellClass(i, j)"
+      (click)="this.selectTile(i, j)">
       <span *ngIf="piece" class="piece">{{ piece.player }}</span>
     </div>
   </div>
 </div>
-<p *ngIf="chosenPiece">
-  You have selected the tile: {{ chosenPiece.player }} at ({{
-    chosenPiece.position.row
-  }}, {{ chosenPiece.position.col }})
+
+<!-- Selection State -->
+<p>Stage: {{ game.getStage() }}</p>
+<p *ngIf="game.selectedPiece">
+  You have selected the tile: {{ game.selectedPiece.player }} at ({{
+  game.selectedPiece.position.row
+  }}, {{ game.selectedPiece.position.col }})
 </p>
+
+<!-- Modfiers -->
+<div *ngIf="game.getStage() !== 'SELECT_PIECE'">
+  <div *ngFor="let modifier of game.activePlayer.modifiers">
+    <button [ngClass]="{ disabled: modifier.count === 0 }" (click)="selectModifier(modifier.type)">
+      {{ modifier.type }} ({{ modifier.count }})
+    </button>
+  </div>
+</div>
+
+<!-- Confirm Turn button -->
+<button *ngIf="game.getStage() === 'END_TURN'" (click)="confirmAndEndTurn()">Confirm</button>

@@ -12,17 +12,6 @@ export class BoardComponent implements OnInit, OnDestroy {
   // TODO - eventually, we'll utilize a subscription to get updates to the `Game`
   // gameSubscription!: Subscription;
   game: Game;
-
-  board!: Piece[][];
-  currentPlayer!: 'X' | 'O' | '';
-  modifiers!: Modifier[];
-  chosenPiece!: Piece | null;
-  chosenModifier!: Modifier | null;
-
-  boardSubscription!: Subscription;
-  playerSubscription!: Subscription;
-  modifiersSubscription!: Subscription;
-
   constructor(private gameService: GameService) {
     const initialModifiers: Modifier[] = [
       new Modifier('Pawn', 3),
@@ -35,109 +24,84 @@ export class BoardComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    // Subscribe to board state
-    this.boardSubscription = this.gameService.board$.subscribe((newBoard) => {
-      this.board = newBoard;
-    });
-
-    // Subscribe to current player state
-    this.playerSubscription = this.gameService.currentPlayer$.subscribe(
-      (player) => {
-        this.currentPlayer = player;
-      }
-    );
-
-    // Subscribe to modifiers state
-    this.modifiersSubscription = this.gameService.modifiers$.subscribe(
-      (newModifiers) => {
-        this.modifiers = newModifiers;
-      }
-    );
   }
 
   ngOnDestroy(): void {
-    // Unsubscribe when component is destroyed
-    this.boardSubscription.unsubscribe();
-    this.playerSubscription.unsubscribe();
-    this.modifiersSubscription.unsubscribe();
   }
 
-  selectPieceToMove(
+  selectTile(row: number, col: number) {
+    const selectedTile = this.game.board[row][col];
+    if (selectedTile.player === this.game.activePlayer.name) {
+      this.selectPiece(row, col);
+    } else {
+      this.selectDestination(row, col);
+    }
+  }
+
+  selectPiece(
     row: number,
     col: number,
-    currentPlayer: 'X' | 'O' | ''
   ): void {
-    const selectedPiece = this.board[row][col];
-    console.log(selectedPiece.position.row, selectedPiece.position.col);
+    const selectedPiece = this.game.board[row][col];
+    console.log('selectedPiece :>> ', selectedPiece);
+    if (!this.game.selectPiece(selectedPiece)) {
+      alert('Couldnt select piece');
+    }
+  }
 
-    if (selectedPiece.player === currentPlayer) {
-      // Select a piece
-      // this.isPieceSelected = true;
-      this.chosenPiece = selectedPiece;
-      // TODO - select a modifier OR they can choose another piece to select
+  selectModifier(type: 'Pawn' | 'Rook' | 'Queen') {
+    console.log('type :>> ', type);
+    if (!this.game.selectModifier(type)) {
+      alert('Couldnt select modifier');
     }
   }
 
   selectDestination(
     row: number,
     col: number,
-    currentPlayer: 'X' | 'O' | ''
   ): void {
-    // TODO - ensure modifier is selected
-
-    const selectedDestination = this.board[row][col];
-    if (selectedDestination.player === currentPlayer) {
-      // Not legal
-      return;
+    const selectedDestination = this.game.board[row][col];
+    console.log('selectedDestination :>> ', selectedDestination);
+    if (!this.game.selectDestination(selectedDestination)) {
+      alert('Couldnt select destination');
     }
+  }
 
-    if (!this.chosenPiece) {
-      // Not legal
-      return;
-    }
-
-    const isLegal = true; // is it in range AND
-    if (isLegal) {
-      this.gameService.movePiece(
-        this.chosenPiece.position.row,
-        this.chosenPiece.position.col,
-        row,
-        col
-      );
-      this.gameService.endTurn(this.currentPlayer);
-      this.chosenPiece = null;
+  confirmAndEndTurn() {
+    if (!this.game.endTurn()) {
+      alert('Something prevented the turn from being ended...')
     }
   }
 
   getCellClass(i: number, j: number): string {
-    const piece = this.board[i][j];
+    const piece = this.game.board[i][j];
     const moveRow = piece.position.row;
     const moveCol = piece.position.col;
 
     if (piece) {
-      if (piece === this.chosenPiece) {
+      if (piece === this.game.selectedPiece) {
         return 'selected';
-      } else if (piece.player === this.currentPlayer && !this.chosenPiece) {
-        // can't move the chosenPiece here, but you can change the chosenPiece to be this piece
+      } else if (piece.player === this.game.activePlayer.name && !this.game.selectedPiece) {
+        // can't move the game.selectedPiece here, but you can change the game.selectedPiece to be this piece
         return 'selectable';
-      } else if (this.chosenPiece) {
+      } else if (this.game.selectedPiece) {
         if (
-          (moveRow === this.chosenPiece.position.row - 1 &&
-            moveCol === this.chosenPiece.position.col) ||
-          (moveRow === this.chosenPiece.position.row + 1 &&
-            moveCol === this.chosenPiece.position.col) ||
-          (moveRow === this.chosenPiece.position.row &&
-            moveCol === this.chosenPiece.position.col - 1) ||
-          (moveRow === this.chosenPiece.position.row &&
-            moveCol === this.chosenPiece.position.col + 1) ||
-          (moveRow === this.chosenPiece.position.row - 1 &&
-            moveCol === this.chosenPiece.position.col - 1) ||
-          (moveRow === this.chosenPiece.position.row - 1 &&
-            moveCol === this.chosenPiece.position.col + 1) ||
-          (moveRow === this.chosenPiece.position.row + 1 &&
-            moveCol === this.chosenPiece.position.col - 1) ||
-          (moveRow === this.chosenPiece.position.row + 1 &&
-            moveCol === this.chosenPiece.position.col + 1)
+          (moveRow === this.game.selectedPiece.position.row - 1 &&
+            moveCol === this.game.selectedPiece.position.col) ||
+          (moveRow === this.game.selectedPiece.position.row + 1 &&
+            moveCol === this.game.selectedPiece.position.col) ||
+          (moveRow === this.game.selectedPiece.position.row &&
+            moveCol === this.game.selectedPiece.position.col - 1) ||
+          (moveRow === this.game.selectedPiece.position.row &&
+            moveCol === this.game.selectedPiece.position.col + 1) ||
+          (moveRow === this.game.selectedPiece.position.row - 1 &&
+            moveCol === this.game.selectedPiece.position.col - 1) ||
+          (moveRow === this.game.selectedPiece.position.row - 1 &&
+            moveCol === this.game.selectedPiece.position.col + 1) ||
+          (moveRow === this.game.selectedPiece.position.row + 1 &&
+            moveCol === this.game.selectedPiece.position.col - 1) ||
+          (moveRow === this.game.selectedPiece.position.row + 1 &&
+            moveCol === this.game.selectedPiece.position.col + 1)
         ) {
           return 'selectable';
         } else {

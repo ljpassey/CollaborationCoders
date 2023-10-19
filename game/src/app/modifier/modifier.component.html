@@ -1,8 +1,5 @@
 <div *ngFor="let modifier of modifiers">
-  <button
-    [ngClass]="{ disabled: modifier.count === 0 }"
-    (click)="selectModifier(modifier)"
-  >
+  <button [ngClass]="{ disabled: modifier.count === 0 }" (click)="selectModifier(modifier)">
     {{ modifier.type }} ({{ modifier.count }})
   </button>
 </div>
