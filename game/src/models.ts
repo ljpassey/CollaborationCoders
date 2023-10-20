@@ -67,8 +67,10 @@ export class Game {
 
   selectPiece(piece: Piece): boolean {
     // Stage setup
+    this.selectedPiece = null;
     this.selectedModifier = null;
     this.selectedDestination = null;
+    this.possibleMoves = [];
 
     // Legality checks
     const isLegal = this.isPieceLegalToSelect(piece);
@@ -229,6 +231,9 @@ export class Game {
     );
     if (!playerModifier || playerModifier.count == 0) {
       return false;
+    } else {
+      playerModifier.count--;
+      console.log('Decremented modifier count for ' + playerModifier.type);
     }
 
     // Flipping the current player owndership to the opponent
@@ -241,16 +246,12 @@ export class Game {
     const temp = this.activePlayer;
     this.activePlayer = this.passivePlayer;
     this.passivePlayer = temp;
-    console.log('Swapped players' + this.activePlayer.name)
+    console.log('Swapped players' + this.activePlayer.name);
   }
 }
 
 export class Piece {
-  constructor(
-    public player: 'X' | 'O' | '',
-    public position: Position,
-    public isSelected: boolean = false
-  ) {}
+  constructor(public player: 'X' | 'O' | '', public position: Position) {}
 }
 
 export class Player {

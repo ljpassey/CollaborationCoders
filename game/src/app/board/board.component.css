@@ -22,9 +22,7 @@ div {
   background-color: #dbdada;
 }
 
-.middle-cell {
-  background-color: #ffa2a2;
-}
+
 
 .board-cell {
   flex: 1;
@@ -55,13 +53,18 @@ div {
   opacity: 0.5;
 }
 
+.destination {
+  cursor: pointer;
+  border: 3px solid rgb(0, 64, 174);
+  background-color: #0ca2dd;
+}
 .selectable {
   cursor: pointer;
   border: 3px solid green;
   background-color: #a1ffa1;
 }
 
-.possible {
+.possibleMove {
   cursor: pointer;
   border: 3px solid green;
   background-color: #a1ffa1;

@@ -1,6 +1,7 @@
 <!-- Board -->
 <div class="game-board">
   <h2>Stage: {{ game.getStage() }}</h2>
+  <h2>Active Player: {{ game.activePlayer.name }}</h2>
   <!-- Selection State -->
   <p *ngIf="game.selectedPiece">
     You have selected the tile: {{ game.selectedPiece.player }} at ({{
@@ -9,6 +10,11 @@
   </p>
   <p *ngIf="game.selectedModifier">
     You have selected the {{ game.selectedModifier }} Modifier
+  </p>
+  <p *ngIf="game.selectedDestination">
+    You have selected the Destination Tile at ({{
+      game.selectedDestination.position.row
+    }}, {{ game.selectedDestination.position.col }})
   </p>
   <!-- Modfiers -->
   <div class="modifier" *ngIf="game.getStage() !== 'SELECT_PIECE'">

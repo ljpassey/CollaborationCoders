@@ -15,8 +15,8 @@ export class BoardComponent implements OnInit, OnDestroy {
   constructor(private gameService: GameService) {
     const initialModifiers: Modifier[] = [
       new Modifier('Pawn', 3),
-      new Modifier('Rook', 3),
-      new Modifier('Queen', 3),
+      new Modifier('Rook', 0),
+      new Modifier('Queen', 0),
     ];
 
     // TODO - have dice-roll determine 'X' vs. 'O'
@@ -49,16 +49,15 @@ export class BoardComponent implements OnInit, OnDestroy {
     const selectedModifier = type;
     console.log('selectedModifier :>> ', selectedModifier);
 
-  
-    const selectedPiece = this.game.selectedPiece
-    const row = selectedPiece?.position.row
-    const col = selectedPiece?.position.col
+    const selectedPiece = this.game.selectedPiece;
+    const row = selectedPiece?.position.row;
+    const col = selectedPiece?.position.col;
 
     if (!this.game.selectModifier(type)) {
       alert('Couldnt select modifier');
     }
 
-    this.game.getPossibleMoves(row, col, type)
+    this.game.getPossibleMoves(row, col, type);
   }
 
   selectDestination(row: number, col: number): void {
@@ -83,35 +82,22 @@ export class BoardComponent implements OnInit, OnDestroy {
     if (piece) {
       if (piece === this.game.selectedPiece) {
         return 'selected';
+      } else if (piece === this.game.selectedDestination) {
+        return 'destination';
       } else if (
         piece.player === this.game.activePlayer.name &&
         !this.game.selectedPiece
       ) {
         return 'selectable';
-      } else if (this.game.selectedPiece) {
-        if (
-          (moveRow === piece.position.row - 1 &&
-            moveCol === piece.position.col) ||
-          (moveRow === piece.position.row + 1 &&
-            moveCol === piece.position.col) ||
-          (moveRow === piece.position.row &&
-            moveCol === piece.position.col - 1) ||
-          (moveRow === piece.position.row &&
-            moveCol === piece.position.col + 1) ||
-          (moveRow === piece.position.row - 1 &&
-            moveCol === piece.position.col - 1) ||
-          (moveRow === piece.position.row - 1 &&
-            moveCol === piece.position.col + 1) ||
-          (moveRow === piece.position.row + 1 &&
-            moveCol === piece.position.col - 1) ||
-          (moveRow === piece.position.row + 1 &&
-            moveCol === piece.position.col + 1)
-        ) {
-          return 'possible';
+      } else {
+        for (let move of this.game.possibleMoves) {
+          if (move.row === moveRow && move.col === moveCol) {
+            return 'possibleMove';
+          }
         }
       }
     }
 
-    return '';
+    return 'disabled';
   }
 }
