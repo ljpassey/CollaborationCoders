@@ -7,6 +7,9 @@
       game.selectedPiece.position.row
     }}, {{ game.selectedPiece.position.col }})
   </p>
+  <p *ngIf="game.selectedModifier">
+    You have selected the {{ game.selectedModifier }} Modifier
+  </p>
   <!-- Modfiers -->
   <div class="modifier" *ngIf="game.getStage() !== 'SELECT_PIECE'">
     <div *ngFor="let modifier of game.activePlayer.modifiers">
@@ -35,6 +38,10 @@
 </div>
 
 <!-- Confirm Turn button -->
-<button class="confirm" *ngIf="game.getStage() === 'END_TURN'" (click)="confirmAndEndTurn()">
+<button
+  class="confirm"
+  *ngIf="game.getStage() === 'END_TURN'"
+  (click)="confirmAndEndTurn()"
+>
   Confirm
 </button>

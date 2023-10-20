@@ -61,6 +61,12 @@ div {
   background-color: #a1ffa1;
 }
 
+.possible {
+  cursor: pointer;
+  border: 3px solid green;
+  background-color: #a1ffa1;
+}
+
 button {
   display: flex;
   justify-content: center;
@@ -69,11 +75,12 @@ button {
   color: #fff;
   border: none;
   padding: 15px;
+  margin: 5px;
 
   border-radius: 5px;
   cursor: pointer;
   font-size: large;
-  width: auto;
+  width: 100%;
 }
 
 button:hover {

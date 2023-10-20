@@ -6,6 +6,7 @@ export class Game {
   activePlayer: Player;
   passivePlayer: Player;
   board: Piece[][];
+  possibleMoves: Position[] = [];
 
   constructor(startingPlayer: 'X' | 'O', modifiers: Modifier[]) {
     this.board = [
@@ -44,7 +45,11 @@ export class Game {
     }
   }
 
-  getStage(): 'SELECT_PIECE' | 'SELECT_MODIFIER' | 'SELECT_DESTINATION' | 'END_TURN' {
+  getStage():
+    | 'SELECT_PIECE'
+    | 'SELECT_MODIFIER'
+    | 'SELECT_DESTINATION'
+    | 'END_TURN' {
     if (!this.selectedPiece) {
       return 'SELECT_PIECE';
     }
@@ -59,7 +64,6 @@ export class Game {
 
     return 'END_TURN';
   }
-
 
   selectPiece(piece: Piece): boolean {
     // Stage setup
@@ -101,6 +105,62 @@ export class Game {
     return true;
   }
 
+  getPossibleMoves(
+    row: number | undefined,
+    col: number | undefined,
+    type: 'Pawn' | 'Rook' | 'Queen'
+  ): void {
+    const possibleMoves: Position[] = [];
+    console.log('getPossibleMoves :>> ', row, col, type);
+
+    // Determine the range of the selected modifier
+    let range: number;
+    switch (type) {
+      case 'Pawn':
+        range = 1;
+        break;
+      case 'Rook':
+        range = 2;
+        break;
+      case 'Queen':
+        range = 3;
+        break;
+      default:
+        range = 0;
+        break;
+    }
+
+    // Determine the possible moves
+    const x = row;
+    const y = col;
+    for (let i = -range; i <= range; i++) {
+      for (let j = -range; j <= range; j++) {
+        if (i === 0 && j === 0) {
+          continue;
+        }
+        const newX = x !== undefined ? x + i : undefined;
+        const newY = y !== undefined ? y + j : undefined;
+        if (
+          newX === undefined ||
+          newX < 0 ||
+          newX >= this.board.length ||
+          newY === undefined ||
+          newY < 0 ||
+          newY >= this.board[0].length
+        ) {
+          continue;
+        }
+        const piece = this.board[newX][newY];
+        if (!piece || piece.player !== this.activePlayer.name) {
+          possibleMoves.push(new Position(newX, newY));
+        }
+      }
+    }
+
+    this.possibleMoves = possibleMoves;
+    console.log(possibleMoves);
+  }
+
   isModifierLegalToSelect(type: 'Pawn' | 'Rook' | 'Queen'): boolean {
     const playerModifier = this.activePlayer.modifiers.find(
       (m) => m.type == type
@@ -133,12 +193,16 @@ export class Game {
     // TODO - use `this.selectedPiece` and `this.selectedModifier` to determine if destination is in range
     const isInRange = true;
 
-    return !isCurrentPlayersPiece && isInRange;;
+    return !isCurrentPlayersPiece && isInRange;
   }
 
   endTurn(): boolean {
     // Verify legality of turn (one last time)
-    if (!this.selectedPiece || !this.selectedModifier || !this.selectedDestination) {
+    if (
+      !this.selectedPiece ||
+      !this.selectedModifier ||
+      !this.selectedDestination
+    ) {
       return false;
     }
     if (!this.isPieceLegalToSelect(this.selectedPiece)) {
@@ -168,7 +232,7 @@ export class Game {
     }
 
     // Flipping the current player owndership to the opponent
-    this.swapPlayers()
+    this.swapPlayers();
 
     return true;
   }
@@ -177,6 +241,7 @@ export class Game {
     const temp = this.activePlayer;
     this.activePlayer = this.passivePlayer;
     this.passivePlayer = temp;
+    console.log('Swapped players' + this.activePlayer.name)
   }
 }
 
@@ -185,7 +250,7 @@ export class Piece {
     public player: 'X' | 'O' | '',
     public position: Position,
     public isSelected: boolean = false
-  ) { }
+  ) {}
 }
 
 export class Player {
@@ -198,11 +263,11 @@ export class Player {
   }
 }
 export class Position {
-  constructor(public row: number, public col: number) { }
+  constructor(public row: number, public col: number) {}
 }
 
 export class Modifier {
-  constructor(public type: 'Pawn' | 'Rook' | 'Queen', public count: number) { }
+  constructor(public type: 'Pawn' | 'Rook' | 'Queen', public count: number) {}
 }
 
 export enum TurnStage {
