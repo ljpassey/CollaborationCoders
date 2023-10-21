@@ -4,6 +4,7 @@ div {
   justify-content: center;
   align-items: center;
   width: auto;
+  height: auto;
 }
 
 h1 {

@@ -15,8 +15,8 @@ export class BoardComponent implements OnInit, OnDestroy {
   constructor(private gameService: GameService) {
     const initialModifiers: Modifier[] = [
       new Modifier('Pawn', 3),
-      new Modifier('Rook', 0),
-      new Modifier('Queen', 0),
+      new Modifier('Rook', 3),
+      new Modifier('Queen', 3),
     ];
 
     // TODO - have dice-roll determine 'X' vs. 'O'

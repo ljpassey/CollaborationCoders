@@ -3,7 +3,6 @@ div {
   justify-content: center;
   align-items: center;
   width: 100%;
-  /* margin: 10px; */
 }
 
 .game-board {
@@ -18,11 +17,8 @@ div {
 .gray-row {
   display: flex;
   width: 100%;
-
   background-color: #dbdada;
 }
-
-
 
 .board-cell {
   flex: 1;
@@ -79,7 +75,6 @@ button {
   border: none;
   padding: 15px;
   margin: 5px;
-
   border-radius: 5px;
   cursor: pointer;
   font-size: large;
@@ -109,11 +104,9 @@ button.disabled {
   display: flex;
   justify-content: center;
   align-items: center;
-  /* background-color: #007bff; */
   color: #fff;
   border: none;
   padding: 15px;
-
   border-radius: 5px;
   cursor: pointer;
   font-size: large;
@@ -128,7 +121,7 @@ button.disabled {
   color: #fff;
   border: none;
   margin-top: 15px;
-
+  margin-bottom: 15px;
   border-radius: 5px;
   cursor: pointer;
   font-size: large;
