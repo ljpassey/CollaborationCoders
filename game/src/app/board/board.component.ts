@@ -88,8 +88,16 @@ export class BoardComponent implements OnInit, OnDestroy {
     if (piece) {
       if (piece === this.game.selectedPiece) {
         return 'selected';
-      } else if (piece === this.game.selectedDestination) {
+      } else if (
+        piece === this.game.selectedDestination &&
+        piece.player === ''
+      ) {
         return 'destination';
+      } else if (
+        piece === this.game.selectedDestination &&
+        piece.player !== ''
+      ) {
+        return 'attackDestination';
       } else if (
         piece.player === this.game.activePlayer.name &&
         !this.game.selectedPiece
@@ -97,9 +105,17 @@ export class BoardComponent implements OnInit, OnDestroy {
         return 'selectable';
       } else {
         for (let move of this.game.possibleMoves) {
-          if (move.row === moveRow && move.col === moveCol && piece.player === '') {
+          if (
+            move.row === moveRow &&
+            move.col === moveCol &&
+            piece.player === ''
+          ) {
             return 'possibleMove';
-          } else if (move.row === moveRow && move.col === moveCol && piece.player !== '') {
+          } else if (
+            move.row === moveRow &&
+            move.col === moveCol &&
+            piece.player !== ''
+          ) {
             return 'possibleAttack';
           }
         }

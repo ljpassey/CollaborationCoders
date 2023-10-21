@@ -54,10 +54,21 @@ div {
   border: 3px solid rgb(0, 64, 174);
   background-color: #0ca2dd;
 }
+
+.attackDestination {
+  cursor: pointer;
+  border: 3px solid rgb(174, 0, 0);
+  background-color: #dd0c0c;
+}
+
 .selectable {
   cursor: pointer;
   border: 3px solid green;
   background-color: #a1ffa1;
+}
+
+.selectable:hover {
+  background-color: #00ca00;
 }
 
 .possibleMove {
@@ -65,10 +76,19 @@ div {
   border: 3px solid rgb(39, 151, 249);
   background-color: #a1c2ff;
 }
+
+.possibleMove:hover {
+  background-color: #4785f7;
+}
+
 .possibleAttack {
   cursor: pointer;
   border: 3px solid rgb(249, 39, 39);
   background-color: #ffa1a1;
+}
+
+.possibleAttack:hover {
+  background-color: #f74747;
 }
 
 button {
@@ -122,7 +142,7 @@ button.disabled {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #de0000;
+
   color: #fff;
   border: none;
   margin-top: 15px;
@@ -131,8 +151,4 @@ button.disabled {
   cursor: pointer;
   font-size: large;
   width: 100%;
-}
-
-.confirm:hover {
-  background-color: #b80000;
 }
