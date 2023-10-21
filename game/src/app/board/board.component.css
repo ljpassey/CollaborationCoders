@@ -62,8 +62,8 @@ div {
 
 .possibleMove {
   cursor: pointer;
-  border: 3px solid green;
-  background-color: #a1ffa1;
+  border: 3px solid rgb(39, 151, 249);
+  background-color: #a1c2ff;
 }
 
 button {

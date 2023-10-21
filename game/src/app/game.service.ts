@@ -2,33 +2,6 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { Piece, Modifier, Position, TurnStage } from '../models';
 
-
-// turn
-
-// turn
-
-
-// component (UI logic)
-
-// class Game { Players: Payer[], Board } 
-// g = Game(luke, ben)
-// g.StartTurn()
-// g.Board.
-// class Player { IsActive, Pieces: Piece[], Modifiers: Modifier[] }
-// class Board { }
-// b.AvailableSpots()
-//  
-//  
-
-//  
-
-// service (logic that manipulates the game state)
-// - logic
-// - external API
-// - 
-
-
-
 @Injectable({
   providedIn: 'root',
 })
@@ -101,6 +74,10 @@ export class GameService {
     this.updateModifiers(initialModifiers);
   }
 
+  /**
+   * Updates the game board with a new configuration.
+   * @param newBoard The new configuration of the game board.
+   */
   updateBoard(newBoard: Piece[][]): void {
     this.boardSubject.next(newBoard);
   }
@@ -195,8 +172,7 @@ export class GameService {
   }
 
   endTurn(currentPlayer: any): void {
-    this.currentPlayerSubject.next(currentPlayer === 'X' ? 'O' : 'X');
+    // this.currentPlayerSubject.next(currentPlayer === 'X' ? 'O' : 'X');
     this.updateBoard(this.boardSubject.value);
   }
-
 }

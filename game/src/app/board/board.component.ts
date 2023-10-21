@@ -74,6 +74,12 @@ export class BoardComponent implements OnInit, OnDestroy {
     }
   }
 
+  /**
+   * Returns the CSS class for the cell at the specified row and column.
+   * @param i The row index of the cell.
+   * @param j The column index of the cell.
+   * @returns The CSS class for the cell.
+   */
   getCellClass(i: number, j: number): string {
     const piece = this.game.board[i][j];
     const moveRow = piece.position.row;

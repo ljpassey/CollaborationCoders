@@ -65,6 +65,11 @@ export class Game {
     return 'END_TURN';
   }
 
+  /**
+   * Selects a piece on the game board and updates the game state accordingly.
+   * @param piece The piece to be selected.
+   * @returns A boolean indicating whether the piece selection was successful.
+   */
   selectPiece(piece: Piece): boolean {
     // Stage setup
     this.selectedPiece = null;
@@ -107,6 +112,13 @@ export class Game {
     return true;
   }
 
+  /**
+   * Calculates and sets the possible moves for a given piece on the board.
+   * @param row - The row index of the piece.
+   * @param col - The column index of the piece.
+   * @param type - The type of the piece ('Pawn', 'Rook', or 'Queen').
+   * @returns void
+   */
   getPossibleMoves(
     row: number | undefined,
     col: number | undefined,
@@ -198,6 +210,10 @@ export class Game {
     return !isCurrentPlayersPiece && isInRange;
   }
 
+  /**
+   * Ends the current player's turn and updates the game state accordingly.
+   * @returns {boolean} True if the turn was ended successfully, false otherwise.
+   */
   endTurn(): boolean {
     // Verify legality of turn (one last time)
     if (
@@ -234,10 +250,18 @@ export class Game {
     } else {
       playerModifier.count--;
       console.log('Decremented modifier count for ' + playerModifier.type);
+      this.selectedModifier = null;
     }
 
     // Flipping the current player owndership to the opponent
     this.swapPlayers();
+
+    this.possibleMoves = [];
+    this.selectedDestination = null;
+
+    // TODO - check if the game is over, draw, win, or loss
+    // TODO - update the board to reflect the new state for the next turn
+    // TODO - make sure all of the 'selected' variables are reset to null
 
     return true;
   }
