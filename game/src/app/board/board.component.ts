@@ -50,13 +50,17 @@ export class BoardComponent implements OnInit, OnDestroy {
     console.log('selectedModifier :>> ', selectedModifier);
 
     const selectedPiece = this.game.selectedPiece;
-    const row = selectedPiece?.position.row;
-    const col = selectedPiece?.position.col;
+    if (!selectedPiece) {
+      return;
+    }
 
+    
     if (!this.game.selectModifier(type)) {
       alert('Couldnt select modifier');
     }
-
+    
+    const row = selectedPiece.position.row;
+    const col = selectedPiece.position.col;
     this.game.getPossibleMoves(row, col, type);
   }
 

@@ -1,7 +1,10 @@
+export type PlayerType = 'X' | 'O';
+export type ModifierType = 'Pawn' | 'Rook' | 'Queen';
+
 export class Game {
   // Options selected during a turn
   selectedPiece: Piece | null = null;
-  selectedModifier: 'Pawn' | 'Rook' | 'Queen' | null = null;
+  selectedModifier: ModifierType | null = null;
   selectedDestination: Piece | null = null;
   activePlayer: Player;
   passivePlayer: Player;
@@ -122,59 +125,40 @@ export class Game {
    * @returns void
    */
   getPossibleMoves(
-    row: number | undefined,
-    col: number | undefined,
+    row: number,
+    col: number,
     type: 'Pawn' | 'Rook' | 'Queen'
   ): void {
-    const possibleMoves: Position[] = [];
-    console.log('getPossibleMoves :>> ', row, col, type);
+    const positions: Position[] = [];
+    console.log('getPossibleMoves()');
 
-    // Determine the range of the selected modifier
-    let range: number;
     switch (type) {
       case 'Pawn':
-        range = 1;
+        positions.push(new Position(row + 1, col));
+        positions.push(new Position(row + 1, col + 1));
+        positions.push(new Position(row, col + 1));
+        positions.push(new Position(row - 1, col + 1));
+        positions.push(new Position(row + 1, col - 1));
+        positions.push(new Position(row - 1, col - 1));
+        positions.push(new Position(row, col - 1));
+        positions.push(new Position(row - 1, col));
         break;
       case 'Rook':
-        range = 2;
+        positions.push(new Position(row, col + 2));
+        positions.push(new Position(row, col - 2));
         break;
       case 'Queen':
-        range = 3;
+        positions.push(new Position(row + 3, col));
+        positions.push(new Position(row - 3, col));
         break;
       default:
-        range = 0;
         break;
     }
 
-    // Determine the possible moves
-    const x = row;
-    const y = col;
-    for (let i = -range; i <= range; i++) {
-      for (let j = -range; j <= range; j++) {
-        if (i === 0 && j === 0) {
-          continue;
-        }
-        const newX = x !== undefined ? x + i : undefined;
-        const newY = y !== undefined ? y + j : undefined;
-        if (
-          newX === undefined ||
-          newX < 0 ||
-          newX >= this.board.length ||
-          newY === undefined ||
-          newY < 0 ||
-          newY >= this.board[0].length
-        ) {
-          continue;
-        }
-        const piece = this.board[newX][newY];
-        if (!piece || piece.player !== this.activePlayer.name) {
-          possibleMoves.push(new Position(newX, newY));
-        }
-      }
-    }
-
-    this.possibleMoves = possibleMoves;
-    console.log(possibleMoves);
+    this.possibleMoves = positions.filter((p) => {
+      const piece = this.board[p.row][p.col];
+      return p.isInBounds() && piece.player != this.activePlayer.name;
+    });
   }
 
   isModifierLegalToSelect(type: 'Pawn' | 'Rook' | 'Queen'): boolean {
@@ -363,8 +347,15 @@ export class Player {
     this.modifiers = modifiers;
   }
 }
+
 export class Position {
   constructor(public row: number, public col: number) {}
+
+  isInBounds(): boolean {
+    const rowInBounds = this.row >= 0 && this.row <= 3;
+    const colInBounds = this.col >= 0 && this.col <= 3;
+    return rowInBounds && colInBounds;
+  }
 }
 
 export class Modifier {
