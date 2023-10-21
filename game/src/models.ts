@@ -1,10 +1,10 @@
 export type PlayerType = 'X' | 'O';
-export type ModifierType = 'Pawn' | 'Rook' | 'Queen';
+// export type ModifierType = 'Pawn' | 'Rook' | 'Queen';
 
 export class Game {
   // Options selected during a turn
   selectedPiece: Piece | null = null;
-  selectedModifier: ModifierType | null = null;
+  selectedModifier: 'Pawn' | 'Rook' | 'Queen' | null = null;
   selectedDestination: Piece | null = null;
   activePlayer: Player;
   passivePlayer: Player;
@@ -130,7 +130,6 @@ export class Game {
     type: 'Pawn' | 'Rook' | 'Queen'
   ): void {
     const positions: Position[] = [];
-    console.log('getPossibleMoves()');
 
     switch (type) {
       case 'Pawn':
@@ -156,8 +155,10 @@ export class Game {
     }
 
     this.possibleMoves = positions.filter((p) => {
-      const piece = this.board[p.row][p.col];
-      return p.isInBounds() && piece.player != this.activePlayer.name;
+      return (
+        p.isInBounds() &&
+        this.board[p.row][p.col].player != this.activePlayer.name
+      );
     });
   }
 
@@ -354,6 +355,8 @@ export class Position {
   isInBounds(): boolean {
     const rowInBounds = this.row >= 0 && this.row <= 3;
     const colInBounds = this.col >= 0 && this.col <= 3;
+    console.log('rowInBounds :>> ', rowInBounds);
+    console.log('colInBounds :>> ', colInBounds);
     return rowInBounds && colInBounds;
   }
 }
