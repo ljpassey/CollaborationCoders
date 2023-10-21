@@ -260,8 +260,6 @@ export class Game {
     this.selectedDestination = null;
 
     // TODO - check if the game is over, draw, win, or loss
-    // TODO - update the board to reflect the new state for the next turn
-    // TODO - make sure all of the 'selected' variables are reset to null
 
     return true;
   }

@@ -97,8 +97,10 @@ export class BoardComponent implements OnInit, OnDestroy {
         return 'selectable';
       } else {
         for (let move of this.game.possibleMoves) {
-          if (move.row === moveRow && move.col === moveCol) {
+          if (move.row === moveRow && move.col === moveCol && piece.player === '') {
             return 'possibleMove';
+          } else if (move.row === moveRow && move.col === moveCol && piece.player !== '') {
+            return 'possibleAttack';
           }
         }
       }
