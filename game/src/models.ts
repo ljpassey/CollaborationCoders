@@ -7,6 +7,8 @@ export class Game {
   passivePlayer: Player;
   board: Piece[][];
   possibleMoves: Position[] = [];
+  xPieces: number = 4;
+  oPieces: number = 4;
 
   constructor(startingPlayer: 'X' | 'O', modifiers: Modifier[]) {
     this.board = [
@@ -233,6 +235,16 @@ export class Game {
       return false;
     }
 
+    if (this.selectedDestination.player == 'X') {
+      this.xPieces--;
+    }
+
+    if (this.selectedDestination.player == 'O') {
+      this.oPieces--;
+    }
+
+    console.log('xPieces :>> ', this.xPieces + ' oPieces :>> ' + this.oPieces);
+
     // Empty out the place where a piece was moved from
     this.selectedPiece.player = '';
     this.selectedPiece = null;
@@ -259,6 +271,8 @@ export class Game {
     this.possibleMoves = [];
     this.selectedDestination = null;
 
+    this.checkEndGame();
+
     // TODO - check if the game is over, draw, win, or loss
 
     return true;
@@ -268,7 +282,71 @@ export class Game {
     const temp = this.activePlayer;
     this.activePlayer = this.passivePlayer;
     this.passivePlayer = temp;
-    console.log('Swapped players' + this.activePlayer.name);
+  }
+
+  checkEndGame(): boolean {
+    //  check if the game is over, draw, win, or loss
+    if (this.xPieces == 0) {
+      alert('Congratulations!! O wins');
+      this.resetGame();
+      return true;
+    } else if (this.oPieces == 0) {
+      alert('Congratulations!! X wins');
+      this.resetGame();
+      return true;
+    }
+
+    return false;
+  }
+
+  resetGame() {
+    // reset the game board
+    this.board = [
+      [
+        new Piece('X', new Position(0, 0)),
+        new Piece('X', new Position(0, 1)),
+        new Piece('X', new Position(0, 2)),
+        new Piece('X', new Position(0, 3)),
+      ],
+      [
+        new Piece('', new Position(1, 0)),
+        new Piece('', new Position(1, 1)),
+        new Piece('', new Position(1, 2)),
+        new Piece('', new Position(1, 3)),
+      ],
+      [
+        new Piece('', new Position(2, 0)),
+        new Piece('', new Position(2, 1)),
+        new Piece('', new Position(2, 2)),
+        new Piece('', new Position(2, 3)),
+      ],
+      [
+        new Piece('O', new Position(3, 0)),
+        new Piece('O', new Position(3, 1)),
+        new Piece('O', new Position(3, 2)),
+        new Piece('O', new Position(3, 3)),
+      ],
+    ];
+
+    // reset the modifiers
+    const initialModifiers: Modifier[] = [
+      new Modifier('Pawn', 3),
+      new Modifier('Rook', 3),
+      new Modifier('Queen', 3),
+    ];
+
+    // reset the players
+    if (this.activePlayer.name == 'X') {
+      this.activePlayer = new Player('O', initialModifiers);
+      this.passivePlayer = new Player('X', initialModifiers);
+    } else {
+      this.activePlayer = new Player('X', initialModifiers);
+      this.passivePlayer = new Player('O', initialModifiers);
+    }
+
+    // reset the pieces
+    this.xPieces = 4;
+    this.oPieces = 4;
   }
 }
 

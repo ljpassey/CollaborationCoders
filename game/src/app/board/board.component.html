@@ -2,9 +2,11 @@
 <div class="game-board">
   <!-- <h2>Stage: {{ game.getStage() }}</h2> -->
   <!-- <h2>Active Player: {{ game.activePlayer.name }}</h2> -->
+  <p>X Pieces: {{ game.xPieces }}</p>
+  <p>O Pieces: {{ game.oPieces }}</p>
 
   <!-- Modfiers -->
-  <div class="modifier" >
+  <div class="modifier">
     <div *ngFor="let modifier of game.activePlayer.modifiers">
       <button
         [ngClass]="{
