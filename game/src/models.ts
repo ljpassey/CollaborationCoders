@@ -147,8 +147,8 @@ export class Game {
         positions.push(new Position(row, col - 2));
         break;
       case 'Queen':
-        positions.push(new Position(row + 3, col));
-        positions.push(new Position(row - 3, col));
+        positions.push(new Position(row + 2, col));
+        positions.push(new Position(row - 2, col));
         break;
       default:
         break;
