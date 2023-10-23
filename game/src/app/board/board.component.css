@@ -9,7 +9,7 @@ div {
   display: flex;
   box-sizing: content-box;
   flex-direction: column;
-  width: 600px;
+  width: 500px;
   justify-content: center;
   align-items: center;
 }

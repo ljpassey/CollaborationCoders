@@ -11,8 +11,8 @@ export class Game {
   passivePlayer: Player;
   board: Piece[][];
   possibleMoves: Position[] = [];
-  xPieces: number = 6;
-  oPieces: number = 6;
+  xPieces: number = 5;
+  oPieces: number = 5;
 
   constructor(startingPlayer: 'X' | 'O', modifiers: Modifier[]) {
     this.board = [
@@ -22,7 +22,7 @@ export class Game {
         new Piece('X', new Position(0, 2)),
         new Piece('X', new Position(0, 3)),
         new Piece('X', new Position(0, 4)),
-        new Piece('X', new Position(0, 5)),
+        // new Piece('X', new Position(0, 5)),
       ],
       [
         new Piece('', new Position(1, 0)),
@@ -30,7 +30,7 @@ export class Game {
         new Piece('', new Position(1, 2)),
         new Piece('', new Position(1, 3)),
         new Piece('', new Position(1, 4)),
-        new Piece('', new Position(1, 5)),
+        // new Piece('', new Position(1, 5)),
       ],
       [
         new Piece('', new Position(2, 0)),
@@ -38,7 +38,7 @@ export class Game {
         new Piece('', new Position(2, 2)),
         new Piece('', new Position(2, 3)),
         new Piece('', new Position(2, 4)),
-        new Piece('', new Position(2, 5)),
+        // new Piece('', new Position(2, 5)),
       ],
       [
         new Piece('', new Position(3, 0)),
@@ -46,23 +46,16 @@ export class Game {
         new Piece('', new Position(3, 2)),
         new Piece('', new Position(3, 3)),
         new Piece('', new Position(3, 4)),
-        new Piece('', new Position(3, 5)),
+        // new Piece('', new Position(3, 5)),
       ],
+
       [
-        new Piece('', new Position(4, 0)),
-        new Piece('', new Position(4, 1)),
-        new Piece('', new Position(4, 2)),
-        new Piece('', new Position(4, 3)),
-        new Piece('', new Position(4, 4)),
-        new Piece('', new Position(4, 5)),
-      ],
-      [
-        new Piece('O', new Position(5, 0)),
-        new Piece('O', new Position(5, 1)),
-        new Piece('O', new Position(5, 2)),
-        new Piece('O', new Position(5, 3)),
-        new Piece('O', new Position(5, 4)),
-        new Piece('O', new Position(5, 5)),
+        new Piece('O', new Position(4, 0)),
+        new Piece('O', new Position(4, 1)),
+        new Piece('O', new Position(4, 2)),
+        new Piece('O', new Position(4, 3)),
+        new Piece('O', new Position(4, 4)),
+        // new Piece('O', new Position(4, 5)),
       ],
     ];
 
@@ -430,8 +423,8 @@ export class Position {
   constructor(public row: number, public col: number) {}
 
   isInBounds(): boolean {
-    const rowInBounds = this.row >= 0 && this.row <= 5;
-    const colInBounds = this.col >= 0 && this.col <= 5;
+    const rowInBounds = this.row >= 0 && this.row <= 4;
+    const colInBounds = this.col >= 0 && this.col <= 4;
     console.log('rowInBounds :>> ', rowInBounds);
     console.log('colInBounds :>> ', colInBounds);
     return rowInBounds && colInBounds;

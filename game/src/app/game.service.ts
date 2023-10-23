@@ -61,12 +61,21 @@ export class GameService {
         new Piece('', new Position(2, 5)),
       ],
       [
-        new Piece('O', new Position(3, 0)),
-        new Piece('O', new Position(3, 1)),
-        new Piece('O', new Position(3, 2)),
-        new Piece('O', new Position(3, 3)),
-        new Piece('O', new Position(3, 4)),
-        new Piece('O', new Position(3, 5)),
+        new Piece('', new Position(3, 0)),
+        new Piece('', new Position(3, 1)),
+        new Piece('', new Position(3, 2)),
+        new Piece('', new Position(3, 3)),
+        new Piece('', new Position(3, 4)),
+        new Piece('', new Position(3, 5)),
+      ],
+
+      [
+        new Piece('O', new Position(4, 0)),
+        new Piece('O', new Position(4, 1)),
+        new Piece('O', new Position(4, 2)),
+        new Piece('O', new Position(4, 3)),
+        new Piece('O', new Position(4, 4)),
+        new Piece('O', new Position(4, 5)),
       ],
     ];
 
