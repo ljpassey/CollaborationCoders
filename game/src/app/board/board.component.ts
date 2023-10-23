@@ -17,6 +17,7 @@ export class BoardComponent implements OnInit, OnDestroy {
       new Modifier('Pawn', 3),
       new Modifier('Rook', 3),
       new Modifier('Queen', 3),
+      new Modifier('Bishop', 3),
     ];
 
     // TODO - have dice-roll determine 'X' vs. 'O'
@@ -44,7 +45,7 @@ export class BoardComponent implements OnInit, OnDestroy {
     }
   }
 
-  selectModifier(type: 'Pawn' | 'Rook' | 'Queen') {
+  selectModifier(type: 'Pawn' | 'Rook' | 'Queen' | 'Bishop') {
     console.log('type :>> ', type);
     const selectedModifier = type;
     console.log('selectedModifier :>> ', selectedModifier);

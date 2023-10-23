@@ -4,7 +4,7 @@ export type PlayerType = 'X' | 'O';
 export class Game {
   // Options selected during a turn
   selectedPiece: Piece | null = null;
-  selectedModifier: 'Pawn' | 'Rook' | 'Queen' | null = null;
+  selectedModifier: 'Pawn' | 'Rook' | 'Queen' | 'Bishop' | null = null;
   selectedDestination: Piece | null = null;
   activePlayer: Player;
   passivePlayer: Player;
@@ -50,6 +50,12 @@ export class Game {
     }
   }
 
+  // In order to add the ability for a player to select a piece, first modifier, first destination, then select a second modifier, and then select a second destination, we need to keep track of the current stage of the turn. This method will return the current stage of the turn.
+  // But, what if we wanted to add the ability to select up to two modifiers, but not require it?
+  //Maybe at the player has selected their destination, we could give them the option to move further by selecting an additional modifier, then an additional destination based on the new possible moves.
+  // If we did that, then we could probably set the stage back to SELECT_MODIFIER, and then SELECT_DESTINATION, and then END_TURN. We would need to update the tracked state of the selected modifier and destination, and the possible moves.
+  // We could also add a new stage to the turn, like SELECT_SECOND_MODIFIER, and then SELECT_SECOND_DESTINATION, and then END_TURN.
+  // If a player only wants to use one modifier, then they can choose to end their turn after selecting a modifier and destination and the second turn stage will be skipped.
   getStage():
     | 'SELECT_PIECE'
     | 'SELECT_MODIFIER'
@@ -99,7 +105,7 @@ export class Game {
     return isCurrentPlayersPiece;
   }
 
-  selectModifier(type: 'Pawn' | 'Rook' | 'Queen'): boolean {
+  selectModifier(type: 'Pawn' | 'Rook' | 'Queen' | 'Bishop'): boolean {
     if (!this.selectedPiece) {
       return false;
     }
@@ -127,28 +133,38 @@ export class Game {
   getPossibleMoves(
     row: number,
     col: number,
-    type: 'Pawn' | 'Rook' | 'Queen'
+    type: 'Pawn' | 'Rook' | 'Queen' | 'Bishop'
   ): void {
     const positions: Position[] = [];
 
     switch (type) {
       case 'Pawn':
         positions.push(new Position(row + 1, col));
-        positions.push(new Position(row + 1, col + 1));
         positions.push(new Position(row, col + 1));
-        positions.push(new Position(row - 1, col + 1));
-        positions.push(new Position(row + 1, col - 1));
-        positions.push(new Position(row - 1, col - 1));
         positions.push(new Position(row, col - 1));
         positions.push(new Position(row - 1, col));
         break;
       case 'Rook':
         positions.push(new Position(row, col + 2));
         positions.push(new Position(row, col - 2));
+        positions.push(new Position(row, col + 1));
+        positions.push(new Position(row, col - 1));
         break;
       case 'Queen':
         positions.push(new Position(row + 2, col));
         positions.push(new Position(row - 2, col));
+        positions.push(new Position(row + 1, col));
+        positions.push(new Position(row - 1, col));
+        break;
+      case 'Bishop':
+        positions.push(new Position(row + 1, col + 1));
+        positions.push(new Position(row - 1, col + 1));
+        positions.push(new Position(row + 1, col - 1));
+        positions.push(new Position(row - 1, col - 1));
+        positions.push(new Position(row + 2, col + 2));
+        positions.push(new Position(row - 2, col + 2));
+        positions.push(new Position(row + 2, col - 2));
+        positions.push(new Position(row - 2, col - 2));
         break;
       default:
         break;
@@ -162,7 +178,7 @@ export class Game {
     });
   }
 
-  isModifierLegalToSelect(type: 'Pawn' | 'Rook' | 'Queen'): boolean {
+  isModifierLegalToSelect(type: 'Pawn' | 'Rook' | 'Queen' | 'Bishop'): boolean {
     const playerModifier = this.activePlayer.modifiers.find(
       (m) => m.type == type
     );
@@ -362,7 +378,10 @@ export class Position {
 }
 
 export class Modifier {
-  constructor(public type: 'Pawn' | 'Rook' | 'Queen', public count: number) {}
+  constructor(
+    public type: 'Pawn' | 'Rook' | 'Queen' | 'Bishop',
+    public count: number
+  ) {}
 }
 
 export enum TurnStage {

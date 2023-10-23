@@ -1,6 +1,6 @@
-To do:
-    1. Track state or game steps across the application
-    2. When you select a tile, remove the current player's pieces from the 'selectable' options
-    3. Having the selected modifier alter the selectable tiles
-    4. Add a piece counter for both players on the game board
-    5. Add a visual indicator of the initial dice roll for the starting player
+Gameplay Ideas for Gridlock:
+    1. Add the ability to select up to two modifiers in combination during your turn to maneuver further on the board.
+    2. Implement a challenging way for players to bring pieces back into play after they have been eliminated.
+    3. Add saving dice throws which allow a player to sacrifice one of their pawn modifiers for the chance to roll a dice to determine whether an attacker will succeed or fail, and make it dependant on the number of pieces the player has left. If the dice roll is higher than the number of pieces the player has left, the attacker succeeds. If the dice roll is lower than the number of pieces the player has left, the attacker fails and the piece is not eliminated and the attacker returns to his original position and the turn ends.
+    4. Add a default movement of 1 space for all pieces which players can use at the beginning of their turn, then they can choose to use modifiers to move further.
+    5. Add a modifier that allows players to move diagonally.
