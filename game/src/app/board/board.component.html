@@ -34,7 +34,7 @@
   <div
     class="board-row"
     *ngFor="let row of game.board; let i = index"
-    [ngClass]="{ 'gray-row': i === 0 || i === 3 }"
+    [ngClass]="{ 'gray-row': i === 0 || i === 5 }"
   >
     <div
       *ngFor="let piece of row; let j = index"

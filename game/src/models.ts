@@ -1,17 +1,18 @@
 export type PlayerType = 'X' | 'O';
-// export type ModifierType = 'Pawn' | 'Rook' | 'Queen';
+export type ModifierType = 'Pawn' | 'Rook' | 'Queen' | 'Bishop' | 'Knight';
 
 export class Game {
   // Options selected during a turn
   selectedPiece: Piece | null = null;
-  selectedModifier: 'Pawn' | 'Rook' | 'Queen' | 'Bishop' | null = null;
+  selectedModifier: 'Pawn' | 'Rook' | 'Queen' | 'Bishop' | 'Knight' | null =
+    null;
   selectedDestination: Piece | null = null;
   activePlayer: Player;
   passivePlayer: Player;
   board: Piece[][];
   possibleMoves: Position[] = [];
-  xPieces: number = 4;
-  oPieces: number = 4;
+  xPieces: number = 6;
+  oPieces: number = 6;
 
   constructor(startingPlayer: 'X' | 'O', modifiers: Modifier[]) {
     this.board = [
@@ -20,24 +21,48 @@ export class Game {
         new Piece('X', new Position(0, 1)),
         new Piece('X', new Position(0, 2)),
         new Piece('X', new Position(0, 3)),
+        new Piece('X', new Position(0, 4)),
+        new Piece('X', new Position(0, 5)),
       ],
       [
         new Piece('', new Position(1, 0)),
         new Piece('', new Position(1, 1)),
         new Piece('', new Position(1, 2)),
         new Piece('', new Position(1, 3)),
+        new Piece('', new Position(1, 4)),
+        new Piece('', new Position(1, 5)),
       ],
       [
         new Piece('', new Position(2, 0)),
         new Piece('', new Position(2, 1)),
         new Piece('', new Position(2, 2)),
         new Piece('', new Position(2, 3)),
+        new Piece('', new Position(2, 4)),
+        new Piece('', new Position(2, 5)),
       ],
       [
-        new Piece('O', new Position(3, 0)),
-        new Piece('O', new Position(3, 1)),
-        new Piece('O', new Position(3, 2)),
-        new Piece('O', new Position(3, 3)),
+        new Piece('', new Position(3, 0)),
+        new Piece('', new Position(3, 1)),
+        new Piece('', new Position(3, 2)),
+        new Piece('', new Position(3, 3)),
+        new Piece('', new Position(3, 4)),
+        new Piece('', new Position(3, 5)),
+      ],
+      [
+        new Piece('', new Position(4, 0)),
+        new Piece('', new Position(4, 1)),
+        new Piece('', new Position(4, 2)),
+        new Piece('', new Position(4, 3)),
+        new Piece('', new Position(4, 4)),
+        new Piece('', new Position(4, 5)),
+      ],
+      [
+        new Piece('O', new Position(5, 0)),
+        new Piece('O', new Position(5, 1)),
+        new Piece('O', new Position(5, 2)),
+        new Piece('O', new Position(5, 3)),
+        new Piece('O', new Position(5, 4)),
+        new Piece('O', new Position(5, 5)),
       ],
     ];
 
@@ -105,7 +130,9 @@ export class Game {
     return isCurrentPlayersPiece;
   }
 
-  selectModifier(type: 'Pawn' | 'Rook' | 'Queen' | 'Bishop'): boolean {
+  selectModifier(
+    type: 'Pawn' | 'Rook' | 'Queen' | 'Bishop' | 'Knight'
+  ): boolean {
     if (!this.selectedPiece) {
       return false;
     }
@@ -133,7 +160,7 @@ export class Game {
   getPossibleMoves(
     row: number,
     col: number,
-    type: 'Pawn' | 'Rook' | 'Queen' | 'Bishop'
+    type: 'Pawn' | 'Rook' | 'Queen' | 'Bishop' | 'Knight'
   ): void {
     const positions: Position[] = [];
 
@@ -143,28 +170,50 @@ export class Game {
         positions.push(new Position(row, col + 1));
         positions.push(new Position(row, col - 1));
         positions.push(new Position(row - 1, col));
-        break;
-      case 'Rook':
-        positions.push(new Position(row, col + 2));
-        positions.push(new Position(row, col - 2));
-        positions.push(new Position(row, col + 1));
-        positions.push(new Position(row, col - 1));
-        break;
-      case 'Queen':
-        positions.push(new Position(row + 2, col));
-        positions.push(new Position(row - 2, col));
-        positions.push(new Position(row + 1, col));
-        positions.push(new Position(row - 1, col));
-        break;
-      case 'Bishop':
         positions.push(new Position(row + 1, col + 1));
         positions.push(new Position(row - 1, col + 1));
         positions.push(new Position(row + 1, col - 1));
         positions.push(new Position(row - 1, col - 1));
+        break;
+      case 'Rook':
+        positions.push(new Position(row, col + 2));
+        positions.push(new Position(row, col - 2));
+        positions.push(new Position(row, col + 4));
+        positions.push(new Position(row, col - 4));
+        // positions.push(new Position(row, col + 1));
+        // positions.push(new Position(row, col - 1));
+        break;
+      case 'Queen':
+        positions.push(new Position(row + 2, col));
+        positions.push(new Position(row - 2, col));
+        positions.push(new Position(row + 4, col));
+        positions.push(new Position(row - 4, col));
+        // positions.push(new Position(row + 1, col));
+        // positions.push(new Position(row - 1, col));
+        break;
+      case 'Bishop':
+        // positions.push(new Position(row + 1, col + 1));
+        // positions.push(new Position(row - 1, col + 1));
+        // positions.push(new Position(row + 1, col - 1));
+        // positions.push(new Position(row - 1, col - 1));
         positions.push(new Position(row + 2, col + 2));
         positions.push(new Position(row - 2, col + 2));
         positions.push(new Position(row + 2, col - 2));
         positions.push(new Position(row - 2, col - 2));
+        positions.push(new Position(row + 4, col + 4));
+        positions.push(new Position(row - 4, col + 4));
+        positions.push(new Position(row + 4, col - 4));
+        positions.push(new Position(row - 4, col - 4));
+        break;
+      case 'Knight':
+        positions.push(new Position(row + 1, col + 2));
+        positions.push(new Position(row - 1, col + 2));
+        positions.push(new Position(row + 1, col - 2));
+        positions.push(new Position(row - 1, col - 2));
+        positions.push(new Position(row + 2, col + 1));
+        positions.push(new Position(row - 2, col + 1));
+        positions.push(new Position(row + 2, col - 1));
+        positions.push(new Position(row - 2, col - 1));
         break;
       default:
         break;
@@ -178,7 +227,9 @@ export class Game {
     });
   }
 
-  isModifierLegalToSelect(type: 'Pawn' | 'Rook' | 'Queen' | 'Bishop'): boolean {
+  isModifierLegalToSelect(
+    type: 'Pawn' | 'Rook' | 'Queen' | 'Bishop' | 'Knight'
+  ): boolean {
     const playerModifier = this.activePlayer.modifiers.find(
       (m) => m.type == type
     );
@@ -208,7 +259,17 @@ export class Game {
   isDestinationLegalToSelect(destination: Piece): boolean {
     const isCurrentPlayersPiece = destination.player == this.activePlayer.name;
     // TODO - use `this.selectedPiece` and `this.selectedModifier` to determine if destination is in range
-    const isInRange = true;
+    // loop through the possible moves array and check if the selected destination's position is in the array
+    // if it is, then return true, else return false
+    const row = destination.position.row;
+    const col = destination.position.col;
+
+    let isInRange = false;
+    this.possibleMoves.forEach((element) => {
+      if (element.row == row && element.col == col) {
+        isInRange = true;
+      }
+    });
 
     return !isCurrentPlayersPiece && isInRange;
   }
@@ -369,8 +430,8 @@ export class Position {
   constructor(public row: number, public col: number) {}
 
   isInBounds(): boolean {
-    const rowInBounds = this.row >= 0 && this.row <= 3;
-    const colInBounds = this.col >= 0 && this.col <= 3;
+    const rowInBounds = this.row >= 0 && this.row <= 5;
+    const colInBounds = this.col >= 0 && this.col <= 5;
     console.log('rowInBounds :>> ', rowInBounds);
     console.log('colInBounds :>> ', colInBounds);
     return rowInBounds && colInBounds;
@@ -379,7 +440,7 @@ export class Position {
 
 export class Modifier {
   constructor(
-    public type: 'Pawn' | 'Rook' | 'Queen' | 'Bishop',
+    public type: 'Pawn' | 'Rook' | 'Queen' | 'Bishop' | 'Knight',
     public count: number
   ) {}
 }

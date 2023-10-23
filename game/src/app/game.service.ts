@@ -41,24 +41,32 @@ export class GameService {
         new Piece('X', new Position(0, 1)),
         new Piece('X', new Position(0, 2)),
         new Piece('X', new Position(0, 3)),
+        new Piece('X', new Position(0, 4)),
+        new Piece('X', new Position(0, 5)),
       ],
       [
         new Piece('', new Position(1, 0)),
         new Piece('', new Position(1, 1)),
         new Piece('', new Position(1, 2)),
         new Piece('', new Position(1, 3)),
+        new Piece('', new Position(1, 4)),
+        new Piece('', new Position(1, 5)),
       ],
       [
         new Piece('', new Position(2, 0)),
         new Piece('', new Position(2, 1)),
         new Piece('', new Position(2, 2)),
         new Piece('', new Position(2, 3)),
+        new Piece('', new Position(2, 4)),
+        new Piece('', new Position(2, 5)),
       ],
       [
         new Piece('O', new Position(3, 0)),
         new Piece('O', new Position(3, 1)),
         new Piece('O', new Position(3, 2)),
         new Piece('O', new Position(3, 3)),
+        new Piece('O', new Position(3, 4)),
+        new Piece('O', new Position(3, 5)),
       ],
     ];
 

@@ -14,10 +14,11 @@ export class BoardComponent implements OnInit, OnDestroy {
   game: Game;
   constructor(private gameService: GameService) {
     const initialModifiers: Modifier[] = [
-      new Modifier('Pawn', 3),
-      new Modifier('Rook', 3),
-      new Modifier('Queen', 3),
-      new Modifier('Bishop', 3),
+      new Modifier('Pawn', 10),
+      new Modifier('Rook', 5),
+      new Modifier('Queen', 5),
+      new Modifier('Bishop', 5),
+      new Modifier('Knight', 5),
     ];
 
     // TODO - have dice-roll determine 'X' vs. 'O'
@@ -45,7 +46,7 @@ export class BoardComponent implements OnInit, OnDestroy {
     }
   }
 
-  selectModifier(type: 'Pawn' | 'Rook' | 'Queen' | 'Bishop') {
+  selectModifier(type: 'Pawn' | 'Rook' | 'Queen' | 'Bishop' | 'Knight') {
     console.log('type :>> ', type);
     const selectedModifier = type;
     console.log('selectedModifier :>> ', selectedModifier);
