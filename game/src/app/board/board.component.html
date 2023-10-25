@@ -1,6 +1,6 @@
 <!-- Board -->
 <div class="game-board">
-  <!-- <h2>Stage: {{ game.getStage() }}</h2> -->
+  <h2>Stage: {{ game.getStage() }}</h2>
   <!-- <h2>Active Player: {{ game.activePlayer.name }}</h2> -->
   <h4>
     X Pieces: {{ game.xPieces }} --------------------------------------- O
@@ -13,12 +13,14 @@
       <button
         [ngClass]="{
           disabled:
-            modifier.count === 0 || game.getStage() !== 'SELECT_MODIFIER'
+            modifier.count === 0 ||
+            (game.getStage() !== 'SELECT_MODIFIER' &&
+              game.getStage() !== 'SELECT_DESTINATION'),
+          selectedModifier: modifier.type === this.game.selectedModifier
         }"
         (click)="selectModifier(modifier.type)"
       >
-        {{ modifier.type }}
-        {{ this.game.activePlayer.modifierCount[i] }}
+        {{ modifier.type }} ({{ this.game.activePlayer.modifierCount[i] }})
       </button>
     </div>
   </div>

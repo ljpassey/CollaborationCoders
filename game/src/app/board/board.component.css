@@ -139,6 +139,11 @@ button.disabled {
   width: 100%;
 }
 
+.selectedModifier {
+  background-color: #0053ac;
+  border: 5px solid #007bff;
+}
+
 .confirm {
   display: flex;
   justify-content: center;
