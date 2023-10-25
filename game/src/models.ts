@@ -13,6 +13,56 @@ export class Game {
   possibleMoves: Position[] = [];
   xPieces: number = 6;
   oPieces: number = 6;
+  startingBoard: Piece[][] = [
+    [
+      new Piece('X', new Position(0, 0)),
+      new Piece('X', new Position(0, 1)),
+      new Piece('X', new Position(0, 2)),
+      new Piece('X', new Position(0, 3)),
+      new Piece('X', new Position(0, 4)),
+      new Piece('X', new Position(0, 5)),
+    ],
+    [
+      new Piece('', new Position(1, 0)),
+      new Piece('', new Position(1, 1)),
+      new Piece('', new Position(1, 2)),
+      new Piece('', new Position(1, 3)),
+      new Piece('', new Position(1, 4)),
+      new Piece('', new Position(1, 5)),
+    ],
+    [
+      new Piece('', new Position(2, 0)),
+      new Piece('', new Position(2, 1)),
+      new Piece('', new Position(2, 2)),
+      new Piece('', new Position(2, 3)),
+      new Piece('', new Position(2, 4)),
+      new Piece('', new Position(2, 5)),
+    ],
+    [
+      new Piece('', new Position(3, 0)),
+      new Piece('', new Position(3, 1)),
+      new Piece('', new Position(3, 2)),
+      new Piece('', new Position(3, 3)),
+      new Piece('', new Position(3, 4)),
+      new Piece('', new Position(3, 5)),
+    ],
+    [
+      new Piece('', new Position(4, 0)),
+      new Piece('', new Position(4, 1)),
+      new Piece('', new Position(4, 2)),
+      new Piece('', new Position(4, 3)),
+      new Piece('', new Position(4, 4)),
+      new Piece('', new Position(4, 5)),
+    ],
+    [
+      new Piece('O', new Position(5, 0)),
+      new Piece('O', new Position(5, 1)),
+      new Piece('O', new Position(5, 2)),
+      new Piece('O', new Position(5, 3)),
+      new Piece('O', new Position(5, 4)),
+      new Piece('O', new Position(5, 5)),
+    ],
+  ];
 
   constructor(startingPlayer: 'X' | 'O', modifiers: Modifier[]) {
     this.board = [
@@ -322,8 +372,7 @@ export class Game {
     if (!playerModifier || playerModifier.count == 0) {
       return false;
     } else {
-      playerModifier.count--;
-      console.log('Decremented modifier count for ' + playerModifier.type);
+      this.activePlayer.decrementPlayerModifierCount(selectedModifier, this.activePlayer);
       this.selectedModifier = null;
     }
 
@@ -363,32 +412,7 @@ export class Game {
 
   resetGame() {
     // reset the game board
-    this.board = [
-      [
-        new Piece('X', new Position(0, 0)),
-        new Piece('X', new Position(0, 1)),
-        new Piece('X', new Position(0, 2)),
-        new Piece('X', new Position(0, 3)),
-      ],
-      [
-        new Piece('', new Position(1, 0)),
-        new Piece('', new Position(1, 1)),
-        new Piece('', new Position(1, 2)),
-        new Piece('', new Position(1, 3)),
-      ],
-      [
-        new Piece('', new Position(2, 0)),
-        new Piece('', new Position(2, 1)),
-        new Piece('', new Position(2, 2)),
-        new Piece('', new Position(2, 3)),
-      ],
-      [
-        new Piece('O', new Position(3, 0)),
-        new Piece('O', new Position(3, 1)),
-        new Piece('O', new Position(3, 2)),
-        new Piece('O', new Position(3, 3)),
-      ],
-    ];
+    this.board = this.startingBoard;
 
     // reset the modifiers
     const initialModifiers: Modifier[] = [
@@ -419,10 +443,39 @@ export class Piece {
 export class Player {
   name: 'X' | 'O';
   modifiers: Modifier[];
+  modifierCount: [number, number, number, number, number] = [5, 5, 5, 5, 5];
 
   constructor(name: 'X' | 'O', modifiers: Modifier[]) {
     this.name = name;
     this.modifiers = modifiers;
+    console.log(this.name + ' constructor modifiers :>> ', this.modifiers);
+  }
+
+  decrementPlayerModifierCount(
+    type: 'Pawn' | 'Rook' | 'Queen' | 'Bishop' | 'Knight',
+    activePlayer: Player
+  ): void {
+    // Decrement the modifier count for the selected modifier for the active player only
+    switch (type) {
+      case 'Pawn':
+        this.modifierCount[0]--;
+        break;
+      case 'Rook':
+        this.modifierCount[1]--;
+        break;
+      case 'Queen':
+        this.modifierCount[2]--;
+        break;
+      case 'Bishop':
+        this.modifierCount[3]--;
+        break;
+      case 'Knight':
+        this.modifierCount[4]--;
+        break;
+      default:
+        break;
+    }
+    console.log('Modifier Count: ' + this.modifierCount);
   }
 }
 
@@ -432,17 +485,12 @@ export class Position {
   isInBounds(): boolean {
     const rowInBounds = this.row >= 0 && this.row <= 5;
     const colInBounds = this.col >= 0 && this.col <= 5;
-    console.log('rowInBounds :>> ', rowInBounds);
-    console.log('colInBounds :>> ', colInBounds);
     return rowInBounds && colInBounds;
   }
 }
 
 export class Modifier {
-  constructor(
-    public type: 'Pawn' | 'Rook' | 'Queen' | 'Bishop' | 'Knight',
-    public count: number
-  ) {}
+  constructor(public type: ModifierType, public count: number) {}
 }
 
 export enum TurnStage {

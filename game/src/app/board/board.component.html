@@ -9,7 +9,7 @@
 
   <!-- Modfiers -->
   <div class="modifier">
-    <div *ngFor="let modifier of game.activePlayer.modifiers">
+    <div *ngFor="let modifier of game.activePlayer.modifiers; let i = index">
       <button
         [ngClass]="{
           disabled:
@@ -17,7 +17,8 @@
         }"
         (click)="selectModifier(modifier.type)"
       >
-        {{ modifier.type }} ({{ modifier.count }})
+        {{ modifier.type }}
+        {{ this.game.activePlayer.modifierCount[i] }}
       </button>
     </div>
   </div>

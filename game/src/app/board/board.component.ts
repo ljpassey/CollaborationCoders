@@ -10,7 +10,6 @@ import { Piece, Position, Modifier, Game } from '../../models';
 })
 export class BoardComponent implements OnInit, OnDestroy {
   // TODO - eventually, we'll utilize a subscription to get updates to the `Game`
-  // gameSubscription!: Subscription;
   game: Game;
   constructor(private gameService: GameService) {
     const initialModifiers: Modifier[] = [
@@ -47,20 +46,15 @@ export class BoardComponent implements OnInit, OnDestroy {
   }
 
   selectModifier(type: 'Pawn' | 'Rook' | 'Queen' | 'Bishop' | 'Knight') {
-    console.log('type :>> ', type);
-    const selectedModifier = type;
-    console.log('selectedModifier :>> ', selectedModifier);
-
     const selectedPiece = this.game.selectedPiece;
     if (!selectedPiece) {
       return;
     }
 
-    
     if (!this.game.selectModifier(type)) {
       alert('Couldnt select modifier');
     }
-    
+
     const row = selectedPiece.position.row;
     const col = selectedPiece.position.col;
     this.game.getPossibleMoves(row, col, type);
@@ -80,12 +74,6 @@ export class BoardComponent implements OnInit, OnDestroy {
     }
   }
 
-  /**
-   * Returns the CSS class for the cell at the specified row and column.
-   * @param i The row index of the cell.
-   * @param j The column index of the cell.
-   * @returns The CSS class for the cell.
-   */
   getCellClass(i: number, j: number): string {
     const piece = this.game.board[i][j];
     const moveRow = piece.position.row;
