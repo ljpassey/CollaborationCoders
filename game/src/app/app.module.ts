@@ -14,13 +14,10 @@ import { DiceComponent } from './dice/dice.component';
     GameComponent,
     BoardComponent,
     ModifierComponent,
-    DiceComponent
+    DiceComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule
-  ],
+  imports: [BrowserModule, AppRoutingModule],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
