@@ -1,7 +1,20 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { GameService } from '../game.service';
-import { Piece, Position, Modifier, Game } from '../../models';
+import { Piece, Position, Modifier, Game } from '../../models'
+
+// UI Component -> GameService.update(string JSON) {}
+
+// Service
+// - making API calls
+// - separation of concerns / single-responsibility principle
+
+// Component
+// - managing local state
+// - manipulating the displayed state
+
+// Users { id }
+// Games { id, user_one_id, user_two_id, state:string }
 
 @Component({
   selector: 'app-board',
@@ -24,9 +37,9 @@ export class BoardComponent implements OnInit, OnDestroy {
     this.game = new Game('X', initialModifiers);
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
-  ngOnDestroy(): void {}
+  ngOnDestroy(): void { }
 
   selectTile(row: number, col: number) {
     const selectedTile = this.game.board[row][col];
@@ -71,6 +84,9 @@ export class BoardComponent implements OnInit, OnDestroy {
   confirmAndEndTurn() {
     if (!this.game.endTurn()) {
       alert('Something prevented the turn from being ended...');
+    } else {
+      // End turn changes are now reflected in `this.game`
+      // this.gameService.update("JSON_PLACEHOLDER")
     }
   }
 

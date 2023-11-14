@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { Piece, Modifier, Position, TurnStage } from '../models';
+import { Piece, Modifier, Position, TurnStage, Game } from '../models';
 
 @Injectable({
   providedIn: 'root',
@@ -15,6 +15,9 @@ export class GameService {
   // Add a BehaviorSubject to keep track of the selected piece
   private selectedPieceSubject = new BehaviorSubject<Piece | null>(null);
   public selectedPiece$ = this.selectedPieceSubject.asObservable();
+
+  private gameSubject = new BehaviorSubject<string>('');
+  // gameSubject.interval(100, () => { /api/gameID })
 
   private boardSubject = new BehaviorSubject<Piece[][]>([]);
   get board$() {
@@ -33,6 +36,12 @@ export class GameService {
   constructor() {
     this.initGame();
   }
+
+  update(json: string) {
+    // TODO - eventually make an API call to store the game update in a DB
+  }
+
+  // REVISIT BELOW HERE ------
 
   initGame() {
     const initialBoard: Piece[][] = [
