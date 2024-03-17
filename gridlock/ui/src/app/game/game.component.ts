@@ -1,7 +1,7 @@
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { GameService } from '../game.service';
 import { Component } from '@angular/core';
-import { Piece, Position, Modifier } from '../../models';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-game',
@@ -14,7 +14,10 @@ export class GameComponent {
   playerSubscription!: Subscription;
   modifiersSubscription!: Subscription;
 
-  constructor(private gameService: GameService) {}
+  constructor(
+    private gameService: GameService,
+    private userService: UserService
+  ) { }
 
   ngOnInit(): void {
     // Subscribe to current player state
@@ -27,5 +30,9 @@ export class GameComponent {
 
   finish(): void {
     this.gameService.endTurn(this.currentPlayer);
+  }
+
+  makeHelloWorldRequest() {
+    this.userService.helloWorld();
   }
 }

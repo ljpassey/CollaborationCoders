@@ -7,6 +7,7 @@ import { GameComponent } from './game/game.component';
 import { BoardComponent } from './board/board.component';
 import { ModifierComponent } from './modifier/modifier.component';
 import { DiceComponent } from './dice/dice.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -16,8 +17,12 @@ import { DiceComponent } from './dice/dice.component';
     ModifierComponent,
     DiceComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }
