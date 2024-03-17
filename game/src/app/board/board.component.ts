@@ -1,7 +1,20 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { GameService } from '../game.service';
-import { Piece, Position, Modifier, Game } from '../../models';
+import { Piece, Position, Modifier, Game } from '../../models'
+
+// UI Component -> GameService.update(string JSON) {}
+
+// Service
+// - making API calls
+// - separation of concerns / single-responsibility principle
+
+// Component
+// - managing local state
+// - manipulating the displayed state
+
+// Users { id }
+// Games { id, user_one_id, user_two_id, state:string }
 
 @Component({
   selector: 'app-board',
@@ -10,23 +23,23 @@ import { Piece, Position, Modifier, Game } from '../../models';
 })
 export class BoardComponent implements OnInit, OnDestroy {
   // TODO - eventually, we'll utilize a subscription to get updates to the `Game`
-  // gameSubscription!: Subscription;
   game: Game;
   constructor(private gameService: GameService) {
     const initialModifiers: Modifier[] = [
-      new Modifier('Pawn', 3),
-      new Modifier('Rook', 3),
-      new Modifier('Queen', 3),
-      new Modifier('Bishop', 3),
+      new Modifier('Pawn', 10),
+      new Modifier('Rook', 5),
+      new Modifier('Queen', 5),
+      new Modifier('Bishop', 5),
+      new Modifier('Knight', 5),
     ];
 
     // TODO - have dice-roll determine 'X' vs. 'O'
     this.game = new Game('X', initialModifiers);
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
-  ngOnDestroy(): void {}
+  ngOnDestroy(): void { }
 
   selectTile(row: number, col: number) {
     const selectedTile = this.game.board[row][col];
@@ -45,21 +58,16 @@ export class BoardComponent implements OnInit, OnDestroy {
     }
   }
 
-  selectModifier(type: 'Pawn' | 'Rook' | 'Queen' | 'Bishop') {
-    console.log('type :>> ', type);
-    const selectedModifier = type;
-    console.log('selectedModifier :>> ', selectedModifier);
-
+  selectModifier(type: 'Pawn' | 'Rook' | 'Queen' | 'Bishop' | 'Knight') {
     const selectedPiece = this.game.selectedPiece;
     if (!selectedPiece) {
       return;
     }
 
-    
     if (!this.game.selectModifier(type)) {
       alert('Couldnt select modifier');
     }
-    
+
     const row = selectedPiece.position.row;
     const col = selectedPiece.position.col;
     this.game.getPossibleMoves(row, col, type);
@@ -76,15 +84,12 @@ export class BoardComponent implements OnInit, OnDestroy {
   confirmAndEndTurn() {
     if (!this.game.endTurn()) {
       alert('Something prevented the turn from being ended...');
+    } else {
+      // End turn changes are now reflected in `this.game`
+      // this.gameService.update("JSON_PLACEHOLDER")
     }
   }
 
-  /**
-   * Returns the CSS class for the cell at the specified row and column.
-   * @param i The row index of the cell.
-   * @param j The column index of the cell.
-   * @returns The CSS class for the cell.
-   */
   getCellClass(i: number, j: number): string {
     const piece = this.game.board[i][j];
     const moveRow = piece.position.row;
