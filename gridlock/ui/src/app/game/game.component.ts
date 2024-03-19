@@ -17,7 +17,7 @@ export class GameComponent {
   constructor(
     private gameService: GameService,
     private userService: UserService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     // Subscribe to current player state

@@ -8,6 +8,7 @@ import { BoardComponent } from './board/board.component';
 import { ModifierComponent } from './modifier/modifier.component';
 import { DiceComponent } from './dice/dice.component';
 import { HttpClientModule } from '@angular/common/http';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { HttpClientModule } from '@angular/common/http';
     BoardComponent,
     ModifierComponent,
     DiceComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
