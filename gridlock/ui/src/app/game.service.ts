@@ -191,5 +191,6 @@ export class GameService {
   endTurn(currentPlayer: any): void {
     // this.currentPlayerSubject.next(currentPlayer === 'X' ? 'O' : 'X');
     this.updateBoard(this.boardSubject.value);
+    console.log("Board" + this.boardSubject.value);
   }
 }

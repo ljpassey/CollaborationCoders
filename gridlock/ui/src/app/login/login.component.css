@@ -5,16 +5,18 @@
   width: auto;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 80vh;
+  /* width: 500px; */
 }
 
 .login-form {
-    padding: 20px;  
-    width: auto;
-    display: flex;
-    flex-direction: column;
-    /* justify-content: center; */
-    /* align-items: center; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 20px;
+  padding: 20px;
+
   background-color: #ededed;
   border-radius: 5px;
 }
@@ -25,10 +27,9 @@
 }
 
 .login-form input {
+  width: auto;
   display: flex;
-  /* width: 100%; */
-  /* justify-content: stretch; */
-  /* width: auto; */
+  align-items: center;
   padding: 10px;
   margin: 10px;
   border: 1px solid #ccc;
@@ -36,8 +37,11 @@
 }
 
 .login-form button {
-  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   padding: 10px;
+  margin: 10px;
   background-color: #335cff;
   color: #fff;
   border: none;
@@ -47,4 +51,12 @@
 
 .login-form button:hover {
   background-color: #0063c6;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin: 10px;
 }

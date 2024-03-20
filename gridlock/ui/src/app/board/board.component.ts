@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { GameService } from '../game.service';
-import { Piece, Position, Modifier, Game } from '../../models'
+import { Piece, Position, Modifier, Game } from '../../models';
 
 // UI Component -> GameService.update(string JSON) {}
 
@@ -37,9 +37,9 @@ export class BoardComponent implements OnInit, OnDestroy {
     this.game = new Game('X', initialModifiers);
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 
-  ngOnDestroy(): void { }
+  ngOnDestroy(): void {}
 
   selectTile(row: number, col: number) {
     const selectedTile = this.game.board[row][col];

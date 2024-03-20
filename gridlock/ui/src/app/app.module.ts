@@ -9,6 +9,7 @@ import { ModifierComponent } from './modifier/modifier.component';
 import { DiceComponent } from './dice/dice.component';
 import { HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './login/login.component';
+import { FaqComponent } from './faq/faq.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { LoginComponent } from './login/login.component';
     ModifierComponent,
     DiceComponent,
     LoginComponent,
+    FaqComponent,
   ],
   imports: [
     BrowserModule,

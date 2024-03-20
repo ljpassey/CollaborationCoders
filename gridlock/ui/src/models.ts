@@ -266,6 +266,7 @@ export class Game {
     }
 
     console.log('xPieces :>> ', this.xPieces + ' oPieces :>> ' + this.oPieces);
+    console.log((this.board))
 
     this.selectedPiece.player = '';
     this.selectedPiece = null;

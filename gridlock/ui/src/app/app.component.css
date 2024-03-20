@@ -11,8 +11,9 @@ nav {
   display: flex;
   justify-content: start;
   align-items: center;
-
-  border-bottom: 1px solid #e9ecef;
+  position: fixed;
+  top: 0;
+  left: 0;
 }
 
 .button {

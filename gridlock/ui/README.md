@@ -5,3 +5,26 @@ Gameplay Ideas for Gridlock:
 4. Add a default movement of 1 space for all pieces which players can use at the beginning of their turn, then they can choose to use modifiers to move further.
 5. Add specific areas of the game board that have different effects on the pieces that land on them. For example, if you stay within the middle 4 tiles for more than 2 turns, you can bring one of your pieces back into play.
 
+Example data model for Realtime DB:
+{
+  "gameId": "unique_game_id",
+  "state": "in_progress",
+  "turn": {
+    "currentPlayerId": "player_1_id",
+    "turnNumber": 5
+  },
+  "players": [
+    {
+      "playerId": "player_1_id",
+      "position": { /* specific position data */ },
+      "score": 10
+    },
+    {
+      "playerId": "player_2_id",
+      "position": { /* specific position data */ },
+      "score": 8
+    }
+  ],
+  "board": { /* board state here */ },
+  "actions": [ /* log of actions or moves for replay/history */ ]
+}

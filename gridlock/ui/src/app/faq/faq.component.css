@@ -1,0 +1,23 @@
+/* FAQ container */
+.faq-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* FAQ question */
+.faq-question {
+  font-weight: bold;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+/* FAQ answer */
+.faq-answer {
+  margin-bottom: 20px;
+}
+
+/* FAQ answer visible */
+.faq-answer.visible {
+  display: block;
+}
