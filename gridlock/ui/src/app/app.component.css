@@ -9,11 +9,9 @@
 
 nav {
   display: flex;
-  width: 100%;
-  justify-content: space-between;
+  justify-content: start;
   align-items: center;
-  padding: 10px;
-  background-color: #f8f9fa;
+
   border-bottom: 1px solid #e9ecef;
 }
 
@@ -30,5 +28,5 @@ nav {
 
 .active {
   background-color: #004690;
-  border: 3px solid black;
+  border: 3px solid rgb(76, 124, 255);
 }

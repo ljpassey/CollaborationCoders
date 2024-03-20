@@ -9,7 +9,8 @@ import { Router } from '@angular/router'; // Import Router
 export class LoginComponent {
   constructor(private router: Router) {} // Inject Router
 
-  goToDashboard() {
-    this.router.navigate(['/dashboard']); // Navigate to 'dashboard'
+  makeLoginRequest() {
+    this.router.navigate(['/game']); // Navigate to 'game'
+    console.log('Login request made');
   }
 }

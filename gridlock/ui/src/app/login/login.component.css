@@ -2,19 +2,19 @@
 
 .login-container {
   display: flex;
+  width: auto;
   justify-content: center;
   align-items: center;
   height: 100vh;
 }
 
 .login-form {
-  width: auto;
-  margin: 20px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px;
+    padding: 20px;  
+    width: auto;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    /* align-items: center; */
   background-color: #ededed;
   border-radius: 5px;
 }
@@ -25,7 +25,10 @@
 }
 
 .login-form input {
-  width: auto;
+  display: flex;
+  /* width: 100%; */
+  /* justify-content: stretch; */
+  /* width: auto; */
   padding: 10px;
   margin: 10px;
   border: 1px solid #ccc;
