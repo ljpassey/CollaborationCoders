@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root',
 })
 export class UserService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   helloWorld() {
     this.http.get('http://localhost:3000').subscribe((response) => {
@@ -13,12 +13,17 @@ export class UserService {
     });
   }
 
-  // TODO - implement
-  register() {}
-  login(username: string, password: string) {
-    this.http.post('http://localhost:3000/login', {username, password}).subscribe((response) => {
+  register(username: string, password: string) {
+    this.http.post('http://localhost:3000/register', { username, password }).subscribe((response) => {
       console.log('response :>> ', response);
     });
   }
-  logout() {}
+
+  login(username: string, password: string) {
+    this.http.post('http://localhost:3000/login', { username, password }).subscribe((response) => {
+      console.log('response :>> ', response);
+    });
+  }
+
+  logout() { }
 }
