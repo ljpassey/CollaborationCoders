@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router'; // Import Router
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-login',
@@ -7,10 +8,13 @@ import { Router } from '@angular/router'; // Import Router
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent {
-  constructor(private router: Router) {} // Inject Router
+  username = '';
+  password = '';
+  constructor(private router: Router, private userService: UserService) {} // Inject Router
 
   makeLoginRequest() {
-    this.router.navigate(['/game']); // Navigate to 'game'
-    console.log('Login request made');
+    this.userService.login(this.username, this.password);
+    // this.router.navigate(['/game']); // Navigate to 'game'
+    // console.log('Login request made');
   }
 }

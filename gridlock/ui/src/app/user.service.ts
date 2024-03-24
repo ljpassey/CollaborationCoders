@@ -15,6 +15,10 @@ export class UserService {
 
   // TODO - implement
   register() {}
-  login() {}
+  login(username: string, password: string) {
+    this.http.post('http://localhost:3000/login', {username, password}).subscribe((response) => {
+      console.log('response :>> ', response);
+    });
+  }
   logout() {}
 }
