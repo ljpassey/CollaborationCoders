@@ -14,8 +14,8 @@ export class LoginComponent {
 
   makeLoginRequest() {
     this.userService.login(this.username, this.password);
-    // this.router.navigate(['/game']); // Navigate to 'game'
-    // console.log('Login request made');
+    this.router.navigate(['/game']); // Navigate to 'game'
+    console.log('Login request made');
   }
 
   makeRegisterRequest() {

@@ -2,16 +2,16 @@ require("dotenv").config();
 const express = require("express");
 const app = express();
 const cors = require("cors");
-const { Pool } = require('pg');
+const { Pool } = require("pg");
 
 const { SERVER_PORT } = process.env;
 
 // Create a PostgreSQL connection pool
 const pool = new Pool({
-  user: 'postgres',
-  host: 'localhost',
-  database: 'postgres',
-  password: 'postgres',
+  user: "postgres",
+  host: "localhost",
+  database: "postgres",
+  password: "postgres",
   port: 5432, // Default PostgreSQL port
 });
 
@@ -31,7 +31,6 @@ app.get("/", (req, res) => {
 });
 
 app.post("/register", async (req, res) => {
-
   const { username, password } = req.body;
   try {
     // Create `users` table if it doesn't exist
@@ -43,7 +42,10 @@ app.post("/register", async (req, res) => {
     );`);
 
     // Insert the new user into the database
-    const result = await pool.query('INSERT INTO users (username, password) VALUES ($1, $2) RETURNING *', [username, password]);
+    const result = await pool.query(
+      "INSERT INTO users (username, password) VALUES ($1, $2) RETURNING *",
+      [username, password]
+    );
 
     // Return success response with the newly created user
     res.status(201).json({
@@ -59,17 +61,54 @@ app.post("/register", async (req, res) => {
   }
 });
 
+app.post("/game", async (req, res) => {
+  const { gameboard, player1, player2, winner, lastmove } = req.body;
+try {
+  await pool.query(`CREATE TABLE IF NOT EXISTS games (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(50) UNIQUE NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    gameboard JSON NOT NULL,
+    player1 VARCHAR(50) NOT NULL,
+    player2 VARCHAR(50) NOT NULL,
+    winner VARCHAR(50),
+    lastmove 
+);`);
+
+const result = await pool.query(
+  "INSERT INTO games (gameboard, player1, player2, winner, lastmove) VALUES ($1, $2, $3, $4, $5) RETURNING *",
+  [gameboard, player1, player2, winner, lastmove]
+);
+
+} catch (error) {
+  res.status(500).json({
+    success: false,
+    error: error.message,
+  });
+}
+});
+
+app.put("/game/:id", (req, res) => {
+
+});
+
+app.get("/game/:id", (req, res) => {});
+
 app.post("/login", (req, res) => {
   // TODO - implement login functionality through DB instead of in-memory
   const { username, password } = req.body;
-  if (users.find((user) => user.username === username && user.password === password)) {
+  if (
+    users.find(
+      (user) => user.username === username && user.password === password
+    )
+  ) {
     res.status(200).json({
       message: "Login success",
     });
   } else {
     res.status(401).json({
       message: "Could not find user",
-    })
+    });
   }
 });
 
