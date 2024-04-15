@@ -63,8 +63,8 @@ app.post("/register", async (req, res) => {
 
 app.post("/game", async (req, res) => {
   const { gameboard, player1, player2, winner, lastmove } = req.body;
-try {
-  await pool.query(`CREATE TABLE IF NOT EXISTS games (
+  try {
+    await pool.query(`CREATE TABLE IF NOT EXISTS games (
     id SERIAL PRIMARY KEY,
     name VARCHAR(50) UNIQUE NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -75,39 +75,44 @@ try {
     lastmove 
 );`);
 
-const result = await pool.query(
-  "INSERT INTO games (gameboard, player1, player2, winner, lastmove) VALUES ($1, $2, $3, $4, $5) RETURNING *",
-  [gameboard, player1, player2, winner, lastmove]
-);
-
-} catch (error) {
-  res.status(500).json({
-    success: false,
-    error: error.message,
-  });
-}
+    const result = await pool.query(
+      "INSERT INTO games (gameboard, player1, player2, winner, lastmove) VALUES ($1, $2, $3, $4, $5) RETURNING *",
+      [gameboard, player1, player2, winner, lastmove]
+    );
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: error.message,
+    });
+  }
 });
 
-app.put("/game/:id", (req, res) => {
-
-});
+app.put("/game/:id", (req, res) => {});
 
 app.get("/game/:id", (req, res) => {});
 
-app.post("/login", (req, res) => {
+app.post("/login", async (req, res) => {
   // TODO - implement login functionality through DB instead of in-memory
   const { username, password } = req.body;
-  if (
-    users.find(
-      (user) => user.username === username && user.password === password
-    )
-  ) {
+  try {
+    await pool.query(
+      `SELECT * FROM users WHERE username = $1 AND password = $2`,
+      [username, password]
+    );
+    if (result.rows.length === 0) {
+      res.status(401).json({
+        success: false,
+        error: "Invalid username or password",
+      });
+    }
     res.status(200).json({
-      message: "Login success",
+      success: true,
+      user: result.rows[0],
     });
-  } else {
-    res.status(401).json({
-      message: "Could not find user",
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: error.message,
     });
   }
 });
