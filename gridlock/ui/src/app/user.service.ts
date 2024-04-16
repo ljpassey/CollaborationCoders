@@ -24,7 +24,7 @@ export class UserService {
 
   login(username: string, password: string) {
     this.http
-      .post('http://localhost:3000/login', { username, password })
+      .get('http://localhost:3000/login')
       .subscribe((response) => {
         console.log('response :>> ', response);
 
