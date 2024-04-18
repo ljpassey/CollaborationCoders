@@ -10,14 +10,12 @@ import { UserService } from '../user.service';
 export class LoginComponent {
   username = '';
   password = '';
-  constructor(private router: Router, private userService: UserService) { } // Inject Router
+  constructor(private router: Router, private userService: UserService) {} // Inject Router
 
   makeLoginRequest() {
     this.userService.login(this.username, this.password);
-   
-    console.log('Login request made');
 
-    
+    console.log('Login request made');
   }
 
   makeRegisterRequest() {

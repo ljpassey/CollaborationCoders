@@ -94,17 +94,20 @@ app.get("/game/:id", (req, res) => {});
 app.post("/login", async (req, res) => {
   // TODO - implement login functionality through DB instead of in-memory
   const { username, password } = req.body;
+
   try {
-    await pool.query(
-      `SELECT * FROM users WHERE username = $1 AND password = $2`,
+    const result = await pool.query(
+      "SELECT * FROM users WHERE username = $1 AND password = $2",
       [username, password]
     );
+
     if (result.rows.length === 0) {
-      res.status(401).json({
+      return res.status(401).json({
         success: false,
-        error: "Invalid username or password",
+        message: "Invalid username or password",
       });
     }
+
     res.status(200).json({
       success: true,
       user: result.rows[0],
