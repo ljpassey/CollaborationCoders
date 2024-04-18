@@ -32,7 +32,7 @@ export class GameComponent {
     this.gameService.endTurn(this.currentPlayer);
   }
 
-  makeHelloWorldRequest() {
-    this.userService.helloWorld();
+  createNewGame(): void {
+    this.userService.createNewGame();
   }
 }

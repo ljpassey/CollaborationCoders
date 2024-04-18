@@ -14,11 +14,11 @@ export class LoginComponent {
 
   makeLoginRequest() {
     this.userService.login(this.username, this.password);
-
     console.log('Login request made');
   }
 
   makeRegisterRequest() {
     this.userService.register(this.username, this.password);
+    console.log('Register request made');
   }
 }

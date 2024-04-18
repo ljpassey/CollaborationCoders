@@ -8,17 +8,22 @@ import { Router } from '@angular/router'; // Import Router
 export class UserService {
   constructor(private http: HttpClient, private router: Router) {} // Inject Router
 
-  helloWorld() {
-    this.http.get('http://localhost:3000').subscribe((response) => {
-      console.log('response :>> ', response);
-    });
+  createNewGame() {
+    this.http
+      .post('http://localhost:3000/game', { token: localStorage.getItem('token') })
+      .subscribe((response: any) => {
+        console.log('response :>> ', response);
+      });
   }
 
   register(username: string, password: string) {
     this.http
       .post('http://localhost:3000/register', { username, password })
-      .subscribe((response) => {
+      .subscribe((response: any) => {
         console.log('response :>> ', response);
+        if (response.success) {
+          this.login(username, password);
+        }
       });
   }
 
@@ -29,10 +34,6 @@ export class UserService {
         console.log('response :>> ', response);
         if (response.success) {
           localStorage.setItem('token', response.token);
-          // Redirect to the home page
-          // Inject Router
-          // Add Router to the constructor
-          // Navigate to the home page
           this.router.navigate(['/game']);
         }
       });

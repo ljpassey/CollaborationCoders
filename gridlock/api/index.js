@@ -32,6 +32,7 @@ app.get("/", (req, res) => {
 
 app.post("/register", async (req, res) => {
   const { username, password } = req.body;
+
   try {
     // Create `users` table if it doesn't exist
     await pool.query(`CREATE TABLE IF NOT EXISTS users (
@@ -48,7 +49,7 @@ app.post("/register", async (req, res) => {
     );
 
     // Return success response with the newly created user
-    res.status(201).json({
+    res.status(200).json({
       success: true,
       user: result.rows[0],
     });
@@ -92,7 +93,6 @@ app.put("/game/:id", (req, res) => {});
 app.get("/game/:id", (req, res) => {});
 
 app.post("/login", async (req, res) => {
-  // TODO - implement login functionality through DB instead of in-memory
   const { username, password } = req.body;
 
   try {
@@ -111,6 +111,7 @@ app.post("/login", async (req, res) => {
     res.status(200).json({
       success: true,
       user: result.rows[0],
+      token: Math.random().toString(36).substring(7),
     });
   } catch (error) {
     res.status(500).json({
