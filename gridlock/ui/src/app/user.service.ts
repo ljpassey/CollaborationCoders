@@ -8,9 +8,12 @@ import { Router } from '@angular/router'; // Import Router
 export class UserService {
   constructor(private http: HttpClient, private router: Router) {} // Inject Router
 
-  createNewGame() {
+  hostGame(gameboard: JSON, currentPlayer: string) {
     this.http
-      .post('http://localhost:3000/game', { token: localStorage.getItem('token') })
+      .post('http://localhost:3000/game', {
+        gameboard,
+        currentPlayer,
+      })
       .subscribe((response: any) => {
         console.log('response :>> ', response);
       });

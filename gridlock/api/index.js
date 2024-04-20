@@ -67,19 +67,26 @@ app.post("/game", async (req, res) => {
   try {
     await pool.query(`CREATE TABLE IF NOT EXISTS games (
     id SERIAL PRIMARY KEY,
-    name VARCHAR(50) UNIQUE NOT NULL,
+    created_by VARCHAR(50) UNIQUE NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     gameboard JSON NOT NULL,
     player1 VARCHAR(50) NOT NULL,
     player2 VARCHAR(50) NOT NULL,
-    winner VARCHAR(50),
-    lastmove 
+    winner VARCHAR(50) NOT NULL,
+    lastmove JSON NOT NULL,
 );`);
 
     const result = await pool.query(
       "INSERT INTO games (gameboard, player1, player2, winner, lastmove) VALUES ($1, $2, $3, $4, $5) RETURNING *",
       [gameboard, player1, player2, winner, lastmove]
     );
+
+    if (result.rows.length === 0) {
+      return res.status(401).json({
+        success: false,
+        message: "Invalid game",
+      });
+    }
   } catch (error) {
     res.status(500).json({
       success: false,

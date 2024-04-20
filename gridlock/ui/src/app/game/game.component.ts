@@ -2,6 +2,7 @@ import { Subscription } from 'rxjs';
 import { GameService } from '../game.service';
 import { Component } from '@angular/core';
 import { UserService } from '../user.service';
+import { Game } from '../../models';
 
 @Component({
   selector: 'app-game',
@@ -14,9 +15,11 @@ export class GameComponent {
   playerSubscription!: Subscription;
   modifiersSubscription!: Subscription;
 
+
   constructor(
     private gameService: GameService,
-    private userService: UserService
+    private userService: UserService,
+
   ) {}
 
   ngOnInit(): void {
@@ -32,7 +35,8 @@ export class GameComponent {
     this.gameService.endTurn(this.currentPlayer);
   }
 
-  createNewGame(): void {
-    this.userService.createNewGame();
+  hostGame(): void {
+    const gameboard = JSON.stringify(Game.startingBoard);
+    this.userService.hostGame(gameboard, this.currentPlayer);
   }
 }

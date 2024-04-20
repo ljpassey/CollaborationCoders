@@ -3,19 +3,6 @@ import { Subscription } from 'rxjs';
 import { GameService } from '../game.service';
 import { Piece, Position, Modifier, Game } from '../../models';
 
-// UI Component -> GameService.update(string JSON) {}
-
-// Service
-// - making API calls
-// - separation of concerns / single-responsibility principle
-
-// Component
-// - managing local state
-// - manipulating the displayed state
-
-// Users { id }
-// Games { id, user_one_id, user_two_id, state:string }
-
 @Component({
   selector: 'app-board',
   templateUrl: './board.component.html',
